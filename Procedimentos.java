@@ -26,25 +26,25 @@ public class Procedimentos
         //INTEIRO PARA ITERACAO (DECLARAR ANTES EVITA VARIAS ALOCACOES/DESALOCACOES)
         int i;
         //ADICIONAR ESPADAS
-        for(i = 0; i < 13; i++)
+        for(i = 0; i < 12; i++)
         {
             espada = new Espadas(i+1);
             cartas.add(espada);
         }
         //ADICIONAR COPAS
-        for(i = 0; i < 13; i++)
+        for(i = 0; i < 12; i++)
         {
             copa = new Copas(i+1);
             cartas.add(copa);
         }
         //ADICIONAR OUROS
-        for(i = 0; i < 13; i++)
+        for(i = 0; i < 12; i++)
         {
             ouro = new Ouros(i+1);
             cartas.add(ouro);
         }
         //ADICIONAR PAUS
-        for(i = 0; i < 13; i++)
+        for(i = 0; i < 12; i++)
         {
             pau = new Paus(i+1);
             cartas.add(pau);

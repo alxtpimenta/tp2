@@ -14,9 +14,8 @@ public abstract class Carta
     //INDICA O NUMERO DA CARTA
     //AS = 1
     //CARTAS NORMAIS = 2 A 10
-    //VALETE (J) = 11
-    //RAINHA (Q) = 12
-    //REI(K) = 13
+    //RAINHA (Q) = 11
+    //REI (J) = 12
     protected int numero;
     
     //RETORNA O ID DA CARTA
