@@ -57,6 +57,7 @@ public class TrabalhoPratico2
             String nome = scanner.next();
             //INSTANCIAR JOGADOR
             jogador = new Jogador(nome);
+            jogador.mao = new ArrayList<>();
             //INSERIR JOGADOR NA LISTA
             Jogadores.add(jogador);
         }

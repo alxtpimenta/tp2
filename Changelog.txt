@@ -6,3 +6,5 @@
 //Revision 3
 Corrigido bug nas cartas (Pife nao possui valete). Construtor corrigido.
 Criada nova classe: Interface. Implementa os metodos para imprimir a interface.
+//Revision 4
+Corrigido bug na inicializacao das cartas (faltava inicializar o ArrayList da mao de cartas) do jogador
