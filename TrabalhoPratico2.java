@@ -48,8 +48,6 @@ public class TrabalhoPratico2
             if(qtdJogadores < 2 | qtdJogadores > 4)
                 System.out.println("Erro: Quantidade de jogadores invalida! Tente novamente.");
         }
-        //IDENTIFICADOR UNICO PARA CADA JOGADOR
-        int ID = 0;
         //CRIAR JOGADORES (E PERGUNTAR O NOME AO USUARIO)
         for(int i = 0; i < qtdJogadores; i++)
         {
@@ -58,11 +56,9 @@ public class TrabalhoPratico2
             //LER O NOME
             String nome = scanner.next();
             //INSTANCIAR JOGADOR
-            jogador = new Jogador(nome, ID);
+            jogador = new Jogador(nome);
             //INSERIR JOGADOR NA LISTA
             Jogadores.add(jogador);
-            //INCREMENTA O IDENTIFICADOR
-            ID++;
         }
         //DEPOIS DAR 9 CARTAS A CADA JOGADOR
         //AS CARTAS JA FORAM EMBARALHADAS NA INICIALIZACAO

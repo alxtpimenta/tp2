@@ -14,16 +14,12 @@ import java.util.List;
 public class Jogador 
 {
     //CONSTRUTOR
-    public Jogador(String nome, int id)
+    public Jogador(String nome)
     {
         this.nome = nome;
-        this.id = id;
     }
+    //NOME
     private String nome;
-    //IDENTIFICADOR DO JOGADOR
-    private int id;
-    //BOOLEAN PARA INDICAR SE ESSE JOGADOR E UM BOT
-    private boolean isBot;
     //MAO DE CARTAS DO JOGADOR
     public List<Carta> mao;
     

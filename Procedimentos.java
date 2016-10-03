@@ -25,35 +25,29 @@ public class Procedimentos
         Paus pau;
         //INTEIRO PARA ITERACAO (DECLARAR ANTES EVITA VARIAS ALOCACOES/DESALOCACOES)
         int i;
-        //IDENTIFICADOR UNICO DA CARTA
-        int id = 0;
         //ADICIONAR ESPADAS
         for(i = 0; i < 13; i++)
         {
-            espada = new Espadas(id,i+1);
+            espada = new Espadas(i+1);
             cartas.add(espada);
-            id++;
         }
         //ADICIONAR COPAS
         for(i = 0; i < 13; i++)
         {
-            copa = new Copas(id,i+1);
+            copa = new Copas(i+1);
             cartas.add(copa);
-            id++;
         }
         //ADICIONAR OUROS
         for(i = 0; i < 13; i++)
         {
-            ouro = new Ouros(id,i+1);
+            ouro = new Ouros(i+1);
             cartas.add(ouro);
-            id++;
         }
         //ADICIONAR PAUS
         for(i = 0; i < 13; i++)
         {
-            pau = new Paus(id,i+1);
+            pau = new Paus(i+1);
             cartas.add(pau);
-            id++;
         }
         //EMBARALHAR AS CARTAS
         embaralhar(cartas);

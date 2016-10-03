@@ -12,9 +12,8 @@ package trabalho.pratico.pkg2;
 public class Ouros extends Carta
 {
     //CONSTRUTOR
-    public Ouros(int ID, int numero)
+    public Ouros(int numero)
     {
-        this.ID = ID;
         this.numero = numero;
     }
     //RETORNA A CARTA EM FORMA DE STRING
@@ -40,7 +39,7 @@ public class Ouros extends Carta
         }
         
         //CASO O NUMERO NAO ESTEJA NO INTERVALO
-        return "Erro: Numero de Carta Invalido! ID da Carta:" + Integer.toString(this.ID);
+        return "Erro: Numero de Carta Invalido!"
         
     }
 }

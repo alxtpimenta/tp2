@@ -1,3 +1,4 @@
 2016-09-29 09:03 - Alexandre - Adicionei os arquivos no Google Drive
 2016-09-29 18:24 - Alexandre - Implementada a classe Jogador
 2016-09-29 19:40 - Alexandre - Criado a tela de boas vindas, inicializacao de jogadores e distribuicao de cartas
+2016-10-03 17:24 - Alexandre - Removido ID de jogadores e cartas (nao utizilado)

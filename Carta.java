@@ -10,10 +10,7 @@ package trabalho.pratico.pkg2;
  * @author alexandre
  */
 public abstract class Carta 
-{
-    //IDENTIFICADOR
-    protected int ID;
-    
+{   
     //INDICA O NUMERO DA CARTA
     //AS = 1
     //CARTAS NORMAIS = 2 A 10
