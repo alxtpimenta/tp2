@@ -15,6 +15,7 @@ public class Ouros extends Carta
     public Ouros(int numero)
     {
         this.numero = numero;
+        this.tipo = 3;
     }
     //RETORNA A CARTA EM FORMA DE STRING
     @Override
@@ -39,7 +40,7 @@ public class Ouros extends Carta
         }
         
         //CASO O NUMERO NAO ESTEJA NO INTERVALO
-        return "Erro: Numero de Carta Invalido!"
+        return "Erro: Numero de Carta Invalido!";
         
     }
 }

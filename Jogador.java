@@ -5,6 +5,7 @@
  */
 package trabalho.pratico.pkg2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,10 +19,10 @@ public class Jogador
     {
         this.nome = nome;
     }
-    //NOME
-    private String nome;
+    //NOME DO JOGADOR
+    private final String nome;
     //MAO DE CARTAS DO JOGADOR
-    public List<Carta> mao;
+    private List<Carta> mao;
     
     //RETORNA O NOME
     public String nome()
@@ -29,10 +30,34 @@ public class Jogador
         return this.nome;
     }
     
-    //RETORNA O ID
-    public int id()
+    //INICIALIZAR VETOR DE BARALHO
+    public void inicializar()
     {
-        return this.id;
+        this.mao = new ArrayList<>();
     }
     
+    
+    //ADICIONAR CARTA
+    public void adicionarCarta(Carta c)
+    {
+        this.mao.add(c);
+    }
+    
+    //REMOVER CARTA
+    public void removerCarta(int index)
+    {
+        this.mao.remove(index);
+    }
+    
+    //RETORNAR CARTA
+    public Carta retornarCarta(int index)
+    {
+        return this.mao.get(index);
+    }
+    
+    //RETORNA QUANTIDADE DE CARTAS NA MAO
+    public int tamanho()
+    {
+        return this.mao.size();
+    }
 }

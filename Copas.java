@@ -15,6 +15,7 @@ public class Copas extends Carta
     public Copas(int numero)
     {
         this.numero = numero;
+        this.tipo = 1;
     }
     //RETORNA A CARTA EM FORMA DE STRING
     @Override
@@ -39,7 +40,7 @@ public class Copas extends Carta
         }
         
         //CASO O NUMERO NAO ESTEJA NO INTERVALO
-        return "Erro: Numero de Carta Invalido!"
+        return "Erro: Numero de Carta Invalido!";
         
     }
     

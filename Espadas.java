@@ -15,6 +15,7 @@ public class Espadas extends Carta
     public Espadas(int numero)
     {
         this.numero = numero;
+        this.tipo = 2;
     }
     //RETORNA A CARTA EM FORMA DE STRING
     @Override
@@ -39,6 +40,6 @@ public class Espadas extends Carta
         }
         
         //CASO O NUMERO NAO ESTEJA NO INTERVALO
-        return "Erro: Numero de Carta Invalido!"
+        return "Erro: Numero de Carta Invalido!";
     }
 }

@@ -8,3 +8,28 @@ Corrigido bug nas cartas (Pife nao possui valete). Construtor corrigido.
 Criada nova classe: Interface. Implementa os metodos para imprimir a interface.
 //Revision 4
 Corrigido bug na inicializacao das cartas (faltava inicializar o ArrayList da mao de cartas) do jogador
+//Revision 5
+Jogador:
+String nome alterada para final
+Mao de cartas do jogador alterado para private
+Implementados metodos para acesso a mao de cartas do jogador
+Interface:
+Implementados metodos de impressao da Interface
+Carta:
+Adidionado integer para identificar o naipe da carta
+Main:
+Programa principal implementado
+TO-DO:
+Verificar as entradas do usuario para evitar conflitos
+Implementar as condicoes de vitoria
+Implementar interface de vitoria
+Implementar verificacao de turno (cada jogador so pode descartar/comprar uma vez por turno)
+//Revision 6
+Interface:
+Implementado metodo para limpar o console
+Aprimoramentos na interface
+Programa principal:
+Implementado a verificacao de turno
+Implementada a verificacao de entrada
+Geral:
+Correcao de bugs

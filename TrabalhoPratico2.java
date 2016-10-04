@@ -40,13 +40,25 @@ public class TrabalhoPratico2
         //VARIAVEL PARA ARMAZENAR A QUANTIDADE DE JOGADORES
         int qtdJogadores = 0;
         //LOOP PARA GARANTIR QUE A ENTRADA SERA MAIR QUE DOIS E MENOR QUE A 4
-        //COMO A VARIAVEL FOI INICIALIZADA COM 0, O LOOP IRA EXECUTAR
-        while(qtdJogadores <= 4 && qtdJogadores >=2)
+        while(true)
         {
-            qtdJogadores = scanner.nextInt();
-            //CASO A ENTRADA SEJA MENOR QUE DOIS OU MAIOR QUE QUATRO, IMPRIMIR MENSAGEM DE ERRO
-            if(qtdJogadores < 2 | qtdJogadores > 4)
-                System.out.println("Erro: Quantidade de jogadores invalida! Tente novamente.");
+            if(scanner.hasNextInt())
+            {
+                qtdJogadores = scanner.nextInt();
+                if(qtdJogadores < 2 | qtdJogadores > 4)
+                    //CASO A ENTRADA SEJA MENOR QUE DOIS OU MAIOR QUE QUATRO, IMPRIMIR MENSAGEM DE ERRO
+                    System.out.println("Erro: Quantidade de jogadores invalida! Tente novamente.");
+                else
+                    //CASO CONTRARIO, FINALIZE O LOOP
+                    break;
+            }
+            else
+            {
+                //CASO A ENTRADA NAO CONTENHA INTEIROS
+                System.out.println("Erro: Entrada Invalida! Somente numeros sao aceitos!");
+                scanner.close();
+            }
+                
         }
         //CRIAR JOGADORES (E PERGUNTAR O NOME AO USUARIO)
         for(int i = 0; i < qtdJogadores; i++)
@@ -57,7 +69,8 @@ public class TrabalhoPratico2
             String nome = scanner.next();
             //INSTANCIAR JOGADOR
             jogador = new Jogador(nome);
-            jogador.mao = new ArrayList<>();
+            //INSTANCIAR LISTA DE CARTAS DO JOGADOR
+            jogador.inicializar();
             //INSERIR JOGADOR NA LISTA
             Jogadores.add(jogador);
         }
@@ -71,7 +84,8 @@ public class TrabalhoPratico2
         {
             for(; indice < fim; indice ++)
             {
-                Jogadores.get(i).mao.add(Baralho.get(indice));
+                //ADICIONA A CARTA DO BARALHO A MAO DO JOGADOR
+                Jogadores.get(i).adicionarCarta(Baralho.get(indice));
             }
             //INCREMENTAR O FIM (CADA JOGADOR RECEBE NOVE CARTAS)
             fim = fim + 9;
@@ -79,8 +93,140 @@ public class TrabalhoPratico2
         //O RESTANTE DAS CARTAS SERAO INSERIDAS NO MONTE
         for(; indice < Baralho.size(); indice ++)
         {
+            //INSERE CARTAS DO BARALHO NO MONTE
             Monte.add(Baralho.get(indice));
         }
+        
+        //IDENTIFICADOR DO JOGADOR ATUAL
+        int idJogadorAtual = 0;
+        //INSTANCIA DO JOGADOR ATUAL
+        Jogador jogadorAtual;
+        //BOOLEANOS PARA OS LOOPS DE CONTROLE
+        boolean jogo = true;
+        boolean turno = true;
+        //ARMAZENA A ENTRADA DO USUARIO
+        String entrada;
+        //INDICE PARA AS OPERACOES NAS CARTAS
+        int operando;
+        
+        //"LIMPA" O CONSOLE
+        Interface.skip();
+        //LOOP DE CONTROLE DO JOGO
+        while(jogo)
+        {
+            //LOOP DE CONTROLE DO TURNO
+            while(turno)
+            {
+                //ATUALIZA O JOGADOR ATUAL
+                jogadorAtual = Jogadores.get(idJogadorAtual);
+                
+                //IMPRIME A INTERFACE DO JOGO
+                //A IMPRESSAO VARIA DE ACORDO COM A QUANTIDADE DE CARTAS NA MAO DO JOGADOR
+                if(jogadorAtual.tamanho() == 9)
+                    Interface.imprimirSessao9(jogadorAtual);
+                else if(jogadorAtual.tamanho() == 8)
+                    Interface.imprimirSessao8(jogadorAtual);
+                
+                //LE A ENTRADA DO USUARIO
+                entrada = scanner.next();
+                
+                //BATER
+                if("B".equals(entrada) | "b".equals(entrada))
+                {
+                    //NAO IMPLEMENTADO
+                    System.out.println("-------**NOT YET IMPLEMENTED**-------");
+                    turno = false;
+                }
+                //DESCARTAR
+                else if("D".equals(entrada) | "d".equals(entrada))
+                {
+                    //PERGUNTA O USUARIO QUAL A CARTA A SER DESCARTADA
+                    System.out.println("Digite o numero da carta que deseja descartar");
+                    entrada = scanner.next();
+                    //DETERMINA O OPERANDO
+                    operando = Integer.parseInt(entrada) -1;
+                    //DETERMINA A INTEGRIDADE DO OPERANDO
+                    //CASO SEJA VALIDO REMOVER A CARTA
+                    if(operando >= 0 && operando <= 8)
+                    {
+                        //ADICIONAR CARTA AO LIXO
+                        Lixo.add(jogadorAtual.retornarCarta(operando));
+                        //REMOVER DA MAO DO JOGADOR
+                        jogadorAtual.removerCarta(operando);
+                        Interface.skip();
+                        System.out.println("-------Carta descartada!-------");
+                    }
+                    else
+                    {
+                        //MENSAGEM DE ERRO
+                        System.out.println("Entrada invalida!");
+                    }
+
+                }
+                //COMPRAR DO LIXO
+                else if("L".equals(entrada) | "l".equals(entrada))
+                {
+                    //VERIFICA SE O LIXO ESTA VAZIO
+                    if(!Lixo.isEmpty())
+                    {
+                        //ADICIONA A PRIMEIRA CARTA DA "PILHA" A MAO DO JOGADOR
+                        jogadorAtual.adicionarCarta(Lixo.get(Lixo.size()-1));
+                        //REMOVE A CARTA DO LIXO
+                        Lixo.remove(Lixo.size()-1);
+                        //TERMINA O TURNO
+                        turno = false;
+                        Interface.skip();
+                        System.out.println("--Carta comprada do lixo!--");
+                        System.out.println("-------Turno finalizado!-------");
+                    }
+                    else
+                    {
+                        //MENSAGEM DE ERRO
+                        System.out.println("!!! O lixo esta vazio! !!!");
+                    }
+                }
+                //COMPRAR DO MONTE
+                else if("M".equals(entrada) | "m".equals(entrada))
+                {
+                    //VERIFICA SE O MONTE ESTA VAZIO
+                    if(!Monte.isEmpty())
+                    {
+                        //ADICIONA A PRIMEIRA CARTA DA "PILHA" DO MONTE A MAO DO JOGADOR
+                        jogadorAtual.adicionarCarta(Monte.get(Monte.size()-1));
+                        //REMOVE A CARTA DO MONTE
+                        Monte.remove(Monte.size()-1);
+                        //TERMINA O TURNO
+                        turno = false;
+                        Interface.skip();
+                        System.out.println("--Carta comprada do monte!--");
+                        System.out.println("-------Turno finalizado!-------");
+                    }
+                    else
+                    {
+                        //MENSAGEM DE ERRO
+                        System.out.println("--O monte esta vazio!--");
+                    }
+                }
+                //PULAR O TURNO
+                else if("P".equals(entrada) | "p".equals(entrada))
+                {
+                    //ANULA O LOOP DE CONTROLE DO TURNO
+                    turno = false;
+                    //
+                    Interface.skip();
+                    System.out.println("-------Turno finalizado!-------");
+                }
+            }
+            //INCREMENTA O IDENTIFICADOR DO JOGADOR ATUAL
+            idJogadorAtual++;
+            //CASO O IDENTIFICADOR TENHA EXCEDIDO A QUANTIDADE DE JOGADORES
+            //RESETAR O IDENTIFICADOR
+            if(idJogadorAtual == qtdJogadores)
+                idJogadorAtual = 0;
+            //VALIDA O LOOP DE CONTROLE DO TURNO
+            turno = true;
+        }
+        
         //IMPORTANTE NOTAR QUE CADA CARTA DO BARALHO SOMENTE TERA UMA INSTANCIA
         //AS CARTAS SERAO INCLUIDAS E REMOVIDAS POR REFERENCIA NA EXECUCAO
         
