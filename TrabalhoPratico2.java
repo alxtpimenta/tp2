@@ -35,8 +35,8 @@ public class TrabalhoPratico2
         Jogador jogador;
         //IMPRIMIR TELA DE BOAS VINDAS, E PEDIR DADOS DOS JOGADORES
         System.out.println("Bem vindo(a) a partida de Pife!");
-        System.out.println("Por favor, insira a quantidade de jogadores.");
-        System.out.println("*Minimo de 2 e maximo de 4 jogadores por partida*");
+        System.out.println("-> Insira a quantidade de jogadores");
+        System.out.println("(Minimo de 2 e maximo de 4 jogadores por partida. Somente numeros.)");
         //VARIAVEL PARA ARMAZENAR A QUANTIDADE DE JOGADORES
         int qtdJogadores = 0;
         //LOOP PARA GARANTIR QUE A ENTRADA SERA MAIR QUE DOIS E MENOR QUE A 4
@@ -47,7 +47,7 @@ public class TrabalhoPratico2
                 qtdJogadores = scanner.nextInt();
                 if(qtdJogadores < 2 | qtdJogadores > 4)
                     //CASO A ENTRADA SEJA MENOR QUE DOIS OU MAIOR QUE QUATRO, IMPRIMIR MENSAGEM DE ERRO
-                    System.out.println("Erro: Quantidade de jogadores invalida! Tente novamente.");
+                    System.out.println("!!! Erro: Quantidade de jogadores invalida! Tente novamente. !!!");
                 else
                     //CASO CONTRARIO, FINALIZE O LOOP
                     break;
@@ -55,7 +55,7 @@ public class TrabalhoPratico2
             else
             {
                 //CASO A ENTRADA NAO CONTENHA INTEIROS
-                System.out.println("Erro: Entrada Invalida! Somente numeros sao aceitos!");
+                System.out.println("!!! Erro: Entrada Invalida! Somente numeros sao aceitos! !!!");
                 scanner.close();
             }
                 
@@ -64,7 +64,7 @@ public class TrabalhoPratico2
         for(int i = 0; i < qtdJogadores; i++)
         {
             //PEDE O NOME DO JOGADOR AO USUARIO
-            System.out.println("Digite o nome do jogador " + Integer.toString(i +1));
+            System.out.println("-> Digite o nome do jogador " + Integer.toString(i +1));
             //LER O NOME
             String nome = scanner.next();
             //INSTANCIAR JOGADOR
@@ -134,6 +134,32 @@ public class TrabalhoPratico2
                 if("B".equals(entrada) | "b".equals(entrada))
                 {
                     //NAO IMPLEMENTADO
+                    List<Carta> pife = new ArrayList<>();
+                    Interface.quantidadePife();
+                    int quantidade = 0;
+                    if(scanner.hasNextInt())
+                    {
+                        quantidade = scanner.nextInt();
+                        if(qtdJogadores < 3 | qtdJogadores > 4)
+                        //CASO A ENTRADA SEJA MENOR QUE DOIS OU MAIOR QUE QUATRO, IMPRIMIR MENSAGEM DE ERRO
+                        System.out.println("!!! Erro: Quantidade de jogadores invalida! Tente novamente. !!!");
+                        else
+                        //CASO CONTRARIO, FINALIZE O LOOP
+                        break;
+                    }
+                    else
+                    {
+                        //CASO A ENTRADA NAO CONTENHA INTEIROS
+                        System.out.println("!!! Erro: Entrada Invalida! Somente numeros sao aceitos! !!!");
+                        scanner.close();
+                    }
+                    //
+                    Interface.selecaoPife();
+                    //
+                    for(int i = 0; i < quantidade; i++)
+                    {
+                        Interface.selecaoCarta();
+                    }
                     System.out.println("-------**NOT YET IMPLEMENTED**-------");
                     turno = false;
                 }
@@ -141,7 +167,7 @@ public class TrabalhoPratico2
                 else if("D".equals(entrada) | "d".equals(entrada))
                 {
                     //PERGUNTA O USUARIO QUAL A CARTA A SER DESCARTADA
-                    System.out.println("Digite o numero da carta que deseja descartar");
+                    Interface.selecaoDescarte();
                     entrada = scanner.next();
                     //DETERMINA O OPERANDO
                     operando = Integer.parseInt(entrada) -1;
@@ -154,12 +180,12 @@ public class TrabalhoPratico2
                         //REMOVER DA MAO DO JOGADOR
                         jogadorAtual.removerCarta(operando);
                         Interface.skip();
-                        System.out.println("-------Carta descartada!-------");
+                        Interface.descarte();
                     }
                     else
                     {
                         //MENSAGEM DE ERRO
-                        System.out.println("Entrada invalida!");
+                        System.out.println("!!! Entrada invalida! !!!");
                     }
 
                 }
@@ -176,8 +202,8 @@ public class TrabalhoPratico2
                         //TERMINA O TURNO
                         turno = false;
                         Interface.skip();
-                        System.out.println("--Carta comprada do lixo!--");
-                        System.out.println("-------Turno finalizado!-------");
+                        Interface.compra();;
+                        Interface.fimTurno();
                     }
                     else
                     {
@@ -198,13 +224,13 @@ public class TrabalhoPratico2
                         //TERMINA O TURNO
                         turno = false;
                         Interface.skip();
-                        System.out.println("--Carta comprada do monte!--");
-                        System.out.println("-------Turno finalizado!-------");
+                        Interface.compra();
+                        Interface.fimTurno();
                     }
                     else
                     {
                         //MENSAGEM DE ERRO
-                        System.out.println("--O monte esta vazio!--");
+                        System.out.println("!!! O monte esta vazio! !!!");
                     }
                 }
                 //PULAR O TURNO
@@ -214,7 +240,7 @@ public class TrabalhoPratico2
                     turno = false;
                     //
                     Interface.skip();
-                    System.out.println("-------Turno finalizado!-------");
+                    Interface.fimTurno();
                 }
             }
             //INCREMENTA O IDENTIFICADOR DO JOGADOR ATUAL
@@ -226,7 +252,6 @@ public class TrabalhoPratico2
             //VALIDA O LOOP DE CONTROLE DO TURNO
             turno = true;
         }
-        
         //IMPORTANTE NOTAR QUE CADA CARTA DO BARALHO SOMENTE TERA UMA INSTANCIA
         //AS CARTAS SERAO INCLUIDAS E REMOVIDAS POR REFERENCIA NA EXECUCAO
         

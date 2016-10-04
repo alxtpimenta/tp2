@@ -60,4 +60,10 @@ public class Procedimentos
         //ALEATORIZA OS ITENS NA LISTA DE CARTAS, USANDO A SEMENTE
         Collections.shuffle(cartas, new Random(semente));
     }
+    
+    public static boolean verificarVitoria(List<Carta> mao)
+    {
+        //NAO IMPLEMENTADO
+        return true;
+    }
 }

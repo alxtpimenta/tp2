@@ -31,5 +31,13 @@ Aprimoramentos na interface
 Programa principal:
 Implementado a verificacao de turno
 Implementada a verificacao de entrada
-Geral:
-Correcao de bugs
+//Revision 7
+Interface:
+Novos metodos implementados
+Comandos de impressao da interface agora sao responsabilidade da classe interface (exceto em mensagens de erro)
+Mensagens de erro padronizadas
+Interface padronizada (consistente)
+TODO: Terminar condicoes de vitoria
+Primeira carta do lixo visivel
+Quando monte acabar, reembaralhar lixo
+Modularizacao
