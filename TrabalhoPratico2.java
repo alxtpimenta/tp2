@@ -34,10 +34,8 @@ public class TrabalhoPratico2
         //VARIAVEL PARA INSTANCIAR OS JOGADORES
         Jogador jogador;
         //IMPRIMIR TELA DE BOAS VINDAS, E PEDIR DADOS DOS JOGADORES
-        System.out.println("Bem vindo(a) a partida de Pife!");
-        System.out.println("-> Insira a quantidade de jogadores");
-        System.out.println("(Minimo de 2 e maximo de 4 jogadores por partida. Somente numeros.)");
-        //VARIAVEL PARA ARMAZENAR A QUANTIDADE DE JOGADORES
+        Interface.boasVindas();
+        //ARMAZENA A QUANTIDADE DE JOGADORES
         int qtdJogadores = 0;
         //LOOP PARA GARANTIR QUE A ENTRADA SERA MAIR QUE DOIS E MENOR QUE A 4
         while(true)
@@ -47,7 +45,7 @@ public class TrabalhoPratico2
                 qtdJogadores = scanner.nextInt();
                 if(qtdJogadores < 2 | qtdJogadores > 4)
                     //CASO A ENTRADA SEJA MENOR QUE DOIS OU MAIOR QUE QUATRO, IMPRIMIR MENSAGEM DE ERRO
-                    System.out.println("!!! Erro: Quantidade de jogadores invalida! Tente novamente. !!!");
+                    Interface.erroEntrada();
                 else
                     //CASO CONTRARIO, FINALIZE O LOOP
                     break;
@@ -55,7 +53,7 @@ public class TrabalhoPratico2
             else
             {
                 //CASO A ENTRADA NAO CONTENHA INTEIROS
-                System.out.println("!!! Erro: Entrada Invalida! Somente numeros sao aceitos! !!!");
+                Interface.erroEntrada();
                 scanner.close();
             }
                 
@@ -64,7 +62,7 @@ public class TrabalhoPratico2
         for(int i = 0; i < qtdJogadores; i++)
         {
             //PEDE O NOME DO JOGADOR AO USUARIO
-            System.out.println("-> Digite o nome do jogador " + Integer.toString(i +1));
+            Interface.digiteJogador(i +1);
             //LER O NOME
             String nome = scanner.next();
             //INSTANCIAR JOGADOR
@@ -74,28 +72,9 @@ public class TrabalhoPratico2
             //INSERIR JOGADOR NA LISTA
             Jogadores.add(jogador);
         }
-        //DEPOIS DAR 9 CARTAS A CADA JOGADOR
-        //AS CARTAS JA FORAM EMBARALHADAS NA INICIALIZACAO
-        //VARIAVEIS PARA INDICAR OS INDICES PARA A INSERCAO
-        int indice = 0;
-        int fim = 9;
-        //INSERIR CARTAS
-        for(int i = 0; i < qtdJogadores; i++)
-        {
-            for(; indice < fim; indice ++)
-            {
-                //ADICIONA A CARTA DO BARALHO A MAO DO JOGADOR
-                Jogadores.get(i).adicionarCarta(Baralho.get(indice));
-            }
-            //INCREMENTAR O FIM (CADA JOGADOR RECEBE NOVE CARTAS)
-            fim = fim + 9;
-        }
-        //O RESTANTE DAS CARTAS SERAO INSERIDAS NO MONTE
-        for(; indice < Baralho.size(); indice ++)
-        {
-            //INSERE CARTAS DO BARALHO NO MONTE
-            Monte.add(Baralho.get(indice));
-        }
+        
+        //DISTRIBUI AS CARTAS
+        Procedimentos.distribuirCartas(Jogadores, qtdJogadores, Monte, Baralho);
         
         //IDENTIFICADOR DO JOGADOR ATUAL
         int idJogadorAtual = 0;
@@ -114,6 +93,8 @@ public class TrabalhoPratico2
         //LOOP DE CONTROLE DO JOGO
         while(jogo)
         {
+            //VERIFICACOES PARA O NOVO TURNO
+            Procedimentos.verificarTurno(Lixo,Monte);
             //LOOP DE CONTROLE DO TURNO
             while(turno)
             {
@@ -121,11 +102,11 @@ public class TrabalhoPratico2
                 jogadorAtual = Jogadores.get(idJogadorAtual);
                 
                 //IMPRIME A INTERFACE DO JOGO
-                //A IMPRESSAO VARIA DE ACORDO COM A QUANTIDADE DE CARTAS NA MAO DO JOGADOR
                 if(jogadorAtual.tamanho() == 9)
-                    Interface.imprimirSessao9(jogadorAtual);
+                    Interface.imprimirSessao(jogadorAtual);
+                //SE O JOGADOR PRECISAR COMPRAR UMA CARTA
                 else if(jogadorAtual.tamanho() == 8)
-                    Interface.imprimirSessao8(jogadorAtual);
+                    Interface.imprimirSessaoCompra(jogadorAtual, Lixo.get(Lixo.size()-1));
                 
                 //LE A ENTRADA DO USUARIO
                 entrada = scanner.next();
@@ -133,35 +114,122 @@ public class TrabalhoPratico2
                 //BATER
                 if("B".equals(entrada) | "b".equals(entrada))
                 {
-                    //NAO IMPLEMENTADO
-                    List<Carta> pife = new ArrayList<>();
-                    Interface.quantidadePife();
-                    int quantidade = 0;
-                    if(scanner.hasNextInt())
-                    {
-                        quantidade = scanner.nextInt();
-                        if(qtdJogadores < 3 | qtdJogadores > 4)
-                        //CASO A ENTRADA SEJA MENOR QUE DOIS OU MAIOR QUE QUATRO, IMPRIMIR MENSAGEM DE ERRO
-                        System.out.println("!!! Erro: Quantidade de jogadores invalida! Tente novamente. !!!");
-                        else
-                        //CASO CONTRARIO, FINALIZE O LOOP
-                        break;
-                    }
-                    else
-                    {
-                        //CASO A ENTRADA NAO CONTENHA INTEIROS
-                        System.out.println("!!! Erro: Entrada Invalida! Somente numeros sao aceitos! !!!");
-                        scanner.close();
-                    }
                     //
                     Interface.selecaoPife();
-                    //
-                    for(int i = 0; i < quantidade; i++)
+                    entrada = scanner.next();
+                    //QUADRA
+                    if("Q".equals(entrada) | "q".equals(entrada))
                     {
-                        Interface.selecaoCarta();
+                        //ARMAZENA A QUADRA A SER SELECIONADA
+                        List<Carta> quadra = new ArrayList<>();
+                        //
+                        for(int i = 0; i< 4; i++)
+                        {
+                            Interface.digiteCarta();
+                            //VERIFICAR SE A ENTRADA E UM INTEIRO
+                            if(scanner.hasNextInt())
+                            {
+                                entrada = scanner.next();
+                                operando = Integer.parseInt(entrada);
+                                if(Procedimentos.verificarEntrada(operando))
+                                {
+                                    quadra.add(jogadorAtual.retornarCarta(operando -1));
+                                    Interface.adicionada();
+                                }
+                                else
+                                {
+                                    //ENTRADA INVALIDA
+                                    Interface.erroEntrada();
+                                    i--;
+                                }
+                            }
+                        }
+                        //
+                        if(Procedimentos.verificarVitoria(quadra))
+                        {
+                            //CASO A VERIFICACAO SEJA TRUE, A VITORIA E CONFIRMADA
+                            //VITORIA
+                        }
+                        else
+                        {
+                            //CASO A VERIFICACAO FALHE, A VITORIA E ANULADA E O TURNO PASSADO
+                            Interface.skip();
+                            Interface.erroVitoria();
+                            Interface.fimTurno();
+                            turno = false;
+                        }
                     }
-                    System.out.println("-------**NOT YET IMPLEMENTED**-------");
-                    turno = false;
+                    //DUAS TRINCAS
+                    else if("T".equals(entrada) | "t".equals(entrada))
+                    {
+                        List<Carta> trinca1 = new ArrayList<>();
+                        List<Carta> trinca2 = new ArrayList<>();
+                        //PRIMEIRA TRINCA
+                        Interface.primeiraTrinca();
+                        for(int i = 0; i< 3; i++)
+                        {
+                            Interface.digiteCarta();
+                            //VERIFICAR SE A ENTRADA E UM INTEIRO
+                            if(scanner.hasNextInt())
+                            {
+                                entrada = scanner.next();
+                                operando = Integer.parseInt(entrada);
+                                if(Procedimentos.verificarEntrada(operando))
+                                {
+                                    trinca1.add(jogadorAtual.retornarCarta(operando -1));
+                                    Interface.adicionada();
+                                }
+                                else
+                                {
+                                    //ENTRADA INVALIDA
+                                    Interface.erroEntrada();
+                                    i--;
+                                }
+                            }
+                        }
+                        //SEGUNDA TRINCA
+                        Interface.segundaTrinca();
+                        for(int i = 0; i< 3; i++)
+                        {
+                            Interface.digiteCarta();
+                            //VERIFICAR SE A ENTRADA E UM INTEIRO
+                            if(scanner.hasNextInt())
+                            {
+                                entrada = scanner.next();
+                                operando = Integer.parseInt(entrada);
+                                if(Procedimentos.verificarEntrada(operando))
+                                {
+                                    trinca2.add(jogadorAtual.retornarCarta(operando -1));
+                                    Interface.adicionada();
+                                }
+                                else
+                                {
+                                    //ENTRADA INVALIDA
+                                    Interface.erroEntrada();
+                                    i--;
+                                }
+                            }
+                        }
+                        //VERIFICAR VITORIA
+                        if(Procedimentos.verificarVitoria(trinca1) && Procedimentos.verificarVitoria(trinca2))
+                        {
+                            //VITORIA
+                        }
+                        else
+                        {
+                            //VITORIA INVALIDA. PASSAR TURNO
+                            Interface.skip();
+                            Interface.erroVitoria();
+                            Interface.fimTurno();
+                            turno = false;
+                        }
+                    }
+                    //SELECAO INVALIDA
+                    else
+                    {
+                        //ENTRADA INVALIDA
+                        Interface.erroEntrada();
+                    }
                 }
                 //DESCARTAR
                 else if("D".equals(entrada) | "d".equals(entrada))
@@ -170,22 +238,22 @@ public class TrabalhoPratico2
                     Interface.selecaoDescarte();
                     entrada = scanner.next();
                     //DETERMINA O OPERANDO
-                    operando = Integer.parseInt(entrada) -1;
+                    operando = Integer.parseInt(entrada);
                     //DETERMINA A INTEGRIDADE DO OPERANDO
                     //CASO SEJA VALIDO REMOVER A CARTA
-                    if(operando >= 0 && operando <= 8)
+                    if(Procedimentos.verificarEntrada(operando))
                     {
                         //ADICIONAR CARTA AO LIXO
-                        Lixo.add(jogadorAtual.retornarCarta(operando));
+                        Lixo.add(jogadorAtual.retornarCarta(operando-1));
                         //REMOVER DA MAO DO JOGADOR
-                        jogadorAtual.removerCarta(operando);
+                        jogadorAtual.removerCarta(operando-1);
                         Interface.skip();
                         Interface.descarte();
                     }
                     else
                     {
-                        //MENSAGEM DE ERRO
-                        System.out.println("!!! Entrada invalida! !!!");
+                        //ENTRADA INVALIDA
+                        Interface.erroEntrada();
                     }
 
                 }
@@ -202,13 +270,14 @@ public class TrabalhoPratico2
                         //TERMINA O TURNO
                         turno = false;
                         Interface.skip();
-                        Interface.compra();;
+                        Interface.adicionada();
                         Interface.fimTurno();
                     }
                     else
                     {
                         //MENSAGEM DE ERRO
-                        System.out.println("!!! O lixo esta vazio! !!!");
+                        //LIXO VAZIO
+                        Interface.erroLixo();
                     }
                 }
                 //COMPRAR DO MONTE
@@ -224,13 +293,14 @@ public class TrabalhoPratico2
                         //TERMINA O TURNO
                         turno = false;
                         Interface.skip();
-                        Interface.compra();
+                        Interface.adicionada();
                         Interface.fimTurno();
                     }
                     else
                     {
                         //MENSAGEM DE ERRO
-                        System.out.println("!!! O monte esta vazio! !!!");
+                        //MONTE VAZIO
+                        Interface.erroMonte();
                     }
                 }
                 //PULAR O TURNO
@@ -241,6 +311,11 @@ public class TrabalhoPratico2
                     //
                     Interface.skip();
                     Interface.fimTurno();
+                }
+                else
+                {
+                    //ENTRADA INVALIDA
+                    Interface.erroEntrada();
                 }
             }
             //INCREMENTA O IDENTIFICADOR DO JOGADOR ATUAL
@@ -254,8 +329,6 @@ public class TrabalhoPratico2
         }
         //IMPORTANTE NOTAR QUE CADA CARTA DO BARALHO SOMENTE TERA UMA INSTANCIA
         //AS CARTAS SERAO INCLUIDAS E REMOVIDAS POR REFERENCIA NA EXECUCAO
-        
-        
     }
     
 }

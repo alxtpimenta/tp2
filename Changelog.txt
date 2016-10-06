@@ -41,3 +41,17 @@ TODO: Terminar condicoes de vitoria
 Primeira carta do lixo visivel
 Quando monte acabar, reembaralhar lixo
 Modularizacao
+//Revision 8
+Programa principal:
+Verificacao de vitoria implementada
+Distribuicao de cartas movida para a classe Procedimentos
+Interface:
+Mensagens de erros movidas para a classe interface
+Mensagens de boas vindas movidas para a classe interface
+A interface agora mostra a primeira carta do lixo quando o usuario for comprar uma carta
+Procedimentos:
+Implementado procedimento para distribuir cartas
+Implementado procedimento para verificar as condicoes do turno (Quando monte acabar, reembaralhar lixo)
+TO-DO:
+Implementar tela de vitoria
+Separar o codigo em pacotes (modularizar)

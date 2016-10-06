@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Interface 
 {
-    public static void imprimirSessao8(Jogador jogador)
+    public static void imprimirSessaoCompra(Jogador jogador, Carta lixo)
     {
         //
         List<String> naipes = new ArrayList<>();
@@ -31,7 +31,7 @@ public class Interface
             else if(jogador.retornarCarta(i).numero() == 12)
                 numeros.add("K");
             else
-                System.out.println("!!! ERRO: INICIALIZACAO DE CARTAS: NUMERO INVALIDO !!!");
+                Interface.erroDesconhecido();
             
             switch (jogador.retornarCarta(i).naipe()) 
             {
@@ -65,11 +65,12 @@ public class Interface
         System.out.println("  1   2   3   4   5   6   7   8    9");
         System.out.println("Copas: # | Espadas: @ | Ouros: O | Paus: +");
         System.out.println("");
+        System.out.println("PRIMEIRA CARTA DO LIXO: " + lixo.toString());
         System.out.println("->PRESSIONE L PARA COMPRAR DO LIXO");
         System.out.println("->PRESSIONE M PARA COMPRAR DO MONTE");
     }
     
-    public static void imprimirSessao9(Jogador jogador)
+    public static void imprimirSessao(Jogador jogador)
     {
         //
         List<String> naipes = new ArrayList<>();
@@ -86,7 +87,7 @@ public class Interface
             else if(jogador.retornarCarta(i).numero() == 12)
                 numeros.add("K");
             else
-                System.out.println("ERRO FATAL");
+                Interface.erroDesconhecido();
             
             switch (jogador.retornarCarta(i).naipe()) 
             {
@@ -132,9 +133,9 @@ public class Interface
     }
     
     //IMPRIME MENSAGEM DE COMPRA
-    public static void compra()
+    public static void adicionada()
     {
-        System.out.println("--Carta comprada!--");
+        System.out.println("--Carta adicionada!--");
     }
     
     //IMPRIME MENSAGEM DE DESCARTE
@@ -149,6 +150,18 @@ public class Interface
         System.out.println("-> Digite o numero da carta que deseja descartar (apenas numeros)");
     }
     
+    public static void digiteCarta()
+    {
+        //
+        System.out.println("-> Digite o numero da carta (apenas numeros)");
+    }
+    
+    public static void erroEntrada()
+    {
+        //
+        System.out.println("!!! Entrada invalida! !!!");
+    }
+    
     //IMPRIME MENSAGEM DE FIM DE TURNO
     public static void fimTurno()
     {
@@ -156,15 +169,17 @@ public class Interface
     }
     
     //MENSAGEM DE NUMERO DE CARTAS PARA BATER
-    public static void quantidadePife()
+    public static void cartasPife()
     {
-        System.out.println("-> Insira a quantidade de cartas que deseja bater (3 ou 4) (Apenas numeros!)");
+        System.out.println("-> Digite o numero das cartas que deseja bater (Apenas numeros!)");
     }
     
     //IMPRIME MENSAGEM DE SELECAO DE BATIDA
     public static void selecaoPife()
     {
-        System.out.println("-> Digite os numero das carta que deseja bater (apenas numeros)");
+        System.out.println("Selecione a opcao que deseja bater:");
+        System.out.println("-> PRESSIONE Q PARA BATER UMA QUADRA");
+        System.out.println("-> PRESSIONE T PARA BATER DUAS TRINCAS");
     }
     
     public static void selecaoCarta()
@@ -172,4 +187,45 @@ public class Interface
         System.out.println("-> Digite o numero da carta(apenas numeros)");
     }
     
+    public static void erroDesconhecido()
+    {
+        System.out.println("!!! ERRO DESCONHECIDO !!!");
+    }
+    
+    public static void erroVitoria()
+    {
+        System.out.println("-- A combinacao nao e valida! --");
+    }
+    
+    public static void primeiraTrinca()
+    {
+        System.out.println("->Primeira trinca:");
+    }
+    
+    public static void segundaTrinca()
+    {
+        System.out.println("->Segunda trinca:");
+    }
+    
+    public static void erroLixo()
+    {
+        System.out.println("!!! ERRO: O LIXO ESTA VAZIO! !!!");
+    }
+    
+    public static void erroMonte()
+    {
+        System.out.println("!!! ERRO: O MONTE ESTA VAZIO! !!!");
+    }
+    
+    public static void boasVindas()
+    {
+        System.out.println("Bem vindo(a) a partida de Pife!");
+        System.out.println("-> Insira a quantidade de jogadores");
+        System.out.println("(Minimo de 2 e maximo de 4 jogadores por partida. Somente numeros.)");
+    }
+    
+    public static void digiteJogador(int n)
+    {
+        System.out.println("-> Digite o nome do jogador " + Integer.toString(n));
+    }
 }
