@@ -11,7 +11,6 @@ import java.util.Random;
 import trabalho.pratico.pkg2.modelagem.Carta;
 import trabalho.pratico.pkg2.modelagem.Copas;
 import trabalho.pratico.pkg2.modelagem.Espadas;
-import trabalho.pratico.pkg2.modelagem.Jogador;
 import trabalho.pratico.pkg2.modelagem.Ouros;
 import trabalho.pratico.pkg2.modelagem.Paus;
 import trabalho.pratico.pkg2.ui.Interface;
@@ -22,8 +21,8 @@ import trabalho.pratico.pkg2.ui.Interface;
  */
 public class Procedimentos 
 {
-    //TODOS OS PROCEDIMENTOS SAO STATIC, PARA NAO SER NECESSARIO INSTANCIACAO
-    public static void inicializarBaralho(List<Carta> cartas)
+    //BUILDER PARA CONSTRUIR O BARALHO
+    public static void inicializarBaralho(Ambiente jogo)
     {
         //VARIAVEIS PARA CRIAR INSTANCIAS DE CADA CLASSE DE CARTA
         Espadas espada;
@@ -33,57 +32,57 @@ public class Procedimentos
         //INTEIRO PARA ITERACAO (DECLARAR ANTES EVITA VARIAS ALOCACOES/DESALOCACOES)
         int i;
         //ADICIONAR ESPADAS
-        for(i = 0; i < 12; i++)
+        for(i = 0; i < Define.CARTAS_NAIPE; i++)
         {
             espada = new Espadas(i+1);
-            cartas.add(espada);
+            jogo.Baralho.add(espada);
         }
         //ADICIONAR COPAS
-        for(i = 0; i < 12; i++)
+        for(i = 0; i < Define.CARTAS_NAIPE; i++)
         {
             copa = new Copas(i+1);
-            cartas.add(copa);
+            jogo.Baralho.add(copa);
         }
         //ADICIONAR OUROS
-        for(i = 0; i < 12; i++)
+        for(i = 0; i < Define.CARTAS_NAIPE; i++)
         {
             ouro = new Ouros(i+1);
-            cartas.add(ouro);
+            jogo.Baralho.add(ouro);
         }
         //ADICIONAR PAUS
-        for(i = 0; i < 12; i++)
+        for(i = 0; i < Define.CARTAS_NAIPE; i++)
         {
             pau = new Paus(i+1);
-            cartas.add(pau);
+            jogo.Baralho.add(pau);
         }
-        //EMBARALHAR AS CARTAS
-        embaralhar(cartas);
+        //EMBARALHAR O BARALHO
+        embaralhar(jogo.Baralho);
     }
     
-    //
-    public static void distribuirCartas(List<Jogador> Jogadores, int qtdJogadores, List<Carta> Monte, List<Carta> Baralho)
+    //RECEBE O AMBIENDE DE JOGO E DISTRIBUI O BARALHO PARA CADA JOGADOR
+    public static void distribuirCartas(Ambiente jogo)
     {
         //DAR 9 CARTAS A CADA JOGADOR E INSERIR O RESTO NO MONTE
         //AS CARTAS JA FORAM EMBARALHADAS NA INICIALIZACAO
         //VARIAVEIS PARA INDICAR OS INDICES PARA A INSERCAO
         int indice = 0;
-        int fim = 9;
+        int fim = Define.MAX_MAO;
         //INSERIR CARTAS
-        for(int i = 0; i < qtdJogadores; i++)
+        for(int i = 0; i < jogo.qtdJogadores; i++)
         {
             for(; indice < fim; indice ++)
             {
                 //ADICIONA A CARTA DO BARALHO A MAO DO JOGADOR
-                Jogadores.get(i).adicionarCarta(Baralho.get(indice));
+                jogo.Jogadores.get(i).adicionarCarta(jogo.Baralho.get(indice));
             }
-            //INCREMENTAR O FIM (CADA JOGADOR RECEBE NOVE CARTAS)
-            fim = fim + 9;
+            //INCREMENTAR O FIM (CADA JOGADOR RECEBE A QUANTIDADE DEFINIDA DE CARTAS)
+            fim = fim + Define.MAX_MAO;
         }
         //O RESTANTE DAS CARTAS SERAO INSERIDAS NO MONTE
-        for(; indice < Baralho.size(); indice ++)
+        for(; indice < jogo.Baralho.size(); indice ++)
         {
             //INSERE CARTAS DO BARALHO NO MONTE
-            Monte.add(Baralho.get(indice));
+            jogo.Monte.add(jogo.Baralho.get(indice));
         }
     }
     

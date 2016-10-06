@@ -8,6 +8,8 @@ package trabalho.pratico.pkg2;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import trabalho.pratico.pkg2.core.Ambiente;
+import trabalho.pratico.pkg2.core.Define;
 import trabalho.pratico.pkg2.core.Procedimentos;
 import trabalho.pratico.pkg2.modelagem.Carta;
 import trabalho.pratico.pkg2.modelagem.Jogador;
@@ -25,30 +27,28 @@ public class TrabalhoPratico2
      */
     public static void main(String[] args) 
     {
-        //DECLARAR LISTAS DE CARTAS
-        List<Carta> Baralho = new ArrayList<>();
-        List<Carta> Monte = new ArrayList<>();
-        List<Carta> Lixo = new ArrayList<>();
-        //LISTA DE JOGADORES
-        List<Jogador> Jogadores = new ArrayList<>();
+        //CRIAR INSTANCIA SINGLETON DO AMBIENTE DE JOGO
+        Ambiente jogo = Ambiente.retornarInstancia();
+        //INICIALIZA O AMBIENTE DE JOGO
+        jogo.inicializar();
         //SCANNER PARA LER AS ENTRADAS DA LINHA DE COMANDO
         Scanner scanner = new Scanner(System.in);
-        //INICIALIZAR O BARALHO
-        Procedimentos.inicializarBaralho(Baralho);
+        //BUILDER PARA INICIALIZAR O BARALHO
+        Procedimentos.inicializarBaralho(jogo);
         //VARIAVEL PARA INSTANCIAR OS JOGADORES
         Jogador jogador;
+        
         //IMPRIMIR TELA DE BOAS VINDAS, E PEDIR DADOS DOS JOGADORES
         Interface.boasVindas();
-        //ARMAZENA A QUANTIDADE DE JOGADORES
-        int qtdJogadores = 0;
-        //LOOP PARA GARANTIR QUE A ENTRADA SERA MAIR QUE DOIS E MENOR QUE A 4
+
+        //GARANTE QUE A ENTRADA SERA MAIR QUE DOIS E MENOR QUE A 4
         while(true)
         {
             if(scanner.hasNextInt())
             {
-                qtdJogadores = scanner.nextInt();
-                if(qtdJogadores < 2 | qtdJogadores > 4)
-                    //CASO A ENTRADA SEJA MENOR QUE DOIS OU MAIOR QUE QUATRO, IMPRIMIR MENSAGEM DE ERRO
+                jogo.qtdJogadores = scanner.nextInt();
+                if(jogo.qtdJogadores < Define.MIN_JOGADORES | jogo.qtdJogadores > Define.MAX_JOGADORES)
+                    //CASO A ENTRADA ESTEJA FORA DOS LIMITES ESPECIFICADOS, IMPRIMIR MENSAGEM DE ERRO
                     Interface.erroEntrada();
                 else
                     //CASO CONTRARIO, FINALIZE O LOOP
@@ -63,66 +63,58 @@ public class TrabalhoPratico2
                 
         }
         //CRIAR JOGADORES (E PERGUNTAR O NOME AO USUARIO)
-        for(int i = 0; i < qtdJogadores; i++)
+        for(int i = 0; i < jogo.qtdJogadores; i++)
         {
-            //PEDE O NOME DO JOGADOR AO USUARIO
-            Interface.digiteJogador(i +1);
+            //PEDE O NOME DO JOGADOR AO USUARIO NA PRIMEIRA ITERACAO
+            if(i == 0)
+                Interface.digiteJogadores();
             //LER O NOME
-            String nome = scanner.next();
+            jogo.entrada = scanner.next();
             //INSTANCIAR JOGADOR
-            jogador = new Jogador(nome);
+            jogador = new Jogador(jogo.entrada);
             //INSTANCIAR LISTA DE CARTAS DO JOGADOR
             jogador.inicializar();
             //INSERIR JOGADOR NA LISTA
-            Jogadores.add(jogador);
+            jogo.Jogadores.add(jogador);
         }
         
         //DISTRIBUI AS CARTAS
-        Procedimentos.distribuirCartas(Jogadores, qtdJogadores, Monte, Baralho);
+        Procedimentos.distribuirCartas(jogo);
         
-        //IDENTIFICADOR DO JOGADOR ATUAL
-        int idJogadorAtual = 0;
-        //INSTANCIA DO JOGADOR ATUAL
-        Jogador jogadorAtual;
-        //BOOLEANOS PARA OS LOOPS DE CONTROLE
-        boolean jogo = true;
-        boolean turno = true;
-        //ARMAZENA A ENTRADA DO USUARIO
-        String entrada;
-        //INDICE PARA AS OPERACOES NAS CARTAS
-        int operando;
-        
-        //"LIMPA" O CONSOLE
+        //"LIMPA" O CONSOLE E O LEITOR DE ENTRADA
         Interface.skip();
+        jogo.entrada = scanner.nextLine();
+        jogo.entrada = null;
+        
         //LOOP DE CONTROLE DO JOGO
-        while(jogo)
+        while(jogo.jogo)
         {
             //VERIFICACOES PARA O NOVO TURNO
-            Procedimentos.verificarTurno(Lixo,Monte);
+            Procedimentos.verificarTurno(jogo.Lixo,jogo.Monte);
             //LOOP DE CONTROLE DO TURNO
-            while(turno)
+            while(jogo.turno)
             {
                 //ATUALIZA O JOGADOR ATUAL
-                jogadorAtual = Jogadores.get(idJogadorAtual);
+                jogo.jogadorAtual = jogo.Jogadores.get(jogo.idJogadorAtual);
                 
                 //IMPRIME A INTERFACE DO JOGO
-                if(jogadorAtual.tamanho() == 9)
-                    Interface.imprimirSessao(jogadorAtual);
+                if(jogo.jogadorAtual.tamanho() == Define.MAX_MAO)
+                    Interface.imprimirSessao(jogo.jogadorAtual);
                 //SE O JOGADOR PRECISAR COMPRAR UMA CARTA
-                else if(jogadorAtual.tamanho() == 8)
-                    Interface.imprimirSessaoCompra(jogadorAtual, Lixo.get(Lixo.size()-1));
+                else if(jogo.jogadorAtual.tamanho() == Define.MIN_MAO)
+                    Interface.imprimirSessaoCompra(jogo.jogadorAtual, jogo.Lixo.get(jogo.Lixo.size()-1));
                 
                 //LE A ENTRADA DO USUARIO
-                entrada = scanner.next();
+                jogo.entrada = scanner.next();
                 
                 //BATER
-                if("B".equals(entrada) | "b".equals(entrada))
+                if("B".equals(jogo.entrada) | "b".equals(jogo.entrada))
                 {
                     //
                     Interface.selecaoPife();
-                    entrada = scanner.next();
+                    jogo.entrada = scanner.next();
                     //QUADRA
-                    if("Q".equals(entrada) | "q".equals(entrada))
+                    if("Q".equals(jogo.entrada) | "q".equals(jogo.entrada))
                     {
                         //ARMAZENA A QUADRA A SER SELECIONADA
                         List<Carta> quadra = new ArrayList<>();
@@ -133,11 +125,11 @@ public class TrabalhoPratico2
                             //VERIFICAR SE A ENTRADA E UM INTEIRO
                             if(scanner.hasNextInt())
                             {
-                                entrada = scanner.next();
-                                operando = Integer.parseInt(entrada);
-                                if(Procedimentos.verificarEntrada(operando))
+                                jogo.entrada = scanner.next();
+                                jogo.operador = Integer.parseInt(jogo.entrada);
+                                if(Procedimentos.verificarEntrada(jogo.operador))
                                 {
-                                    quadra.add(jogadorAtual.retornarCarta(operando -1));
+                                    quadra.add(jogo.jogadorAtual.retornarCarta(jogo.operador -1));
                                     Interface.adicionada();
                                 }
                                 else
@@ -152,10 +144,10 @@ public class TrabalhoPratico2
                         if(Procedimentos.verificarVitoria(quadra))
                         {
                             //VITORIA
-                            Interface.imprimirVitoria(jogadorAtual.nome(), quadra);
+                            Interface.imprimirVitoria(jogo.jogadorAtual.nome(), quadra);
                             //DESATIVAR LOOPS DE CONTROLE PARA ENCERRAR O JOGO
-                            turno = false;
-                            jogo = false;
+                            jogo.turno = false;
+                            jogo.jogo = false;
                         }
                         else
                         {
@@ -163,11 +155,11 @@ public class TrabalhoPratico2
                             Interface.skip();
                             Interface.erroVitoria();
                             Interface.fimTurno();
-                            turno = false;
+                            jogo.turno = false;
                         }
                     }
                     //DUAS TRINCAS
-                    else if("T".equals(entrada) | "t".equals(entrada))
+                    else if("T".equals(jogo.entrada) | "t".equals(jogo.entrada))
                     {
                         List<Carta> trinca1 = new ArrayList<>();
                         List<Carta> trinca2 = new ArrayList<>();
@@ -179,11 +171,11 @@ public class TrabalhoPratico2
                             //VERIFICAR SE A ENTRADA E UM INTEIRO
                             if(scanner.hasNextInt())
                             {
-                                entrada = scanner.next();
-                                operando = Integer.parseInt(entrada);
-                                if(Procedimentos.verificarEntrada(operando))
+                                jogo.entrada = scanner.next();
+                                jogo.operador = Integer.parseInt(jogo.entrada);
+                                if(Procedimentos.verificarEntrada(jogo.operador))
                                 {
-                                    trinca1.add(jogadorAtual.retornarCarta(operando -1));
+                                    trinca1.add(jogo.jogadorAtual.retornarCarta(jogo.operador -1));
                                     Interface.adicionada();
                                 }
                                 else
@@ -202,11 +194,11 @@ public class TrabalhoPratico2
                             //VERIFICAR SE A ENTRADA E UM INTEIRO
                             if(scanner.hasNextInt())
                             {
-                                entrada = scanner.next();
-                                operando = Integer.parseInt(entrada);
-                                if(Procedimentos.verificarEntrada(operando))
+                                jogo.entrada = scanner.next();
+                                jogo.operador = Integer.parseInt(jogo.entrada);
+                                if(Procedimentos.verificarEntrada(jogo.operador))
                                 {
-                                    trinca2.add(jogadorAtual.retornarCarta(operando -1));
+                                    trinca2.add(jogo.jogadorAtual.retornarCarta(jogo.operador -1));
                                     Interface.adicionada();
                                 }
                                 else
@@ -221,10 +213,10 @@ public class TrabalhoPratico2
                         if(Procedimentos.verificarVitoria(trinca1) && Procedimentos.verificarVitoria(trinca2))
                         {
                             //VITORIA
-                            Interface.imprimirVitoria(jogadorAtual.nome(), trinca1, trinca2);
+                            Interface.imprimirVitoria(jogo.jogadorAtual.nome(), trinca1, trinca2);
                             //DESATIVAR LOOPS DE CONTROLE PARA ENCERRAR O JOGO
-                            turno = false;
-                            jogo = false;
+                            jogo.turno = false;
+                            jogo.jogo = false;
                         }
                         else
                         {
@@ -232,7 +224,7 @@ public class TrabalhoPratico2
                             Interface.skip();
                             Interface.erroVitoria();
                             Interface.fimTurno();
-                            turno = false;
+                            jogo.turno = false;
                         }
                     }
                     //SELECAO INVALIDA
@@ -243,21 +235,21 @@ public class TrabalhoPratico2
                     }
                 }
                 //DESCARTAR
-                else if("D".equals(entrada) | "d".equals(entrada))
+                else if("D".equals(jogo.entrada) | "d".equals(jogo.entrada))
                 {
                     //PERGUNTA O USUARIO QUAL A CARTA A SER DESCARTADA
                     Interface.selecaoDescarte();
-                    entrada = scanner.next();
+                    jogo.entrada = scanner.next();
                     //DETERMINA O OPERANDO
-                    operando = Integer.parseInt(entrada);
+                    jogo.operador = Integer.parseInt(jogo.entrada);
                     //DETERMINA A INTEGRIDADE DO OPERANDO
                     //CASO SEJA VALIDO REMOVER A CARTA
-                    if(Procedimentos.verificarEntrada(operando))
+                    if(Procedimentos.verificarEntrada(jogo.operador))
                     {
                         //ADICIONAR CARTA AO LIXO
-                        Lixo.add(jogadorAtual.retornarCarta(operando-1));
+                        jogo.Lixo.add(jogo.jogadorAtual.retornarCarta(jogo.operador-1));
                         //REMOVER DA MAO DO JOGADOR
-                        jogadorAtual.removerCarta(operando-1);
+                        jogo.jogadorAtual.removerCarta(jogo.operador-1);
                         Interface.skip();
                         Interface.descarte();
                     }
@@ -269,17 +261,17 @@ public class TrabalhoPratico2
 
                 }
                 //COMPRAR DO LIXO
-                else if("L".equals(entrada) | "l".equals(entrada))
+                else if("L".equals(jogo.entrada) | "l".equals(jogo.entrada))
                 {
                     //VERIFICA SE O LIXO ESTA VAZIO
-                    if(!Lixo.isEmpty())
+                    if(!jogo.Lixo.isEmpty())
                     {
                         //ADICIONA A PRIMEIRA CARTA DA "PILHA" A MAO DO JOGADOR
-                        jogadorAtual.adicionarCarta(Lixo.get(Lixo.size()-1));
+                        jogo.jogadorAtual.adicionarCarta(jogo.Lixo.get(jogo.Lixo.size()-1));
                         //REMOVE A CARTA DO LIXO
-                        Lixo.remove(Lixo.size()-1);
+                        jogo.Lixo.remove(jogo.Lixo.size()-1);
                         //TERMINA O TURNO
-                        turno = false;
+                        jogo.turno = false;
                         Interface.skip();
                         Interface.adicionada();
                         Interface.fimTurno();
@@ -292,17 +284,17 @@ public class TrabalhoPratico2
                     }
                 }
                 //COMPRAR DO MONTE
-                else if("M".equals(entrada) | "m".equals(entrada))
+                else if("M".equals(jogo.entrada) | "m".equals(jogo.entrada))
                 {
                     //VERIFICA SE O MONTE ESTA VAZIO
-                    if(!Monte.isEmpty())
+                    if(!jogo.Monte.isEmpty())
                     {
                         //ADICIONA A PRIMEIRA CARTA DA "PILHA" DO MONTE A MAO DO JOGADOR
-                        jogadorAtual.adicionarCarta(Monte.get(Monte.size()-1));
+                        jogo.jogadorAtual.adicionarCarta(jogo.Monte.get(jogo.Monte.size()-1));
                         //REMOVE A CARTA DO MONTE
-                        Monte.remove(Monte.size()-1);
+                        jogo.Monte.remove(jogo.Monte.size()-1);
                         //TERMINA O TURNO
-                        turno = false;
+                        jogo.turno = false;
                         Interface.skip();
                         Interface.adicionada();
                         Interface.fimTurno();
@@ -315,10 +307,10 @@ public class TrabalhoPratico2
                     }
                 }
                 //PULAR O TURNO
-                else if("P".equals(entrada) | "p".equals(entrada))
+                else if("P".equals(jogo.entrada) | "p".equals(jogo.entrada))
                 {
                     //ANULA O LOOP DE CONTROLE DO TURNO
-                    turno = false;
+                    jogo.turno = false;
                     //
                     Interface.skip();
                     Interface.fimTurno();
@@ -330,13 +322,13 @@ public class TrabalhoPratico2
                 }
             }
             //INCREMENTA O IDENTIFICADOR DO JOGADOR ATUAL
-            idJogadorAtual++;
+            jogo.idJogadorAtual++;
             //CASO O IDENTIFICADOR TENHA EXCEDIDO A QUANTIDADE DE JOGADORES
             //RESETAR O IDENTIFICADOR
-            if(idJogadorAtual == qtdJogadores)
-                idJogadorAtual = 0;
+            if(jogo.idJogadorAtual == jogo.qtdJogadores)
+                jogo.idJogadorAtual = 0;
             //VALIDA O LOOP DE CONTROLE DO TURNO
-            turno = true;
+            jogo.turno = true;
         }
         //IMPORTANTE NOTAR QUE CADA CARTA DO BARALHO SOMENTE TERA UMA INSTANCIA
         //AS CARTAS SERAO INCLUIDAS E REMOVIDAS POR REFERENCIA NA EXECUCAO

@@ -7,6 +7,7 @@ package trabalho.pratico.pkg2.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import trabalho.pratico.pkg2.core.Define;
 import trabalho.pratico.pkg2.modelagem.Carta;
 import trabalho.pratico.pkg2.modelagem.Jogador;
 
@@ -223,12 +224,12 @@ public class Interface
     {
         System.out.println("Bem vindo(a) a partida de Pife!");
         System.out.println("-> Insira a quantidade de jogadores");
-        System.out.println("(Minimo de 2 e maximo de 4 jogadores por partida. Somente numeros.)");
+        System.out.println("(Minimo de "+Integer.toString(Define.MIN_JOGADORES)+" e maximo de "+Integer.toString(Define.MAX_JOGADORES)+" jogadores por partida. Somente numeros.)");
     }
     
-    public static void digiteJogador(int n)
+    public static void digiteJogadores()
     {
-        System.out.println("-> Digite o nome do jogador " + Integer.toString(n));
+        System.out.println("-> Digite os nomes dos jogadores separados por espaco ");
     }
     
     public static void imprimirVitoria(String jogador, List<Carta> mao)
