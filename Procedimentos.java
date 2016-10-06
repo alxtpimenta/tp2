@@ -3,11 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho.pratico.pkg2;
+package trabalho.pratico.pkg2.core;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import trabalho.pratico.pkg2.modelagem.Carta;
+import trabalho.pratico.pkg2.modelagem.Copas;
+import trabalho.pratico.pkg2.modelagem.Espadas;
+import trabalho.pratico.pkg2.modelagem.Jogador;
+import trabalho.pratico.pkg2.modelagem.Ouros;
+import trabalho.pratico.pkg2.modelagem.Paus;
+import trabalho.pratico.pkg2.ui.Interface;
 
 /**
  *

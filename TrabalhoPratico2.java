@@ -8,6 +8,10 @@ package trabalho.pratico.pkg2;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import trabalho.pratico.pkg2.core.Procedimentos;
+import trabalho.pratico.pkg2.modelagem.Carta;
+import trabalho.pratico.pkg2.modelagem.Jogador;
+import trabalho.pratico.pkg2.ui.Interface;
 
 /**
  *
@@ -147,8 +151,11 @@ public class TrabalhoPratico2
                         //
                         if(Procedimentos.verificarVitoria(quadra))
                         {
-                            //CASO A VERIFICACAO SEJA TRUE, A VITORIA E CONFIRMADA
                             //VITORIA
+                            Interface.imprimirVitoria(jogadorAtual.nome(), quadra);
+                            //DESATIVAR LOOPS DE CONTROLE PARA ENCERRAR O JOGO
+                            turno = false;
+                            jogo = false;
                         }
                         else
                         {
@@ -214,6 +221,10 @@ public class TrabalhoPratico2
                         if(Procedimentos.verificarVitoria(trinca1) && Procedimentos.verificarVitoria(trinca2))
                         {
                             //VITORIA
+                            Interface.imprimirVitoria(jogadorAtual.nome(), trinca1, trinca2);
+                            //DESATIVAR LOOPS DE CONTROLE PARA ENCERRAR O JOGO
+                            turno = false;
+                            jogo = false;
                         }
                         else
                         {

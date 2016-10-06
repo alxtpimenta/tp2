@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho.pratico.pkg2;
+package trabalho.pratico.pkg2.modelagem;
 
 /**
  *
@@ -45,3 +45,4 @@ public class Copas extends Carta
     }
     
 }
+

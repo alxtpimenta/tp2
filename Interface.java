@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho.pratico.pkg2;
+package trabalho.pratico.pkg2.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import trabalho.pratico.pkg2.modelagem.Carta;
+import trabalho.pratico.pkg2.modelagem.Jogador;
 
 /**
  *
@@ -227,5 +229,35 @@ public class Interface
     public static void digiteJogador(int n)
     {
         System.out.println("-> Digite o nome do jogador " + Integer.toString(n));
+    }
+    
+    public static void imprimirVitoria(String jogador, List<Carta> mao)
+    {
+        Interface.skip();
+        System.out.println("####### FIM DE JOGO #######");
+        System.out.println("GANHADOR: " + jogador);
+        System.out.println("Mao da jogada:");
+        for(int i = 0; i< mao.size(); i++)
+        {
+            mao.get(i).toString();
+        }
+    }
+    
+    //OVERLOAD
+    public static void imprimirVitoria(String jogador, List<Carta> mao, List<Carta> mao2)
+    {
+        Interface.skip();
+        System.out.println("####### FIM DE JOGO #######");
+        System.out.println("GANHADOR: " + jogador);
+        System.out.println("Mao da jogada:");
+        for(int i = 0; i< mao.size(); i++)
+        {
+            mao.get(i).toString();
+        }
+        System.out.println("");
+        for(int i = 0; i< mao2.size(); i++)
+        {
+            mao2.get(i).toString();
+        }
     }
 }
