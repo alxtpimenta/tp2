@@ -57,4 +57,31 @@ public class Jogador
         return this.maoJogador.size();
     }
     
+    //DISTRIBUI AS CARTAS DE CADA JOGADOR
+    public static void distribuirCartas(List<Jogador> Jogadores, int qtdJogadores, List<Carta> Monte, List<Carta> Baralho)
+    {
+        //DAR 9 CARTAS A CADA JOGADOR E INSERIR O RESTO NO MONTE
+        //AS CARTAS JA FORAM EMBARALHADAS NA INICIALIZACAO
+        //VARIAVEIS PARA INDICAR OS INDICES PARA A INSERCAO
+        int indice = 0;
+        int fim = 9;
+        //INSERIR CARTAS
+        for(int i = 0; i < qtdJogadores; i++)
+        {
+            for(; indice < fim; indice ++)
+            {
+                //ADICIONA A CARTA DO BARALHO A MAO DO JOGADOR
+                Jogadores.get(i).adicionarCartaJogador(Baralho.get(indice));
+            }
+            //INCREMENTAR O FIM (CADA JOGADOR RECEBE NOVE CARTAS)
+            fim = fim + 9;
+        }
+        //O RESTANTE DAS CARTAS SERAO INSERIDAS NO MONTE
+        for(; indice < Baralho.size(); indice ++)
+        {
+            //INSERE CARTAS DO BARALHO NO MONTE
+            Monte.add(Baralho.get(indice));
+        }
+    }
+    
 }

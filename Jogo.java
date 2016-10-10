@@ -10,31 +10,33 @@ import tp2.cartas.*;
 
 public class Jogo 
 {
-    public static void main(String[] args) 
+	public static void main(String[] args) 
     {
-        //CRIAR INSTANCIA SINGLETON DO AMBIENTE DE JOGO
-        Ambiente jogo = Ambiente.getInstancia();
-        //INICIALIZA O AMBIENTE DE JOGO
-        jogo.inicializarAmbiente();
+        //DECLARAR LISTAS DE CARTAS
+        List<Carta> baralho = new ArrayList<>();
+        List<Carta> monte = new ArrayList<>();
+        List<Carta> lixo = new ArrayList<>();
+        //LISTA DE JOGADORES
+        List<Jogador> jogadores = new ArrayList<>();
         //SCANNER PARA LER AS ENTRADAS DA LINHA DE COMANDO
         Scanner scanner = new Scanner(System.in);
-        //BUILDER PARA INICIALIZAR O BARALHO
-        Baralho.inicializarBaralho(jogo);
+        //INICIALIZAR O BARALHO
+        Baralho.inicializarBaralho(baralho);
         //VARIAVEL PARA INSTANCIAR OS JOGADORES
         Jogador jogador;
-        
         //IMPRIMIR TELA DE BOAS VINDAS, E PEDIR DADOS DOS JOGADORES
         UserInterface.boasVindas();
-
-        //GARANTE QUE A ENTRADA ESTEJA DENTRO DOS LIMITES ESPECIFICADOS
+        //ARMAZENA A QUANTIDADE DE JOGADORES
+        int qtdJogadores = 0;
+        //LOOP PARA GARANTIR QUE A ENTRADA SERA MAIR QUE DOIS E MENOR QUE A 4
         while(true)
         {
             if(scanner.hasNextInt())
             {
-                jogo.qtdJogadores = scanner.nextInt();
-                if(jogo.qtdJogadores < Define.MIN_JOGADORES | jogo.qtdJogadores > Define.MAX_JOGADORES)
-                    //CASO A ENTRADA ESTEJA FORA DOS LIMITES ESPECIFICADOS, IMPRIMIR MENSAGEM DE ERRO
-                	UserInterface.erroEntrada();
+                qtdJogadores = scanner.nextInt();
+                if(qtdJogadores < 2 | qtdJogadores > 4)
+                    //CASO A ENTRADA SEJA MENOR QUE DOIS OU MAIOR QUE QUATRO, IMPRIMIR MENSAGEM DE ERRO
+                    UserInterface.erroEntrada();
                 else
                     //CASO CONTRARIO, FINALIZE O LOOP
                     break;
@@ -42,87 +44,94 @@ public class Jogo
             else
             {
                 //CASO A ENTRADA NAO CONTENHA INTEIROS
-                jogo.entrada = scanner.nextLine();
-                jogo.entrada = null;
-                UserInterface.skip();
-            	UserInterface.erroEntrada();
+                UserInterface.erroEntrada();
+                scanner.close();
             }
                 
         }
         //CRIAR JOGADORES (E PERGUNTAR O NOME AO USUARIO)
-        for(int i = 0; i < jogo.qtdJogadores; i++)
+        for(int i = 0; i < qtdJogadores; i++)
         {
             //PEDE O NOME DO JOGADOR AO USUARIO NA PRIMEIRA ITERACAO
             if(i == 0)
             	UserInterface.digiteJogadores();
             //LER O NOME
-            jogo.entrada = scanner.next();
+            String nome = scanner.next();
             //INSTANCIAR JOGADOR
-            jogador = new Jogador(jogo.entrada);
+            jogador = new Jogador(nome);
             //INSTANCIAR LISTA DE CARTAS DO JOGADOR
             jogador.inicializarMaoJogador();
             //INSERIR JOGADOR NA LISTA
-            jogo.jogadores.add(jogador);
+            jogadores.add(jogador);
         }
         
         //DISTRIBUI AS CARTAS
-        Ambiente.distribuirCartas(jogo);
+        Jogador.distribuirCartas(jogadores, qtdJogadores, monte, baralho);
         
-        //"LIMPA" O CONSOLE E O LEITOR DE ENTRADA
+        //IDENTIFICADOR DO JOGADOR ATUAL
+        int idJogadorAtual = 0;
+        //INSTANCIA DO JOGADOR ATUAL
+        Jogador jogadorAtual;
+        //BOOLEANOS PARA OS LOOPS DE CONTROLE
+        boolean jogo = true;
+        boolean turno = true;
+        //ARMAZENA A ENTRADA DO USUARIO
+        String entrada;
+        //INDICE PARA AS OPERACOES NAS CARTAS
+        int operando;
+        
+        //"LIMPA" O CONSOLE
         UserInterface.skip();
-        jogo.entrada = scanner.nextLine();
-        jogo.entrada = null;
-        
         //LOOP DE CONTROLE DO JOGO
-        while(jogo.jogo)
+        while(jogo)
         {
             //VERIFICACOES PARA O NOVO TURNO
-            Baralho.verificaMonteVazio(jogo.lixo,jogo.monte);
+            Baralho.verificaMonteVazio(lixo,monte);
             //LOOP DE CONTROLE DO TURNO
-            while(jogo.turno)
+            while(turno)
             {
                 //ATUALIZA O JOGADOR ATUAL
-                jogo.jogadorAtual = jogo.jogadores.get(jogo.idJogadorAtual);
+                jogadorAtual = jogadores.get(idJogadorAtual);
                 
-                //IMPRIME A INTERFACE DO JOGO
-                if(jogo.jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
-                	UserInterface.imprimirSessao(jogo.jogadorAtual);
+                //IMPRIME A UserInterface DO JOGO
+                if(jogadorAtual.tamanhoMaoJogador() == 9)
+                    UserInterface.imprimirSessao(jogadorAtual);
                 //SE O JOGADOR PRECISAR COMPRAR UMA CARTA
-                else if(jogo.jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
-                	UserInterface.imprimirSessaoCompra(jogo.jogadorAtual, jogo.lixo.get(jogo.lixo.size()-1));
+                else if(jogadorAtual.tamanhoMaoJogador() == 8)
+                    UserInterface.imprimirSessaoCompra(jogadorAtual, lixo.get(lixo.size()-1));
                 
                 //LE A ENTRADA DO USUARIO
-                jogo.entrada = scanner.next();
+                entrada = scanner.next();
                 
                 //BATER
-                if("B".equals(jogo.entrada) | "b".equals(jogo.entrada))
+                if("B".equals(entrada) | "b".equals(entrada))
                 {
                     //
-                	UserInterface.selecaoPife();
-                    jogo.entrada = scanner.next();
+                    UserInterface.selecaoPife();
+                    entrada = scanner.next();
                     //QUADRA
-                    if("Q".equals(jogo.entrada) | "q".equals(jogo.entrada))
+                    if("Q".equals(entrada) | "q".equals(entrada))
                     {
                         //ARMAZENA A QUADRA A SER SELECIONADA
                         List<Carta> quadra = new ArrayList<>();
                         //
                         for(int i = 0; i< 4; i++)
                         {
-                        	UserInterface.digiteCarta();
+                            UserInterface.digiteCarta();
                             //VERIFICAR SE A ENTRADA E UM INTEIRO
                             if(scanner.hasNextInt())
                             {
-                                jogo.entrada = scanner.next();
-                                jogo.operador = Integer.parseInt(jogo.entrada);
-                                if(Verificadores.verificarEntrada(jogo.operador))
+                                entrada = scanner.next();
+                                operando = Integer.parseInt(entrada);
+                                if(Verificadores.verificarEntrada(operando))
                                 {
-                                    quadra.add(jogo.jogadorAtual.retornarCartaJogador(jogo.operador -1));
+                                    quadra.add(jogadorAtual.retornarCartaJogador(operando -1));
                                     UserInterface.adicionada();
                                 }
                                 else
                                 {
                                     //ENTRADA INVALIDA
-                                	UserInterface.erroEntrada();
+                                    UserInterface.erroEntrada();
                                     i--;
                                 }
                             }
@@ -131,22 +140,22 @@ public class Jogo
                         if(Verificadores.verificarVitoria(quadra))
                         {
                             //VITORIA
-                        	UserInterface.imprimirVitoria(jogo.jogadorAtual.getNomeJogador(), quadra);
+                            UserInterface.imprimirVitoria(jogadorAtual.getNomeJogador(), quadra);
                             //DESATIVAR LOOPS DE CONTROLE PARA ENCERRAR O JOGO
-                            jogo.turno = false;
-                            jogo.jogo = false;
+                            turno = false;
+                            jogo = false;
                         }
                         else
                         {
                             //CASO A VERIFICACAO FALHE, A VITORIA E ANULADA E O TURNO PASSADO
-                        	UserInterface.skip();
-                        	UserInterface.erroVitoria();
-                        	UserInterface.fimTurno();
-                            jogo.turno = false;
+                            UserInterface.skip();
+                            UserInterface.erroVitoria();
+                            UserInterface.fimTurno();
+                            turno = false;
                         }
                     }
                     //DUAS TRINCAS
-                    else if("T".equals(jogo.entrada) | "t".equals(jogo.entrada))
+                    else if("T".equals(entrada) | "t".equals(entrada))
                     {
                         List<Carta> trinca1 = new ArrayList<>();
                         List<Carta> trinca2 = new ArrayList<>();
@@ -154,21 +163,21 @@ public class Jogo
                         UserInterface.primeiraTrinca();
                         for(int i = 0; i< 3; i++)
                         {
-                        	UserInterface.digiteCarta();
+                            UserInterface.digiteCarta();
                             //VERIFICAR SE A ENTRADA E UM INTEIRO
                             if(scanner.hasNextInt())
                             {
-                                jogo.entrada = scanner.next();
-                                jogo.operador = Integer.parseInt(jogo.entrada);
-                                if(Verificadores.verificarEntrada(jogo.operador))
+                                entrada = scanner.next();
+                                operando = Integer.parseInt(entrada);
+                                if(Verificadores.verificarEntrada(operando))
                                 {
-                                    trinca1.add(jogo.jogadorAtual.retornarCartaJogador(jogo.operador -1));
+                                    trinca1.add(jogadorAtual.retornarCartaJogador(operando -1));
                                     UserInterface.adicionada();
                                 }
                                 else
                                 {
                                     //ENTRADA INVALIDA
-                                	UserInterface.erroEntrada();
+                                    UserInterface.erroEntrada();
                                     i--;
                                 }
                             }
@@ -177,21 +186,21 @@ public class Jogo
                         UserInterface.segundaTrinca();
                         for(int i = 0; i< 3; i++)
                         {
-                        	UserInterface.digiteCarta();
+                            UserInterface.digiteCarta();
                             //VERIFICAR SE A ENTRADA E UM INTEIRO
                             if(scanner.hasNextInt())
                             {
-                                jogo.entrada = scanner.next();
-                                jogo.operador = Integer.parseInt(jogo.entrada);
-                                if(Verificadores.verificarEntrada(jogo.operador))
+                                entrada = scanner.next();
+                                operando = Integer.parseInt(entrada);
+                                if(Verificadores.verificarEntrada(operando))
                                 {
-                                    trinca2.add(jogo.jogadorAtual.retornarCartaJogador(jogo.operador -1));
+                                    trinca2.add(jogadorAtual.retornarCartaJogador(operando -1));
                                     UserInterface.adicionada();
                                 }
                                 else
                                 {
                                     //ENTRADA INVALIDA
-                                	UserInterface.erroEntrada();
+                                    UserInterface.erroEntrada();
                                     i--;
                                 }
                             }
@@ -200,65 +209,65 @@ public class Jogo
                         if(Verificadores.verificarVitoria(trinca1) && Verificadores.verificarVitoria(trinca2))
                         {
                             //VITORIA
-                        	UserInterface.imprimirVitoria(jogo.jogadorAtual.getNomeJogador(), trinca1, trinca2);
+                            UserInterface.imprimirVitoria(jogadorAtual.getNomeJogador(), trinca1, trinca2);
                             //DESATIVAR LOOPS DE CONTROLE PARA ENCERRAR O JOGO
-                            jogo.turno = false;
-                            jogo.jogo = false;
+                            turno = false;
+                            jogo = false;
                         }
                         else
                         {
                             //VITORIA INVALIDA. PASSAR TURNO
-                        	UserInterface.skip();
-                        	UserInterface.erroVitoria();
-                        	UserInterface.fimTurno();
-                            jogo.turno = false;
+                            UserInterface.skip();
+                            UserInterface.erroVitoria();
+                            UserInterface.fimTurno();
+                            turno = false;
                         }
                     }
                     //SELECAO INVALIDA
                     else
                     {
                         //ENTRADA INVALIDA
-                    	UserInterface.erroEntrada();
+                        UserInterface.erroEntrada();
                     }
                 }
                 //DESCARTAR
-                else if("D".equals(jogo.entrada) | "d".equals(jogo.entrada))
+                else if("D".equals(entrada) | "d".equals(entrada))
                 {
                     //PERGUNTA O USUARIO QUAL A CARTA A SER DESCARTADA
-                	UserInterface.selecaoDescarte();
-                    jogo.entrada = scanner.next();
+                    UserInterface.selecaoDescarte();
+                    entrada = scanner.next();
                     //DETERMINA O OPERANDO
-                    jogo.operador = Integer.parseInt(jogo.entrada);
+                    operando = Integer.parseInt(entrada);
                     //DETERMINA A INTEGRIDADE DO OPERANDO
                     //CASO SEJA VALIDO REMOVER A CARTA
-                    if(Verificadores.verificarEntrada(jogo.operador))
+                    if(Verificadores.verificarEntrada(operando))
                     {
                         //ADICIONAR CARTA AO LIXO
-                        jogo.lixo.add(jogo.jogadorAtual.retornarCartaJogador(jogo.operador-1));
+                        lixo.add(jogadorAtual.retornarCartaJogador(operando-1));
                         //REMOVER DA MAO DO JOGADOR
-                        jogo.jogadorAtual.removerCartaJogador(jogo.operador-1);
+                        jogadorAtual.removerCartaJogador(operando-1);
                         UserInterface.skip();
                         UserInterface.descarte();
                     }
                     else
                     {
                         //ENTRADA INVALIDA
-                    	UserInterface.erroEntrada();
+                        UserInterface.erroEntrada();
                     }
 
                 }
                 //COMPRAR DO LIXO
-                else if("L".equals(jogo.entrada) | "l".equals(jogo.entrada))
+                else if("L".equals(entrada) | "l".equals(entrada))
                 {
                     //VERIFICA SE O LIXO ESTA VAZIO
-                    if(!jogo.lixo.isEmpty())
+                    if(!lixo.isEmpty())
                     {
                         //ADICIONA A PRIMEIRA CARTA DA "PILHA" A MAO DO JOGADOR
-                        jogo.jogadorAtual.adicionarCartaJogador(jogo.lixo.get(jogo.lixo.size()-1));
+                        jogadorAtual.adicionarCartaJogador(lixo.get(lixo.size()-1));
                         //REMOVE A CARTA DO LIXO
-                        jogo.lixo.remove(jogo.lixo.size()-1);
+                        lixo.remove(lixo.size()-1);
                         //TERMINA O TURNO
-                        jogo.turno = false;
+                        turno = false;
                         UserInterface.skip();
                         UserInterface.adicionada();
                         UserInterface.fimTurno();
@@ -267,21 +276,21 @@ public class Jogo
                     {
                         //MENSAGEM DE ERRO
                         //LIXO VAZIO
-                    	UserInterface.erroLixo();
+                        UserInterface.erroLixo();
                     }
                 }
-                //COMPRAR DO MONTE
-                else if("M".equals(jogo.entrada) | "m".equals(jogo.entrada))
+                //COMPRAR DO monte
+                else if("M".equals(entrada) | "m".equals(entrada))
                 {
-                    //VERIFICA SE O MONTE ESTA VAZIO
-                    if(!jogo.monte.isEmpty())
+                    //VERIFICA SE O monte ESTA VAZIO
+                    if(!monte.isEmpty())
                     {
-                        //ADICIONA A PRIMEIRA CARTA DA "PILHA" DO MONTE A MAO DO JOGADOR
-                        jogo.jogadorAtual.adicionarCartaJogador(jogo.monte.get(jogo.monte.size()-1));
-                        //REMOVE A CARTA DO MONTE
-                        jogo.monte.remove(jogo.monte.size()-1);
+                        //ADICIONA A PRIMEIRA CARTA DA "PILHA" DO monte A MAO DO JOGADOR
+                        jogadorAtual.adicionarCartaJogador(monte.get(monte.size()-1));
+                        //REMOVE A CARTA DO monte
+                        monte.remove(monte.size()-1);
                         //TERMINA O TURNO
-                        jogo.turno = false;
+                        turno = false;
                         UserInterface.skip();
                         UserInterface.adicionada();
                         UserInterface.fimTurno();
@@ -289,15 +298,15 @@ public class Jogo
                     else
                     {
                         //MENSAGEM DE ERRO
-                        //MONTE VAZIO
-                    	UserInterface.erroMonte();
+                        //monte VAZIO
+                        UserInterface.erroMonte();
                     }
                 }
                 //PULAR O TURNO
-                else if("P".equals(jogo.entrada) | "p".equals(jogo.entrada))
+                else if("P".equals(entrada) | "p".equals(entrada))
                 {
                     //ANULA O LOOP DE CONTROLE DO TURNO
-                    jogo.turno = false;
+                    turno = false;
                     //
                     UserInterface.skip();
                     UserInterface.fimTurno();
@@ -305,20 +314,20 @@ public class Jogo
                 else
                 {
                     //ENTRADA INVALIDA
-                	UserInterface.erroEntrada();
+                    UserInterface.erroEntrada();
                 }
             }
             //INCREMENTA O IDENTIFICADOR DO JOGADOR ATUAL
-            jogo.idJogadorAtual++;
+            idJogadorAtual++;
             //CASO O IDENTIFICADOR TENHA EXCEDIDO A QUANTIDADE DE JOGADORES
             //RESETAR O IDENTIFICADOR
-            if(jogo.idJogadorAtual == jogo.qtdJogadores)
-                jogo.idJogadorAtual = 0;
+            if(idJogadorAtual == qtdJogadores)
+                idJogadorAtual = 0;
             //VALIDA O LOOP DE CONTROLE DO TURNO
-            jogo.turno = true;
+            turno = true;
         }
         //IMPORTANTE NOTAR QUE CADA CARTA DO BARALHO SOMENTE TERA UMA INSTANCIA
         //AS CARTAS SERAO INCLUIDAS E REMOVIDAS POR REFERENCIA NA EXECUCAO
     }
-    
+        
 }

@@ -10,7 +10,7 @@ import tp2.jogo.Define;
 public class Baralho {
 
 	//CONSTRUTOR DO BARALHO
-    public static void inicializarBaralho(Ambiente jogo)
+    public static void inicializarBaralho(List<Carta> cartas)
     {
         //VARIAVEIS PARA CRIAR INSTANCIAS DE CADA CLASSE DE CARTA
         Espadas espada;
@@ -23,28 +23,28 @@ public class Baralho {
         for(i = 0; i < Define.CARTAS_NAIPE; i++)
         {
             espada = new Espadas(i+1);
-            jogo.baralho.add(espada);
+            cartas.add(espada);
         }
         //ADICIONAR COPAS
         for(i = 0; i < Define.CARTAS_NAIPE; i++)
         {
             copa = new Copas(i+1);
-            jogo.baralho.add(copa);
+            cartas.add(copa);
         }
         //ADICIONAR OUROS
         for(i = 0; i < Define.CARTAS_NAIPE; i++)
         {
             ouro = new Ouros(i+1);
-            jogo.baralho.add(ouro);
+            cartas.add(ouro);
         }
         //ADICIONAR PAUS
         for(i = 0; i < Define.CARTAS_NAIPE; i++)
         {
             pau = new Paus(i+1);
-            jogo.baralho.add(pau);
+            cartas.add(pau);
         }
         //EMBARALHAR O BARALHO
-        embaralharBaralho(jogo.baralho);
+        embaralharBaralho(cartas);
     }
 
     //PROCEDIMENTO QUE RANDOMIZA AS CARTAS DO BARALHO
