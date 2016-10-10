@@ -161,3 +161,20 @@ esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a c
 (Tiago)Diagrama de Classes
 (?)Diagrama de Atividades
 (Ambos)Apresentação
+//Revision 5
+Corrigido bugs existentes na versão antiga do programa principal que foi reimplementada
+
+TO-DO:
+(Alexandre) Refazer a lógica do jogo, o jogador primeiro compra a carta e depois descarta.
+(Tiago)Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo
+mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar
+esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a criação de diversos objetos de estrutura parecida)
+(Tiago) Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo
+(Tiago) Alterar o nome das funções da classe UserInterface, para deixar o nome mais descritivo
+(Tiago)Modularizar a classe UserInterface, pois ela está muito extensa
+(Tiago)Modularizar a classe Jogo e renomea-lá, também por estar extensa
+***Ao realizar essa modularização pode ser necessário a mudança de pckgs de classes e até a criação de novos pckgs*** -- (Não se esqueça de explicitar nos changelogs a mudança dos pacotes)
+(Ambos) Documentar
+(Tiago)Diagrama de Classes
+(?)Diagrama de Atividades
+(Ambos)Apresentação

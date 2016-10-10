@@ -28,14 +28,14 @@ public class Jogo
         UserInterface.boasVindas();
         //ARMAZENA A QUANTIDADE DE JOGADORES
         int qtdJogadores = 0;
-        //LOOP PARA GARANTIR QUE A ENTRADA SERA MAIR QUE DOIS E MENOR QUE A 4
+        //GARANTE QUE A ENTRADA ESTEJA DENTRO DOS LIMITES ESPECIFICADOS
         while(true)
         {
             if(scanner.hasNextInt())
             {
                 qtdJogadores = scanner.nextInt();
-                if(qtdJogadores < 2 | qtdJogadores > 4)
-                    //CASO A ENTRADA SEJA MENOR QUE DOIS OU MAIOR QUE QUATRO, IMPRIMIR MENSAGEM DE ERRO
+                if(jogo.qtdJogadores < Define.MIN_JOGADORES | jogo.qtdJogadores > Define.MAX_JOGADORES)
+                    //CASO A ENTRADA ESTEJA FORA DOS LIMITES ESPECIFICADOS, IMPRIMIR MENSAGEM DE ERRO
                     UserInterface.erroEntrada();
                 else
                     //CASO CONTRARIO, FINALIZE O LOOP
@@ -44,8 +44,10 @@ public class Jogo
             else
             {
                 //CASO A ENTRADA NAO CONTENHA INTEIROS
-                UserInterface.erroEntrada();
-                scanner.close();
+                jogo.entrada = scanner.nextLine();
+                jogo.entrada = null;
+                UserInterface.skip();
+            	UserInterface.erroEntrada();
             }
                 
         }
