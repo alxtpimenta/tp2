@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package trabalho.pratico.pkg2.core;
+package tp2.ambiente;
+
+import tp2.cartas.*;
+import tp2.jogo.Define;
 
 import java.util.ArrayList;
 import java.util.List;
-import trabalho.pratico.pkg2.modelagem.Carta;
-import trabalho.pratico.pkg2.modelagem.Jogador;
+
 
 /**
  *
@@ -21,7 +18,7 @@ public class Ambiente
     protected Ambiente(){} //PARA DESATIVAR INSTANCIACAO (SINGLETON)
     
     //CONSTRUTOR
-    public static Ambiente retornarInstancia()
+    public static Ambiente getInstancia()
     {
         if(instancia == null)
             instancia = new Ambiente();
@@ -30,12 +27,12 @@ public class Ambiente
     }
     
     //CARTAS DO AMBIENTE DE JOGO
-    public List<Carta> Baralho;
-    public List<Carta> Monte;
-    public List<Carta> Lixo;
+    public List<Carta> baralho;
+    public List<Carta> monte;
+    public List<Carta> lixo;
     
     //JOGADORES
-    public List<Jogador> Jogadores;
+    public List<Jogador> jogadores;
     //JOGADOR ATIVO NO TURNO
     public Jogador jogadorAtual;
     
@@ -51,14 +48,14 @@ public class Ambiente
     public int idJogadorAtual;
     public int qtdJogadores;
     
-    public void inicializar()
+    public void inicializarAmbiente()
     {
         //ALOCA A LISTA DE CARTAS
-        this.Baralho = new ArrayList<>();
-        this.Monte = new ArrayList<>();
-        this.Lixo = new ArrayList<>();
+        this.baralho = new ArrayList<>();
+        this.monte = new ArrayList<>();
+        this.lixo = new ArrayList<>();
         //ALOCA A LISTA DE JOGADORES
-        this.Jogadores = new ArrayList<>();
+        this.jogadores = new ArrayList<>();
         //INICIALIZA AS VARIAVEIS
         jogadorAtual = null;
         turno = true;
@@ -68,5 +65,32 @@ public class Ambiente
         idJogadorAtual = 0;
         qtdJogadores = 0;
     
+    }
+    
+    //RECEBE O AMBIENDE DE JOGO E DISTRIBUI O BARALHO PARA CADA JOGADOR
+    public static void distribuirCartas(Ambiente jogo)
+    {
+        //DAR 9 CARTAS A CADA JOGADOR E INSERIR O RESTO NO MONTE
+        //AS CARTAS JA FORAM EMBARALHADAS NA INICIALIZACAO
+        //VARIAVEIS PARA INDICAR OS INDICES PARA A INSERCAO
+        int indice = 0;
+        int fim = Define.MAX_MAO;
+        //INSERIR CARTAS
+        for(int i = 0; i < jogo.qtdJogadores; i++)
+        {
+            for(; indice < fim; indice ++)
+            {
+                //ADICIONA A CARTA DO BARALHO A MAO DO JOGADOR
+                jogo.jogadores.get(i).adicionarCartaJogador(jogo.baralho.get(indice));
+            }
+            //INCREMENTAR O FIM (CADA JOGADOR RECEBE A QUANTIDADE DEFINIDA DE CARTAS)
+            fim = fim + Define.MAX_MAO;
+        }
+        //O RESTANTE DAS CARTAS SERAO INSERIDAS NO MONTE
+        for(; indice < jogo.baralho.size(); indice ++)
+        {
+            //INSERE CARTAS DO BARALHO NO MONTE
+            jogo.monte.add(jogo.baralho.get(indice));
+        }
     }
 }

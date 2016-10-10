@@ -71,3 +71,75 @@ Variaveis do jogo transferidas para a classe Ambiente
 Programa principal otimizado para utilizar a nova classe Define
 Bugs:
 Corrigido bug na entrada de nomes (se fosse digitado algo alem dos dois nomes eram geradas enradas invalidas)
+
+//Revision 2.1 (Tiago)
+Alterado o nome de várias variáveis para torna-lás mais descritivas
+Diminuido o número de espaços da função skip.
+Separado o código em 3 packages (cartas, ambiente, jogo)
+Movida a superclasse Carta e suas subclasses para o pckg cartas
+Renomeada a classe Trabalho Prático para Jogo e movida para o pckg jogo
+Movida a classe Define para o pckg jogo
+Renomeada a classe Interface(possiveis conflitos de nome) para UserInterface e movida para o pckg jogo
+Movida a classe Ambiente para o pckg ambiente
+Movida a classe Jogador para o pckg ambiente
+Classe Procedimentos dividida em Verificadores e Baralho, e colocadas no pckg ambiente
+
+TO-DO:
+(Tiago)Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo
+mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar
+esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a criação de diversos objetos de estrutura parecida)
+(Alexandre)Corrigir bug de entrada, quando se digita uma string com letras ao invés de um número de jogadores, o programa para de funcionar
+(Alexandre)Comentar a função verificaEntrada, que não sei oq faz, atualmente ela está na classe Jogador pq a maioria das funções
+que usavam ela estavam relacionadas ao jogador.
+(Alexandre)Comentar a classe UserInterface, qual a diferença de imprimirSessao e imprimirSessaoCompra? qual a diferença entre as 2 imprimirVitoria
+(Alexandre) Comentar antes das funções da classes Verificadores e UserInterface, qual a utilidade delas.
+(Tiago) Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo
+(Tiago) Alterar o nome das funções da classe UserInterface, para deixar o nome mais descritivo
+(Tiago)Modularizar a classe UserInterface, pois ela está muito extensa
+(Tiago)Modularizar a classe Jogo e renomea-lá, também por estar extensa
+***Ao realizar essa modularização pode ser necessário a mudança de pckgs de classes e até a criação de novos pckgs***
+(Ambos) Documentar
+(Tiago)Diagrama de Classes
+(?)Diagrama de Atividades
+(?)Apresentação
+
+//Revision 3 (Alexandre)
+Bugs:
+Corrigido bug na entrada (o scanner estava sendo fechado prematuramente, por isso o erro)
+--
+Funções:
+verificaEntrada: A função verifica se a entrada do usuário está dentro dos parâmetros definidos.
+Alterada para a classe verificadores (não é relacionada ao jogador). Comentários adicionados
+Função imprimirSessao e imprimirSessaoCompra: A imprimirSessao imprime a interface caso o usuário tenha 9 cartas em mão.
+A imprimirSessaoCompra imprime a interface caso o usuário tenha 8 cartas (ou seja: é obrigado a comprar). Implementadaas em duas funções separadas para evitar verificações redundantes. Comentários adicionados.
+A existência de duas funções imprimeVitória é evitar verificações redundantes ou a criação de outra função com nome diferente para imprimir a tela de vitória. A primeira função imprime a tela de vitória caso a sequência vitoriosa seja uma quadra, e a segunda é uma sobrecarga (overload, como estava comentado no código) caso a sequência vitoriosa sejam duas trincas (os parâmetros são diferentes).
+Removidas funções redundantes na classe UserInterface.
+--
+Comentários: Não adicionei comentários antes das funções da classe Verificadores pois o funcionamento da função é detalhado, o que considerei redundante. Todavia, comentários adicionados.
+Adicionados comentários que faltavam nas funções de interface.
+Outros comentários revistos.
+--
+GitHub:
+Ao fazer commits no GitHub, não envie os arquivos em zip. Mande os arquivos .java diretamente da pasta de sources de sua IDE, assim é possível ver o que foi alterado, quando e por quem (o que não é possível caso o código seja enviado em zip), além de manter a organização/integridade do reposítorio.
+No nome do commit, coloque qual a revisão, e na descrição, o changelog referente às modificações
+--
+Outros:
+Arquivos enviados em .java ao repositório e (incluindo as mudanças da Revision 2.1 e Revision 3) e .zip removido para manter a integridade.
+Caso necessite assistência na implementação de outros design patterns ou modularização, estou à disposição
+--
+Documentação:
+Irei começar o relatório da documentação, para adiantar.
+--
+TO-DO:
+(Tiago)Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo
+mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar
+esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a criação de diversos objetos de estrutura parecida)
+(Tiago) Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo
+(Tiago) Alterar o nome das funções da classe UserInterface, para deixar o nome mais descritivo
+(Tiago)Modularizar a classe UserInterface, pois ela está muito extensa
+(Tiago)Modularizar a classe Jogo e renomea-lá, também por estar extensa
+***Ao realizar essa modularização pode ser necessário a mudança de pckgs de classes e até a criação de novos pckgs*** -- (Não se esqueça de explicitar nos changelogs a mudança dos pacotes)
+(Ambos) Documentar
+(Tiago)Diagrama de Classes
+(?)Diagrama de Atividades
+(Ambos)Apresentação

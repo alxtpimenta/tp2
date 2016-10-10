@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package trabalho.pratico.pkg2.modelagem;
+package tp2.cartas;
 
 /**
  *
@@ -12,20 +7,20 @@ package trabalho.pratico.pkg2.modelagem;
 public class Copas extends Carta 
 {
     //CONSTRUTOR
-    public Copas(int numero)
+    public Copas(int numeroCarta)
     {
-        this.numero = numero;
-        this.tipo = 1;
+        this.numeroCarta = numeroCarta;
+        this.naipeCarta = 1;
     }
     //RETORNA A CARTA EM FORMA DE STRING
     @Override
     public String toString()
     {
         //CASOS NORMAIS
-        if((this.numero() >= 2) && (this.numero() <= 10))
-            return Integer.toString(this.numero()) + " de Copas";
+        if((this.getNumeroCarta() >= 2) && (this.getNumeroCarta() <= 10))
+            return Integer.toString(this.getNumeroCarta()) + " de Copas";
         //CASOS ESPECIAIS
-        switch (this.numero()) 
+        switch (this.getNumeroCarta()) 
         {
             case 1:
                 return "As de Copas";

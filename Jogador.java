@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package trabalho.pratico.pkg2.modelagem;
+package tp2.ambiente;
 
+import tp2.cartas.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,49 +11,50 @@ import java.util.List;
 public class Jogador 
 {
     //CONSTRUTOR
-    public Jogador(String nome)
+    public Jogador(String nomeJogador)
     {
-        this.nome = nome;
+        this.nomeJogador = nomeJogador;
     }
     //NOME DO JOGADOR
-    private final String nome;
+    private final String nomeJogador;
     //MAO DE CARTAS DO JOGADOR
-    private List<Carta> mao;
+    private List<Carta> maoJogador;
     
-    //RETORNA O NOME
-    public String nome()
+    //RETORNA O NOME DO JOGADOR
+    public String getNomeJogador()
     {
-        return this.nome;
+        return this.nomeJogador;
     }
     
-    //INICIALIZAR VETOR DE BARALHO
-    public void inicializar()
+    //INICIALIZAR VETOR DE BARALHO QUE REPRESENTA A MAO DO JGADOR
+    public void inicializarMaoJogador()
     {
-        this.mao = new ArrayList<>();
+        this.maoJogador = new ArrayList<>();
     }
     
     
-    //ADICIONAR CARTA
-    public void adicionarCarta(Carta c)
+    //ADICIONAR CARTA A MAO DO JOGADOR
+    public void adicionarCartaJogador(Carta c)
     {
-        this.mao.add(c);
+        this.maoJogador.add(c);
     }
     
-    //REMOVER CARTA
-    public void removerCarta(int index)
+    //REMOVER CARTA DA MAO DO JOGADOR
+    public void removerCartaJogador(int index)
     {
-        this.mao.remove(index);
+        this.maoJogador.remove(index);
     }
     
-    //RETORNAR CARTA
-    public Carta retornarCarta(int index)
+    //RETORNAR CARTA DA MAO DO JOGADOR SELECIONADA PELO INDICIE
+    public Carta retornarCartaJogador(int index)
     {
-        return this.mao.get(index);
+        return this.maoJogador.get(index);
     }
     
-    //RETORNA QUANTIDADE DE CARTAS NA MAO
-    public int tamanho()
+    //RETORNA QUANTIDADE DE CARTAS NA MAO DO JOGADOR
+    public int tamanhoMaoJogador()
     {
-        return this.mao.size();
+        return this.maoJogador.size();
     }
+    
 }
