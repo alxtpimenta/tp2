@@ -20,21 +20,23 @@ public class Jogo
         List<Jogador> jogadores = new ArrayList<>();
         //SCANNER PARA LER AS ENTRADAS DA LINHA DE COMANDO
         Scanner scanner = new Scanner(System.in);
+        //ARMAZENA A ENTRADA DO USUARIO
+        String entrada = null;
+        //ARMAZENA A QUANTIDADE DE JOGADORES
+        int qtdJogadores = 0;
         //INICIALIZAR O BARALHO
         Baralho.inicializarBaralho(baralho);
         //VARIAVEL PARA INSTANCIAR OS JOGADORES
         Jogador jogador;
         //IMPRIMIR TELA DE BOAS VINDAS, E PEDIR DADOS DOS JOGADORES
         UserInterface.boasVindas();
-        //ARMAZENA A QUANTIDADE DE JOGADORES
-        int qtdJogadores = 0;
         //GARANTE QUE A ENTRADA ESTEJA DENTRO DOS LIMITES ESPECIFICADOS
         while(true)
         {
             if(scanner.hasNextInt())
             {
                 qtdJogadores = scanner.nextInt();
-                if(jogo.qtdJogadores < Define.MIN_JOGADORES | jogo.qtdJogadores > Define.MAX_JOGADORES)
+                if(qtdJogadores < Define.MIN_JOGADORES | qtdJogadores > Define.MAX_JOGADORES)
                     //CASO A ENTRADA ESTEJA FORA DOS LIMITES ESPECIFICADOS, IMPRIMIR MENSAGEM DE ERRO
                     UserInterface.erroEntrada();
                 else
@@ -44,8 +46,8 @@ public class Jogo
             else
             {
                 //CASO A ENTRADA NAO CONTENHA INTEIROS
-                jogo.entrada = scanner.nextLine();
-                jogo.entrada = null;
+                entrada = scanner.nextLine();
+                entrada = null;
                 UserInterface.skip();
             	UserInterface.erroEntrada();
             }
@@ -77,8 +79,6 @@ public class Jogo
         //BOOLEANOS PARA OS LOOPS DE CONTROLE
         boolean jogo = true;
         boolean turno = true;
-        //ARMAZENA A ENTRADA DO USUARIO
-        String entrada;
         //INDICE PARA AS OPERACOES NAS CARTAS
         int operando;
         
