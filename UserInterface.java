@@ -48,6 +48,7 @@ public class UserInterface
             }
             
         }
+        System.out.println("******** TURNO: "+ jogador.getNomeJogador()+" ********");
         System.out.println("******** VOCE DEVE COMPRAR UMA CARTA ********");
         System.out.println("--------------SUAS CARTAS------------------");
         System.out.println(" ___ ___ ___ ___ ___ ___ ___ ___ __________");
@@ -55,15 +56,21 @@ public class UserInterface
         System.out.println("|"+naipes.get(0)+"  |"+naipes.get(1)+"  |"+naipes.get(2)+"  |"+naipes.get(3)+"  |"+naipes.get(4)+"  |"+naipes.get(5)+"  |"+naipes.get(6)+"  |"+naipes.get(7)+"  |"+"?"+"        |");
         System.out.println("|   |   |   |   |   |   |   |   |         |");
         System.out.println("|   |   |   |   |   |   |   |   |         |");
-        System.out.println("|   |   |   |   |   |   |   |   |        ?|");
-        System.out.println("|   |   |   |   |   |   |   |   |        ?|");
+        System.out.println("|   |   |   |   |   |   |   |   |        "+naipes.get(8)+"|");
+        System.out.println("|   |   |   |   |   |   |   |   |        "+naipes.get(8)+"|");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("  1   2   3   4   5   6   7   8    9");
         System.out.println("Copas: # | Espadas: @ | Ouros: O | Paus: +");
         System.out.println("");
-        System.out.println("PRIMEIRA CARTA DO LIXO: " + lixo.toString());
-        System.out.println("->PRESSIONE L PARA COMPRAR DO LIXO");
-        System.out.println("->PRESSIONE M PARA COMPRAR DO MONTE");
+        //
+        if(lixo != null) //VERIFICA SE O LIXO ESTA VAZIO
+            System.out.println("PRIMEIRA CARTA DO LIXO: " + lixo.toString());
+        else
+            System.out.println("PRIMEIRA CARTA DO LIXO: LIXO VAZIO");
+        //
+        System.out.println("-> PRESSIONE L PARA COMPRAR DO LIXO");
+        System.out.println("-> PRESSIONE M PARA COMPRAR DO MONTE");
+        System.out.println("-> PRESSIONE P PARA PASSAR O TURNO");
     }
     
     //IMPRIME A SESSAO DE JOGO CASO O JOGADOR TENHA NOVE CARTAS
@@ -108,15 +115,15 @@ public class UserInterface
         }
         System.out.println("******** TURNO: "+ jogador.getNomeJogador()+" ********");
         System.out.println("--------------SUAS CARTAS------------------");
-        System.out.println(" ___ ___ ___ ___ ___ ___ ___ ___ __________");
-        System.out.println("|"+numeros.get(0)+"  |"+numeros.get(1)+"  |"+numeros.get(2)+"  |"+numeros.get(3)+"  |"+numeros.get(4)+"  |"+numeros.get(5)+"  |"+numeros.get(6)+"  |"+numeros.get(7)+"  |"+numeros.get(8)+"        |");
-        System.out.println("|"+naipes.get(0)+"  |"+naipes.get(1)+"  |"+naipes.get(2)+"  |"+naipes.get(3)+"  |"+naipes.get(4)+"  |"+naipes.get(5)+"  |"+naipes.get(6)+"  |"+naipes.get(7)+"  |"+naipes.get(8)+"        |");
-        System.out.println("|   |   |   |   |   |   |   |   |         |");
-        System.out.println("|   |   |   |   |   |   |   |   |         |");
-        System.out.println("|   |   |   |   |   |   |   |   |        "+naipes.get(8)+"|");
-        System.out.println("|   |   |   |   |   |   |   |   |        "+numeros.get(8)+"|");
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("  1   2   3   4   5   6   7   8    9");
+        System.out.println(" ___ ___ ___ ___ ___ ___ ___ ___ ___ __________");
+        System.out.println("|"+numeros.get(0)+"  |"+numeros.get(1)+"  |"+numeros.get(2)+"  |"+numeros.get(3)+"  |"+numeros.get(4)+"  |"+numeros.get(5)+"  |"+numeros.get(6)+"  |"+numeros.get(7)+"  |"+numeros.get(8)+"  |"+numeros.get(9)+"        |");
+        System.out.println("|"+naipes.get(0)+"  |"+naipes.get(1)+"  |"+naipes.get(2)+"  |"+naipes.get(3)+"  |"+naipes.get(4)+"  |"+naipes.get(5)+"  |"+naipes.get(6)+"  |"+naipes.get(7)+"  |"+naipes.get(8)+"  |"+naipes.get(9)+"        |");
+        System.out.println("|   |   |   |   |   |   |   |   |   |         |");
+        System.out.println("|   |   |   |   |   |   |   |   |   |         |");
+        System.out.println("|   |   |   |   |   |   |   |   |   |        "+naipes.get(9)+"|");
+        System.out.println("|   |   |   |   |   |   |   |   |   |        "+numeros.get(9)+"|");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("  1   2   3   4   5   6   7   8    9    10");
         System.out.println("Copas: # | Espadas: @ | Ouros: O | Paus: +");
         System.out.println("");
         System.out.println("-> PRESSIONE D PARA DESCARTAR UMA CARTA");

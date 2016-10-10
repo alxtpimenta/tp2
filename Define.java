@@ -13,7 +13,7 @@ public class Define
    //CARTAS POR NAIPE
    public static final int CARTAS_NAIPE = 12;
    //NUMERO PADRAO (MAXIMO) DE CARTAS POR MAO
-   public static final int MAX_MAO = 9;
+   public static final int MAX_MAO = 10;
    //NUMERO MINIMO DE CARTAS POR MAO
-   public static final int MIN_MAO = 8;
+   public static final int MIN_MAO = 9;
 }

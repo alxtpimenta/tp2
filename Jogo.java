@@ -95,18 +95,21 @@ public class Jogo
                 //ATUALIZA O JOGADOR ATUAL
                 jogadorAtual = jogadores.get(idJogadorAtual);
                 
-                //IMPRIME A UserInterface DO JOGO
-                if(jogadorAtual.tamanhoMaoJogador() == 9)
-                    UserInterface.imprimirSessao(jogadorAtual);
                 //SE O JOGADOR PRECISAR COMPRAR UMA CARTA
-                else if(jogadorAtual.tamanhoMaoJogador() == 8)
-                    UserInterface.imprimirSessaoCompra(jogadorAtual, lixo.get(lixo.size()-1));
+                if(jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
+                    if(lixo.size() > 1)
+                        UserInterface.imprimirSessaoCompra(jogadorAtual, lixo.get(lixo.size()-1));
+                    else
+                        UserInterface.imprimirSessaoCompra(jogadorAtual, null);
+                //IMPRIMIR SESSAO ATUAL
+                else if(jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
+                    UserInterface.imprimirSessao(jogadorAtual);
                 
                 //LE A ENTRADA DO USUARIO
                 entrada = scanner.next();
                 
                 //BATER
-                if("B".equals(entrada) | "b".equals(entrada))
+                if(("B".equals(entrada) | "b".equals(entrada)) && jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
                 {
                     //
                     UserInterface.selecaoPife();
@@ -233,7 +236,7 @@ public class Jogo
                     }
                 }
                 //DESCARTAR
-                else if("D".equals(entrada) | "d".equals(entrada))
+                else if(("D".equals(entrada) | "d".equals(entrada)) && jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
                 {
                     //PERGUNTA O USUARIO QUAL A CARTA A SER DESCARTADA
                     UserInterface.selecaoDescarte();
@@ -248,8 +251,11 @@ public class Jogo
                         lixo.add(jogadorAtual.retornarCartaJogador(operando-1));
                         //REMOVER DA MAO DO JOGADOR
                         jogadorAtual.removerCartaJogador(operando-1);
+                        //TERMINA O TURNO
+                        turno = false;
                         UserInterface.skip();
                         UserInterface.descarte();
+                        UserInterface.fimTurno();
                     }
                     else
                     {
@@ -259,7 +265,7 @@ public class Jogo
 
                 }
                 //COMPRAR DO LIXO
-                else if("L".equals(entrada) | "l".equals(entrada))
+                else if(("L".equals(entrada) | "l".equals(entrada)) && jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
                 {
                     //VERIFICA SE O LIXO ESTA VAZIO
                     if(!lixo.isEmpty())
@@ -268,11 +274,6 @@ public class Jogo
                         jogadorAtual.adicionarCartaJogador(lixo.get(lixo.size()-1));
                         //REMOVE A CARTA DO LIXO
                         lixo.remove(lixo.size()-1);
-                        //TERMINA O TURNO
-                        turno = false;
-                        UserInterface.skip();
-                        UserInterface.adicionada();
-                        UserInterface.fimTurno();
                     }
                     else
                     {
@@ -282,7 +283,7 @@ public class Jogo
                     }
                 }
                 //COMPRAR DO monte
-                else if("M".equals(entrada) | "m".equals(entrada))
+                else if(("M".equals(entrada) | "m".equals(entrada)) && jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
                 {
                     //VERIFICA SE O monte ESTA VAZIO
                     if(!monte.isEmpty())
@@ -291,11 +292,6 @@ public class Jogo
                         jogadorAtual.adicionarCartaJogador(monte.get(monte.size()-1));
                         //REMOVE A CARTA DO monte
                         monte.remove(monte.size()-1);
-                        //TERMINA O TURNO
-                        turno = false;
-                        UserInterface.skip();
-                        UserInterface.adicionada();
-                        UserInterface.fimTurno();
                     }
                     else
                     {

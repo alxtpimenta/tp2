@@ -127,6 +127,6 @@ public class Verificadores
     //VERIFICA SE A ENTRADA DO USUARIO ESTA EM CONFORMES COM O DEFINIDO NA CLASSE DEFINE
     public static boolean verificarEntrada(int entrada)
     {
-        return entrada >= 1 && entrada <= 9;
+        return entrada >= 1 && entrada <= 10;
     }
 }

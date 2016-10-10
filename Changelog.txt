@@ -161,7 +161,7 @@ esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a c
 (Tiago)Diagrama de Classes
 (?)Diagrama de Atividades
 (Ambos)Apresentação
-//Revision 5
+//Revision 5 (Alexandre)
 Corrigido bugs existentes na versão antiga do programa principal que foi reimplementada
 
 TO-DO:
@@ -178,3 +178,10 @@ esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a c
 (Tiago)Diagrama de Classes
 (?)Diagrama de Atividades
 (Ambos)Apresentação
+//Revision 6 (Alexandre)
+Programa principal:
+Lógica do jogo "invertida". O jogador deve comprar uma carta antes de bater/descartar.
+Bugs:
+Corrigido bug em que o jogador poderia inserir uma opção não pertinente ao turno (e.g Descartar quando se tem 9 cartas)
+UserInterface:
+Funções alteradas para acomodas as mudanças no programa principal (as funções imprimem 10 e 9 cartas)
