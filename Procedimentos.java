@@ -20,20 +20,19 @@ public class Procedimentos
     //ADICIONA AS CARTAS SELECIONADAS NA LISTA REFERENCIADA
     public static void selecionarCartas(List<Carta> selecao,Sessao jogo, int quantidade)
     {
+        //PEDE QUE O USUARIO DIGITE AS CARTAS
         UserInterface.digiteCarta();
-        //
-        String entrada;
-        int operando;
+        //INSERE O NUMERO REFERENCIADO DE CARTAS NA LISTA REFERENCIADA
         for(int i = 0; i < quantidade; i++)
         {
             //CERTIFICA QUE A ENTRADA E UM INTEIRO
             if(jogo.scanner.hasNextInt())
             {
-                entrada = jogo.scanner.next();
-                operando = Integer.parseInt(entrada);
-                if(Verificadores.verificarEntrada(operando))
+                jogo.entrada = jogo.scanner.next();
+                jogo.operando = Integer.parseInt(jogo.entrada);
+                if(Verificadores.verificarEntrada(jogo.operando))
                 {
-                    selecao.add(jogo.jogadorAtual.retornarCartaJogador(operando -1));
+                    selecao.add(jogo.jogadorAtual.retornarCartaJogador(jogo.operando -1));
                     UserInterface.adicionada();
                 }
                 else
@@ -65,12 +64,53 @@ public class Procedimentos
         }
     }
     
+    //PROCEDIMENTOS POS TURNO
+    public static void posTurno(Sessao jogo)
+    {
+        //INCREMENTA O IDENTIFICADOR DO JOGADOR ATUAL
+        jogo.idJogadorAtual++;
+        //CASO O IDENTIFICADOR TENHA EXCEDIDO A QUANTIDADE DE JOGADORES, RESETAR
+        if(jogo.idJogadorAtual == jogo.qtdJogadores)
+            jogo.idJogadorAtual = 0;
+        
+        //VALIDA O CONTROLADOR DO LOOP DE TURNO
+        jogo.turno = true;
+    }
+    
+    //RECEBER QUANTIDADE DE JOGADORES
+    public static void iniciarQtdJogadores(Sessao jogo)
+    {
+        //GARANTE QUE A ENTRADA ESTEJA DENTRO DOS LIMITES ESPECIFICADOS NA CLASSE DEFINE
+        while(true)
+        {
+            if(jogo.scanner.hasNextInt())
+            {
+                jogo.qtdJogadores = jogo.scanner.nextInt();
+                if(jogo.qtdJogadores < Define.MIN_JOGADORES | jogo.qtdJogadores > Define.MAX_JOGADORES)
+                    //CASO A ENTRADA ESTEJA FORA DOS LIMITES ESPECIFICADOS, IMPRIMIR MENSAGEM DE ERRO
+                    UserInterface.erroEntrada();
+                else
+                    //CASO CONTRARIO A ENTRADA ESTA CORRETA E O LOOP SERA FINALIZADO
+                    break;
+            }
+            else
+            {
+                //CASO A ENTRADA NAO CONTENHA INTEIROS
+                jogo.entrada = jogo.scanner.nextLine();
+                jogo.entrada = null;
+                //SAIDA PARA UI
+                UserInterface.skip();
+                UserInterface.erroEntrada();
+            } 
+        }
+    }
+    
     //PASSA O TURNO
     public static void anularTurno(Sessao jogo)
     {
-        //
+        //ANULA O CONTROLADOR DE LOOP
         jogo.turno = false;
-        //
+        //SAIDA PARA UI
         UserInterface.skip();
         UserInterface.fimTurno();
     }
@@ -78,7 +118,7 @@ public class Procedimentos
     //ENCERRA O JOGO
     public static void anularJogo(Sessao jogo)
     {
-        //
+        //ANULA OS CONTROLADORES DE LOOP
         jogo.turno = false;
         jogo.jogo = false;
     }
@@ -143,11 +183,11 @@ public class Procedimentos
         
         //SELECIONAR PRIMEIRA TRINCA
         UserInterface.primeiraTrinca();
-        Procedimentos.selecionarCartas(trinca1, jogo, 3);
+        Procedimentos.selecionarCartas(trinca1, jogo, Define.TRINCA);
         
         //SELECIONAR SEGUNDA TRINCA
         UserInterface.segundaTrinca();
-        Procedimentos.selecionarCartas(trinca2, jogo, 3);
+        Procedimentos.selecionarCartas(trinca2, jogo, Define.TRINCA);
         
         //VERIFICAR VITORIA
         verificarVitoria(trinca1,trinca2,jogo);
@@ -160,7 +200,7 @@ public class Procedimentos
         
         //SELECIONAR QUADRA
         UserInterface.selecionarQuadra();
-        Procedimentos.selecionarCartas(quadra, jogo, 4);
+        Procedimentos.selecionarCartas(quadra, jogo, Define.QUADRA);
         
         //VERIFICAR VITORIA
         verificarVitoria(quadra, jogo);

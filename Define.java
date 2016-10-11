@@ -16,4 +16,8 @@ public class Define
    public static final int MAX_MAO = 10;
    //NUMERO MINIMO DE CARTAS POR MAO
    public static final int MIN_MAO = 9;
+   //NUMERO DE CARTAS EM UMA TRINCA
+   public static final int TRINCA = 3;
+   //NUMERO DE CARTAS EM UMA QUADRA
+   public static final int QUADRA = 4;
 }

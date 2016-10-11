@@ -3,6 +3,7 @@ package tp2.ambiente;
 import java.util.Collections;
 import java.util.List;
 import tp2.cartas.Carta;
+import tp2.jogo.Define;
 
 public class Verificadores
 {
@@ -124,6 +125,6 @@ public class Verificadores
     //VERIFICA SE A ENTRADA DO USUARIO ESTA EM CONFORMES COM O DEFINIDO NA CLASSE DEFINE
     public static boolean verificarEntrada(int entrada)
     {
-        return entrada >= 1 && entrada <= 10;
+        return entrada >= 1 && entrada <= Define.MAX_MAO;
     }
 }

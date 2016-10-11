@@ -6,53 +6,36 @@ public class Jogo
 {
 	public static void main(String[] args) 
     {
-        //INICIALIZAR SESSAO DO JOGO
+        //INICIALIZAR O SINGLETON DE SESSAO DO JOGO
         Sessao jogo;
         jogo = Sessao.retornarInstancia();
         jogo.inicializar();
 
         //INICIALIZA O BARALHO
         Baralho.inicializarBaralho(jogo.baralho);
-        //IMPRIMIR TELA DE BOAS VINDAS, E PEDIR DADOS DOS JOGADORES
+        
+        //IMPRIMIR TELA DE BOAS VINDAS, E PEDIR QUANTIDADE DE JOGADORES
         UserInterface.boasVindas();
         
-        //GARANTE QUE A ENTRADA ESTEJA DENTRO DOS LIMITES ESPECIFICADOS
-        while(true)
-        {
-            if(jogo.scanner.hasNextInt())
-            {
-                jogo.qtdJogadores = jogo.scanner.nextInt();
-                if(jogo.qtdJogadores < Define.MIN_JOGADORES | jogo.qtdJogadores > Define.MAX_JOGADORES)
-                    //CASO A ENTRADA ESTEJA FORA DOS LIMITES ESPECIFICADOS, IMPRIMIR MENSAGEM DE ERRO
-                    UserInterface.erroEntrada();
-                else
-                    //CASO CONTRARIO, FINALIZE O LOOP
-                    break;
-            }
-            else
-            {
-                //CASO A ENTRADA NAO CONTENHA INTEIROS
-                jogo.entrada = jogo.scanner.nextLine();
-                jogo.entrada = null;
-                UserInterface.skip();
-            	UserInterface.erroEntrada();
-            }
-                
-        }
+        //RECEBE QUANTIDADE DE JOGADORES
+        Procedimentos.iniciarQtdJogadores(jogo);
         
         //CRIA OS JOGADORES
         Jogador.criarJogadores(jogo.jogadores, jogo.qtdJogadores, jogo.scanner);
         
-        //DISTRIBUI AS CARTAS
+        //DISTRIBUI AS CARTAS AOS JOGADORES
         Jogador.distribuirCartas(jogo.jogadores, jogo.qtdJogadores, jogo.monte, jogo.baralho);
         
         //"LIMPA" O CONSOLE
         UserInterface.skip();
+        
         //LOOP DE CONTROLE DO JOGO
         while(jogo.jogo)
         {
             //VERIFICACOES PARA O NOVO TURNO
+            //CASO O MONTE ESTEJA VAZIO, EMBARALHAR O MONTE
             Baralho.verificaMonteVazio(jogo.lixo,jogo.monte);
+            
             //LOOP DE CONTROLE DO TURNO
             while(jogo.turno)
             {
@@ -104,14 +87,8 @@ public class Jogo
                     UserInterface.erroEntrada();
                 }
             }
-            //INCREMENTA O IDENTIFICADOR DO JOGADOR ATUAL
-            jogo.idJogadorAtual++;
-            //CASO O IDENTIFICADOR TENHA EXCEDIDO A QUANTIDADE DE JOGADORES
-            //RESETAR O IDENTIFICADOR
-            if(jogo.idJogadorAtual == jogo.qtdJogadores)
-                jogo.idJogadorAtual = 0;
-            //VALIDA O LOOP DE CONTROLE DO TURNO
-            jogo.turno = true;
+            //VERIFICACOES POS-TURNO
+            Procedimentos.posTurno(jogo);
         }
         //IMPORTANTE NOTAR QUE CADA CARTA DO BARALHO SOMENTE TERA UMA INSTANCIA
         //AS CARTAS SERAO INCLUIDAS E REMOVIDAS POR REFERENCIA NA EXECUCAO

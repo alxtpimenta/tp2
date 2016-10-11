@@ -6,6 +6,7 @@ import java.util.Random;
 
 import tp2.cartas.*;
 import tp2.jogo.Define;
+import tp2.jogo.UserInterface;
 
 public class Baralho {
 
@@ -56,12 +57,17 @@ public class Baralho {
         Collections.shuffle(cartas, new Random(semente));
     }
     
-    //CASO O MONTE ESTEJA VAZIO, O LIXO É EMBARALHADO PARA SE TORNAR MONTE
+    //CASO O MONTE ESTEJA VAZIO, O LIXO ï¿½ EMBARALHADO PARA SE TORNAR MONTE
     public static void verificaMonteVazio(List<Carta> lixo, List<Carta> monte)
     {
         //SE O MONTE ESTIVER VAZIO, EMBARALHAR O LIXO
         if(monte.isEmpty())
-        	embaralharBaralho(lixo);
+        {
+            //EMBARALHAR
+            embaralharBaralho(lixo);
+            //SAIDA DE INTERFACE
+            UserInterface.lixoVazioEmbaralhar();
+        }
     }
     
     

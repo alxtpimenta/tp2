@@ -152,6 +152,12 @@ public class UserInterface
         System.out.println("--Carta descartada!--");
     }
     
+    //CASO O MONTE SEJA EMBARALHADO POR CAUSA DE LIXO VAZIO
+    public static void lixoVazioEmbaralhar()
+    {
+        System.out.println("--- LIXO VAZIO! EMBARALHANDO MONTE! ---");
+    }
+    
     //IMPRIME MENSAGEM DE SELECAO DE DESCARTE
     public static void selecaoDescarte()
     {

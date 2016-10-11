@@ -246,3 +246,43 @@ Diagrama de classes
 Documentar
 Apresentação
 Remover dependencias não necessárias
+
+//Revision 9
+
+Programa principal:
+Entrada do número de jogadores agora é responsabilidade da classe Procedimentos
+Operações pós-turno agora são responsabilidade da classe Procedimentos
+
+Classe Procedimentos:
+Implementado metodo para receber quantidade de jogadores
+Implementado metodo para realizar as operações pós-turno
+
+Classe Define:
+Adicionados definições do número de cartas em uma trinca/quadra (necessário para as funções de verificação)
+
+Geral:
+Funções inutilizadas removidas
+Comentários adicionados/revistos em várias funções
+README do GitHub atualizado
+
+TO-DO:
+(Alexandre)
+Corrigir bug em que o jogador pode descartar e remover cartas quantas vezes quiser sem passar o turno
+Corrigir deformação na interface quando desenhando uma carta de número 10 (substituir por X)
+Consolidar os procedimentos de impressão da interface em um
+Depurar bugs
+Diagrama de atividades
+Padronizar e revisar Changelog para a entrega
+
+(Tiago)
+Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo
+mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar.
+Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo.
+Modularizar a classe UserInterface, pois ela está muito extensa.
+***Ao realizar essa modularização pode ser necessário a mudança de pckgs de classes e até a criação de novos pckgs*** -- (Alexandre)(Não se esqueça de explicitar nos changelogs a mudança dos pacotes)
+Diagrama de classes
+
+(Ambos)
+Documentar
+Apresentação
+Remover dependencias não necessárias
