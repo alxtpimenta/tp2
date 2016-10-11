@@ -3,12 +3,11 @@ package tp2.ambiente;
 import java.util.Collections;
 import java.util.List;
 import tp2.cartas.Carta;
-import tp2.jogo.UserInterface;
 
 public class Verificadores
 {
     //VERIFICA SE A MAO ENVIADA PARA A FUNCAO E VALIDA PARA DECLARAR VITORIA
-    public static boolean verificarVitoria(List<Carta> mao)
+    public static boolean verificarCombinacao(List<Carta> mao)
     {
         if(mesmoNaipe(mao)) //SE AS CARTAS FOREM *TODAS* DO MESMO NAIPE
         {
@@ -64,8 +63,6 @@ public class Verificadores
         }
         else
         {
-            //ERRO DESCONHECIDO
-        	UserInterface.erroDesconhecido();
             return false;
         }
     }

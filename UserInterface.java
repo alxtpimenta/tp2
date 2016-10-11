@@ -210,6 +210,12 @@ public class UserInterface
         System.out.println("->Primeira trinca:");
     }
     
+    //REQUISITA AO USUARIO A SEQUENCIA DE CARTAS DA QUASRA
+    public static void selecionarQuadra()
+    {
+        System.out.println("->Quadra:");
+    }
+    
     //REQUISITA AO USUARIO A SEQUENCIA DE CARTAS DA SEGUNDA TRINCA
     public static void segundaTrinca()
     {
@@ -240,6 +246,11 @@ public class UserInterface
     public static void digiteJogadores()
     {
         System.out.println("-> Digite os nomes dos jogadores separados por espaco ");
+    }
+    
+    public static void combinacaoInvalida()
+    {
+        System.out.println("!!! Combinacao invalida !!!");
     }
     
     //IMPRIME A TELA DE VITORIA (CASO A COMBINACAO VITORIOSA SEJA UMA QUADRA)

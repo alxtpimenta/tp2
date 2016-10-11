@@ -216,3 +216,33 @@ Comentários:
 Talvez seja interessante re-implementar o singleton com o ambiente de jogo. Facilitaria a modularização do programa principal (as funções não precisariam receber tantos argumentos. Código mais elegante)
 Caso não encontre aplicação para mais design patterns, não criar complexidade desnecessária.
 Manter padronização do nome das revisões no GitHub (sempre aumentar por inteiro; e.g; Revision 6 -> Revision 7 -> Revision 8).
+
+//Revision 8
+
+Todos os procedimentos do programa principal agora são responsabilidade da classe Procedimentos
+Criada um singleton Sessao, que armazena todos os dados do jogo (para ser utilizado na classe Procedimentos)
+Programa principal modificado para acomodar as mudanças (muito menos extenso)
+O programa principal agora só depende do pacote ambiente
+Classe Procedimentos:
+Implementação finalizada. *Pode ter bugs não descobertos*
+Comentários inseridos (ainda serão mais detalhados)
+
+//TO-DO
+(Alexandre)
+Depurar bugs na classe Procedimentos
+Mover mais procedimentos do programa principal (e.g Verificação de entrada) para a classe procedimentos
+Consolidar a interface
+Diagrama de atividades
+
+(Tiago)
+Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo
+mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar.
+Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo.
+Modularizar a classe UserInterface, pois ela está muito extensa.
+***Ao realizar essa modularização pode ser necessário a mudança de pckgs de classes e até a criação de novos pckgs*** -- (Alexandre)(Não se esqueça de explicitar nos changelogs a mudança dos pacotes)
+Diagrama de classes
+
+(Ambos)
+Documentar
+Apresentação
+Remover dependencias não necessárias
