@@ -185,3 +185,34 @@ Bugs:
 Corrigido bug em que o jogador poderia inserir uma opção não pertinente ao turno (e.g Descartar quando se tem 9 cartas)
 UserInterface:
 Funções alteradas para acomodas as mudanças no programa principal (as funções imprimem 10 e 9 cartas)
+
+//Revision 7
+
+Criada nova classe Procedimentos no pacote jogo, que contem os procedimentos do programa principal (evita repetição, deixa o programa principal menos extenso)
+
+Programa principal:
+Operações agora são responsabilidade da classe Procedimentos
+
+//TO-DO
+(Alexandre)
+Consolidar a função de imprimir a interface em uma (ao invés de ter duas)
+Transferir os procedimentos de "bater o pife" para a nova classe
+Depurar bugs
+
+(Tiago)
+Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo
+mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar.
+Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo.
+Modularizar a classe UserInterface, pois ela está muito extensa.
+***Ao realizar essa modularização pode ser necessário a mudança de pckgs de classes e até a criação de novos pckgs*** -- (Alexandre)(Não se esqueça de explicitar nos changelogs a mudança dos pacotes)
+Diagrama de classes
+
+(Ambos)
+Documentar
+Apresentação
+
+Comentários:
+
+Talvez seja interessante re-implementar o singleton com o ambiente de jogo. Facilitaria a modularização do programa principal (as funções não precisariam receber tantos argumentos. Código mais elegante)
+Caso não encontre aplicação para mais design patterns, não criar complexidade desnecessária.
+Manter padronização do nome das revisões no GitHub (sempre aumentar por inteiro; e.g; Revision 6 -> Revision 7 -> Revision 8).

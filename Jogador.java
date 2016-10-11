@@ -3,6 +3,8 @@ package tp2.ambiente;
 import tp2.cartas.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import tp2.jogo.UserInterface;
 
 /**
  *
@@ -81,6 +83,31 @@ public class Jogador
         {
             //INSERE CARTAS DO BARALHO NO MONTE
             Monte.add(Baralho.get(indice));
+        }
+    }
+    
+    //CRIA OS JOGADORES
+    //SEPARADO DO PROGRAMA PRINCIPAL
+    //TALVEZ CRIAR OUTRA CLASSE PARA criarJogadores/distribuirCartas ?
+    public static void criarJogadores(List<Jogador> Jogadores, int qtdJogadores, Scanner entrada)
+    {
+        //ARMAZENA O NOME FORNECIDO PELO USUARIO
+        String nome;
+        //INSTANCIA DE CADA NOVO JOGADOR
+        Jogador jogador;
+        //PERGUNTA AO USUARIO OS NOMES
+        UserInterface.digiteJogadores();
+        for(int i=0; i< qtdJogadores; i++)
+        {
+            //LER O NOME
+            nome = entrada.next();
+            //INSTANCIAR JOGADOR
+            jogador = new Jogador(nome);
+            //INSTANCIAR LISTA DE CARTAS DO JOGADOR
+            jogador.inicializarMaoJogador();
+            //INSERIR JOGADOR NA LISTA
+            Jogadores.add(jogador);
+            
         }
     }
     

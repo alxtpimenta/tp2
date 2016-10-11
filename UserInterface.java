@@ -8,16 +8,18 @@ import tp2.cartas.*;
 
 public class UserInterface 
 {
-    //IMPRIME A SESSAO DE JOGO CASO O JOGADOR TENHA 8 CARTAS
-    //(SE O JOGADOR TEM 8 CARTAS, ELE OBRIGATORIAMENTE PRECISA COMPRAR UMA CARTA)
+    //IMPRIME A SESSAO DE JOGO CASO O JOGADOR TENHA O NUMERO MINIMO CARTAS
+    //(SE O JOGADOR TEM O NUMERO MINIMO CARTAS, ELE OBRIGATORIAMENTE PRECISA COMPRAR UMA CARTA)
     public static void imprimirSessaoCompra(Jogador jogador, Carta lixo)
     {
-        //
+        //LISTAS DE NUMEROS E NAIPES PARA A REPRESENTACAO GRAFICA
         List<String> naipes = new ArrayList<>();
         List<String> numeros = new ArrayList<>();
         
+        //PARA CADA CARTA, ADICIONE SUA REPRESENTACAO GRAFICA DE NAIPE E NUMERO NA LISTA
         for(int i = 0; i< jogador.tamanhoMaoJogador(); i++)
         {
+            //NUMEROS
             if(jogador.retornarCartaJogador(i).getNumeroCarta() >= 2 && jogador.retornarCartaJogador(i).getNumeroCarta() <= 10)
                 numeros.add(Integer.toString(jogador.retornarCartaJogador(i).getNumeroCarta()));
             else if(jogador.retornarCartaJogador(i).getNumeroCarta() == 1)
@@ -29,6 +31,7 @@ public class UserInterface
             else
                 UserInterface.erroDesconhecido();
             
+            //NAIPES
             switch (jogador.retornarCartaJogador(i).getNaipeCarta()) 
             {
                 case 1:
@@ -46,8 +49,8 @@ public class UserInterface
                 default:
                     break;
             }
-            
         }
+        //INICIAR A REPRESENTACAO GRAFICA
         System.out.println("******** TURNO: "+ jogador.getNomeJogador()+" ********");
         System.out.println("******** VOCE DEVE COMPRAR UMA CARTA ********");
         System.out.println("--------------SUAS CARTAS------------------");

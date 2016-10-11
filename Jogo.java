@@ -30,6 +30,7 @@ public class Jogo
         Jogador jogador;
         //IMPRIMIR TELA DE BOAS VINDAS, E PEDIR DADOS DOS JOGADORES
         UserInterface.boasVindas();
+        
         //GARANTE QUE A ENTRADA ESTEJA DENTRO DOS LIMITES ESPECIFICADOS
         while(true)
         {
@@ -53,21 +54,9 @@ public class Jogo
             }
                 
         }
-        //CRIAR JOGADORES (E PERGUNTAR O NOME AO USUARIO)
-        for(int i = 0; i < qtdJogadores; i++)
-        {
-            //PEDE O NOME DO JOGADOR AO USUARIO NA PRIMEIRA ITERACAO
-            if(i == 0)
-            	UserInterface.digiteJogadores();
-            //LER O NOME
-            String nome = scanner.next();
-            //INSTANCIAR JOGADOR
-            jogador = new Jogador(nome);
-            //INSTANCIAR LISTA DE CARTAS DO JOGADOR
-            jogador.inicializarMaoJogador();
-            //INSERIR JOGADOR NA LISTA
-            jogadores.add(jogador);
-        }
+        
+        //CRIA OS JOGADORES
+        Jogador.criarJogadores(jogadores, qtdJogadores, scanner);
         
         //DISTRIBUI AS CARTAS
         Jogador.distribuirCartas(jogadores, qtdJogadores, monte, baralho);
@@ -95,13 +84,13 @@ public class Jogo
                 //ATUALIZA O JOGADOR ATUAL
                 jogadorAtual = jogadores.get(idJogadorAtual);
                 
-                //SE O JOGADOR PRECISAR COMPRAR UMA CARTA
+                //IMPRIMIR INTERFACE
                 if(jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
                     if(lixo.size() > 1)
                         UserInterface.imprimirSessaoCompra(jogadorAtual, lixo.get(lixo.size()-1));
                     else
                         UserInterface.imprimirSessaoCompra(jogadorAtual, null);
-                //IMPRIMIR SESSAO ATUAL
+                //CASO O JOGADOR NAO PRECISE COMPRAR
                 else if(jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
                     UserInterface.imprimirSessao(jogadorAtual);
                 
@@ -119,28 +108,9 @@ public class Jogo
                     {
                         //ARMAZENA A QUADRA A SER SELECIONADA
                         List<Carta> quadra = new ArrayList<>();
+                        operando = 4;
                         //
-                        for(int i = 0; i< 4; i++)
-                        {
-                            UserInterface.digiteCarta();
-                            //VERIFICAR SE A ENTRADA E UM INTEIRO
-                            if(scanner.hasNextInt())
-                            {
-                                entrada = scanner.next();
-                                operando = Integer.parseInt(entrada);
-                                if(Verificadores.verificarEntrada(operando))
-                                {
-                                    quadra.add(jogadorAtual.retornarCartaJogador(operando -1));
-                                    UserInterface.adicionada();
-                                }
-                                else
-                                {
-                                    //ENTRADA INVALIDA
-                                    UserInterface.erroEntrada();
-                                    i--;
-                                }
-                            }
-                        }
+                        Procedimentos.selecionarCartas(quadra, jogadorAtual, operando, scanner);
                         //
                         if(Verificadores.verificarVitoria(quadra))
                         {
@@ -164,52 +134,16 @@ public class Jogo
                     {
                         List<Carta> trinca1 = new ArrayList<>();
                         List<Carta> trinca2 = new ArrayList<>();
+                        operando = 3;
+                        
                         //PRIMEIRA TRINCA
                         UserInterface.primeiraTrinca();
-                        for(int i = 0; i< 3; i++)
-                        {
-                            UserInterface.digiteCarta();
-                            //VERIFICAR SE A ENTRADA E UM INTEIRO
-                            if(scanner.hasNextInt())
-                            {
-                                entrada = scanner.next();
-                                operando = Integer.parseInt(entrada);
-                                if(Verificadores.verificarEntrada(operando))
-                                {
-                                    trinca1.add(jogadorAtual.retornarCartaJogador(operando -1));
-                                    UserInterface.adicionada();
-                                }
-                                else
-                                {
-                                    //ENTRADA INVALIDA
-                                    UserInterface.erroEntrada();
-                                    i--;
-                                }
-                            }
-                        }
+                        Procedimentos.selecionarCartas(trinca1, jogadorAtual, operando, scanner);
+                        
                         //SEGUNDA TRINCA
                         UserInterface.segundaTrinca();
-                        for(int i = 0; i< 3; i++)
-                        {
-                            UserInterface.digiteCarta();
-                            //VERIFICAR SE A ENTRADA E UM INTEIRO
-                            if(scanner.hasNextInt())
-                            {
-                                entrada = scanner.next();
-                                operando = Integer.parseInt(entrada);
-                                if(Verificadores.verificarEntrada(operando))
-                                {
-                                    trinca2.add(jogadorAtual.retornarCartaJogador(operando -1));
-                                    UserInterface.adicionada();
-                                }
-                                else
-                                {
-                                    //ENTRADA INVALIDA
-                                    UserInterface.erroEntrada();
-                                    i--;
-                                }
-                            }
-                        }
+                        Procedimentos.selecionarCartas(trinca2, jogadorAtual, operando, scanner);
+                        
                         //VERIFICAR VITORIA
                         if(Verificadores.verificarVitoria(trinca1) && Verificadores.verificarVitoria(trinca2))
                         {
@@ -238,76 +172,25 @@ public class Jogo
                 //DESCARTAR
                 else if(("D".equals(entrada) | "d".equals(entrada)) && jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
                 {
-                    //PERGUNTA O USUARIO QUAL A CARTA A SER DESCARTADA
-                    UserInterface.selecaoDescarte();
-                    entrada = scanner.next();
-                    //DETERMINA O OPERANDO
-                    operando = Integer.parseInt(entrada);
-                    //DETERMINA A INTEGRIDADE DO OPERANDO
-                    //CASO SEJA VALIDO REMOVER A CARTA
-                    if(Verificadores.verificarEntrada(operando))
-                    {
-                        //ADICIONAR CARTA AO LIXO
-                        lixo.add(jogadorAtual.retornarCartaJogador(operando-1));
-                        //REMOVER DA MAO DO JOGADOR
-                        jogadorAtual.removerCartaJogador(operando-1);
-                        //TERMINA O TURNO
-                        turno = false;
-                        UserInterface.skip();
-                        UserInterface.descarte();
-                        UserInterface.fimTurno();
-                    }
-                    else
-                    {
-                        //ENTRADA INVALIDA
-                        UserInterface.erroEntrada();
-                    }
-
+                    //DESCARTA A CARTA
+                    Procedimentos.descartarCarta(jogadorAtual, lixo, scanner);
+                    //ENCERRA O TURNO
+                    Procedimentos.anularTurno(turno);
                 }
                 //COMPRAR DO LIXO
                 else if(("L".equals(entrada) | "l".equals(entrada)) && jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
                 {
-                    //VERIFICA SE O LIXO ESTA VAZIO
-                    if(!lixo.isEmpty())
-                    {
-                        //ADICIONA A PRIMEIRA CARTA DA "PILHA" A MAO DO JOGADOR
-                        jogadorAtual.adicionarCartaJogador(lixo.get(lixo.size()-1));
-                        //REMOVE A CARTA DO LIXO
-                        lixo.remove(lixo.size()-1);
-                    }
-                    else
-                    {
-                        //MENSAGEM DE ERRO
-                        //LIXO VAZIO
-                        UserInterface.erroLixo();
-                    }
+                    Procedimentos.comprarCarta(jogadorAtual, lixo);
                 }
                 //COMPRAR DO monte
                 else if(("M".equals(entrada) | "m".equals(entrada)) && jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
                 {
-                    //VERIFICA SE O monte ESTA VAZIO
-                    if(!monte.isEmpty())
-                    {
-                        //ADICIONA A PRIMEIRA CARTA DA "PILHA" DO monte A MAO DO JOGADOR
-                        jogadorAtual.adicionarCartaJogador(monte.get(monte.size()-1));
-                        //REMOVE A CARTA DO monte
-                        monte.remove(monte.size()-1);
-                    }
-                    else
-                    {
-                        //MENSAGEM DE ERRO
-                        //monte VAZIO
-                        UserInterface.erroMonte();
-                    }
+                    Procedimentos.comprarCarta(jogadorAtual, monte);
                 }
                 //PULAR O TURNO
                 else if("P".equals(entrada) | "p".equals(entrada))
                 {
-                    //ANULA O LOOP DE CONTROLE DO TURNO
-                    turno = false;
-                    //
-                    UserInterface.skip();
-                    UserInterface.fimTurno();
+                    Procedimentos.anularTurno(turno);
                 }
                 else
                 {
