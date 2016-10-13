@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tp2.jogo;
+
+package tp2.ambiente;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import tp2.ambiente.Jogador;
+
 import tp2.cartas.*;
 
 /**
@@ -41,20 +37,20 @@ public class Sessao
     public Jogador jogadorAtual;
     
     //CONTROLES DO LOOP DE JOGO
-    public boolean turno;
-    public boolean jogo;
+    public boolean controlaTurno;
+    public boolean controlaJogo;
     
     //VARIAVEIS DE ENTRADA
     public Scanner scanner;
     public String entrada;
     
     //VARIAVEIS DO JOGO
-    public int operando;
+    public int entradaJogador;
     public int idJogadorAtual;
     public int qtdJogadores;
     
     //INICIALIZA O SINGLETON
-    public void inicializar()
+    public void inicializarSessao()
     {
         //ALOCA A LISTA DE CARTAS
         this.baralho = new ArrayList<>();
@@ -65,10 +61,10 @@ public class Sessao
         //INICIALIZA AS VARIAVEIS
         this.scanner = new Scanner(System.in);
         this.jogadorAtual = null;
-        this.turno = true;
-        this.jogo = true;
+        this.controlaTurno = true;
+        this.controlaJogo = true;
         this.entrada = null;
-        this.operando = 0;
+        this.entradaJogador = 0;
         this.idJogadorAtual = 0;
         this.qtdJogadores = 0;
     

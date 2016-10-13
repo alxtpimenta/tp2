@@ -1,6 +1,7 @@
 package tp2.jogo;
 
 import tp2.ambiente.*;
+import tp2.cartas.Baralho;
 
 public class Jogo 
 {
@@ -9,7 +10,7 @@ public class Jogo
         //INICIALIZAR O SINGLETON DE SESSAO DO JOGO
         Sessao jogo;
         jogo = Sessao.retornarInstancia();
-        jogo.inicializar();
+        jogo.inicializarSessao();
 
         //INICIALIZA O BARALHO
         Baralho.inicializarBaralho(jogo.baralho);
@@ -18,26 +19,32 @@ public class Jogo
         UserInterface.boasVindas();
         
         //RECEBE QUANTIDADE DE JOGADORES
-        Procedimentos.iniciarQtdJogadores(jogo);
+        InteracaoJogoJogador.iniciarQtdJogadores(jogo);
         
+        //PERGUNTA AO USUARIO OS NOMES
+        UserInterface.digiteJogadores();
         //CRIA OS JOGADORES
         Jogador.criarJogadores(jogo.jogadores, jogo.qtdJogadores, jogo.scanner);
         
         //DISTRIBUI AS CARTAS AOS JOGADORES
-        Jogador.distribuirCartas(jogo.jogadores, jogo.qtdJogadores, jogo.monte, jogo.baralho);
+        InteracaoJogoJogador.distribuirCartas(jogo.jogadores, jogo.qtdJogadores, jogo.monte, jogo.baralho);
         
         //"LIMPA" O CONSOLE
         UserInterface.skip();
         
         //LOOP DE CONTROLE DO JOGO
-        while(jogo.jogo)
+        while(jogo.controlaJogo)
         {
             //VERIFICACOES PARA O NOVO TURNO
-            //CASO O MONTE ESTEJA VAZIO, EMBARALHAR O MONTE
-            Baralho.verificaMonteVazio(jogo.lixo,jogo.monte);
+            //CASO O MONTE ESTEJA VAZIO, EMBARALHAR O MONTE E PRINTA NA TELA
+            if(jogo.monte.isEmpty())
+            {
+            	Baralho.transformaLixoMonte(jogo.lixo,jogo.monte);
+            	UserInterface.lixoVazioEmbaralhar();
+            }            
             
             //LOOP DE CONTROLE DO TURNO
-            while(jogo.turno)
+            while(jogo.controlaTurno)
             {
                 //ATUALIZA O JOGADOR ATUAL
                 jogo.jogadorAtual = jogo.jogadores.get(jogo.idJogadorAtual);
@@ -58,28 +65,28 @@ public class Jogo
                 //BATER
                 if(("B".equals(jogo.entrada) | "b".equals(jogo.entrada)) && jogo.jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
                 {
-                    Procedimentos.pife(jogo);
+                    CondicoesVitoria.pife(jogo);
                 }
                 //DESCARTAR
                 else if(("D".equals(jogo.entrada) | "d".equals(jogo.entrada)) && jogo.jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
                 {
                     //DESCARTA A CARTA
-                    Procedimentos.descartarCarta(jogo);
+                	InteracaoJogoJogador.descartarCarta(jogo);
                 }
                 //COMPRAR DO LIXO
                 else if(("L".equals(jogo.entrada) | "l".equals(jogo.entrada)) && jogo.jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
                 {
-                    Procedimentos.comprarCarta(jogo.jogadorAtual, jogo.lixo);
+                	InteracaoJogoJogador.comprarCarta(jogo.jogadorAtual, jogo.lixo);
                 }
-                //COMPRAR DO monte
+                //COMPRAR DO MONTE
                 else if(("M".equals(jogo.entrada) | "m".equals(jogo.entrada)) && jogo.jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
                 {
-                    Procedimentos.comprarCarta(jogo.jogadorAtual, jogo.monte);
+                	InteracaoJogoJogador.comprarCarta(jogo.jogadorAtual, jogo.monte);
                 }
                 //PULAR O TURNO
                 else if("P".equals(jogo.entrada) | "p".equals(jogo.entrada))
                 {
-                    Procedimentos.anularTurno(jogo);
+                	FluxoJogo.anularTurno(jogo);
                 }
                 else
                 {
@@ -88,7 +95,7 @@ public class Jogo
                 }
             }
             //VERIFICACOES POS-TURNO
-            Procedimentos.posTurno(jogo);
+            FluxoJogo.posTurno(jogo);
         }
         //IMPORTANTE NOTAR QUE CADA CARTA DO BARALHO SOMENTE TERA UMA INSTANCIA
         //AS CARTAS SERAO INCLUIDAS E REMOVIDAS POR REFERENCIA NA EXECUCAO

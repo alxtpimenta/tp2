@@ -1,12 +1,8 @@
-package tp2.ambiente;
+package tp2.cartas;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import tp2.cartas.*;
-import tp2.jogo.Define;
-import tp2.jogo.UserInterface;
 
 public class Baralho {
 
@@ -21,25 +17,25 @@ public class Baralho {
         //INTEIRO PARA ITERACAO (DECLARAR ANTES EVITA VARIAS ALOCACOES/DESALOCACOES)
         int i;
         //ADICIONAR ESPADAS
-        for(i = 0; i < Define.CARTAS_NAIPE; i++)
+        for(i = 0; i < 12; i++)
         {
             espada = new Espadas(i+1);
             cartas.add(espada);
         }
         //ADICIONAR COPAS
-        for(i = 0; i < Define.CARTAS_NAIPE; i++)
+        for(i = 0; i < 12; i++)
         {
             copa = new Copas(i+1);
             cartas.add(copa);
         }
         //ADICIONAR OUROS
-        for(i = 0; i < Define.CARTAS_NAIPE; i++)
+        for(i = 0; i < 12; i++)
         {
             ouro = new Ouros(i+1);
             cartas.add(ouro);
         }
         //ADICIONAR PAUS
-        for(i = 0; i < Define.CARTAS_NAIPE; i++)
+        for(i = 0; i < 12; i++)
         {
             pau = new Paus(i+1);
             cartas.add(pau);
@@ -57,17 +53,17 @@ public class Baralho {
         Collections.shuffle(cartas, new Random(semente));
     }
     
-    //CASO O MONTE ESTEJA VAZIO, O LIXO ï¿½ EMBARALHADO PARA SE TORNAR MONTE
-    public static void verificaMonteVazio(List<Carta> lixo, List<Carta> monte)
+    //CASO O MONTE ESTEJA VAZIO, O LIXO É EMBARALHADO PARA SE TORNAR MONTE
+    public static void transformaLixoMonte(List<Carta> lixo, List<Carta> monte)
     {
-        //SE O MONTE ESTIVER VAZIO, EMBARALHAR O LIXO
-        if(monte.isEmpty())
-        {
-            //EMBARALHAR
-            embaralharBaralho(lixo);
-            //SAIDA DE INTERFACE
-            UserInterface.lixoVazioEmbaralhar();
-        }
+        	//EMBARALHAR O LIXO
+        	embaralharBaralho(lixo);
+        	
+        	//TRANSFORMA O LIXO NO MONTE
+        	monte = lixo;
+        	
+        	//LIMPA O LIXO
+        	lixo.clear();
     }
     
     

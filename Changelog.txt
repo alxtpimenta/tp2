@@ -286,3 +286,43 @@ Diagrama de classes
 Documentar
 Apresentação
 Remover dependencias não necessárias
+
+//Revision 10 (Tiago)
+Função verificaMonteVazio renomeada para transformaLixoMonte e ajustada para fazer as devidas alterações no monte/lixo
+Removidas as dependências entre a classe Baralho e os pacotes ambiente e jogo
+Classe Baralho movida para o pacote Cartas
+Método inicializar do singleton renomeado para inicializarSessao
+Variaveis do Singleton jogo e turno renomeadas para controlaJogo e controlaTurno
+Removidas dependências entre a classe Verificadores e o pacote jogo
+Classes Define e UserInterface movidas para o pacote ambiente
+Ajustado nome de variáveis na classe Jogador
+Alterado o nome da variável do Singleton operando para entradaJogador
+Alterada o nome da função verificaEntrada para verificaEntradaJogador
+Classe Verificadores renomeada para AutenticidadeMao
+Procedimentos era uma classe muito genérica então dividi ela em 3:
+1 - FluxoJogo que contém as funções que controlam o fluxo do jogo (posTurno, anularTurno, anularJogo todas de Procedimentos)
+2 - InteracaoJogoJogador(Que foi pro pacote ambiente) que contém as funções que lidam com a interaçao do jogador com o jogo
+( distribuiCartas movida de Jogadores para InteracaoJogoJogador; verificaEntradaJogador movida de AutenticidadeMao para InteracaoJogoJogador;
+iniciarQtdJogadores,selecionaCarta,comprarCarta,descartarCarta todas essa movidas de Procedimentos para InteracaoJogoJogador;)
+3 - CondicoesVitoria que contém as funções que tratam das condições de vitória(pife,trinca,quadra,verificarVitoria todas de Procedimentos)
+
+TO-DO:
+(Alexandre)
+Corrigir bug em que o jogador pode descartar e remover cartas quantas vezes quiser sem passar o turno
+Corrigir deformação na interface quando desenhando uma carta de número 10 (substituir por X)
+Consolidar os procedimentos de impressão da interface em um
+Depurar bugs
+Padronizar e revisar Changelog para a entrega
+
+Comments:
+Depois de todas essa alterações, a única dependência q eu n consegui remover foi a função descartaCarta q tá no pacote ambiente, dependendo do pacote do Jogo.
+Dá uma olhada e vê se vc consegue fazer.
+
+(Tiago)
+Implementado Chain of Responsability para controalr o fluxo do jogo
+Diagrama de classes
+
+(Ambos)
+Documentar
+Apresentação
+Diagrama de Atividades (Achoq dá pra ser nos dois nisso aqui)

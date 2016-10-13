@@ -1,9 +1,8 @@
-package tp2.jogo;
+package tp2.ambiente;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import tp2.ambiente.*;
 import tp2.cartas.*;
 
 public class UserInterface 

@@ -1,4 +1,4 @@
-package tp2.jogo;
+package tp2.ambiente;
 
 /**
 *
