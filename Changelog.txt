@@ -319,10 +319,44 @@ Depois de todas essa alterações, a única dependência q eu n consegui remover
 Dá uma olhada e vê se vc consegue fazer.
 
 (Tiago)
-Implementado Chain of Responsability para controalr o fluxo do jogo
+Implementar Chain of Responsability para controalr o fluxo do jogo
 Diagrama de classes
 
 (Ambos)
 Documentar
 Apresentação
-Diagrama de Atividades (Achoq dá pra ser nos dois nisso aqui) (Alexandre: Beleza)
+Diagrama de Atividades (Achoq dá pra ser nos dois nisso aqui)
+
+
+//Revision 11
+Implementado novo pacote chamado chainofresponsability(nome WIP) q é responsável pelo design pattern chain of responsability
+Nele está presente a interface Cadeia que tem o contrato dos métodos implementados pelos executadores das requisicoes
+A Classe Acao que guarda as variaveis necessárias para a execucao de cada acao.
+E as classes AcaoBater, AcaoCompraLixo, AcaoCompraMonte, AcaoDescartar, AcaoPulaTurno que executam a operacao descrita no seu nome
+Adicionado os métodos e variáveis necessárias na main para a utilizacao da cadeia de responsabilidades
+
+
+TO-DO:
+(Alexandre)
+Corrigir bug em que o jogador pode descartar e remover cartas quantas vezes quiser sem passar o turno
+Corrigir deformação na interface quando desenhando uma carta de número 10 (substituir por X)
+Consolidar os procedimentos de impressão da interface em um
+Depurar bugs
+Padronizar e revisar Changelog para a entrega
+
+(Tiago)
+Melhorar o nome das variáveis da cadeia
+Remover a dependência cíclica entre o pacote jogo e chainofresponsability
+Diagrama de classes
+
+
+(Ambos)
+Documentar
+Apresentação
+Diagrama de Atividades (Achoq dá pra ser nos dois nisso aqui)
+
+Comments:
+Depois de todas essa alterações, a única dependência q eu n consegui remover foi a função descartaCarta q tá no pacote ambiente, dependendo do pacote do Jogo.
+Dá uma olhada e vê se vc consegue fazer.
+
+Outra coisa que eu notei é q no main, o loop do turno pode ser mais modularizado ainda, aqueles ifs grandes que imprimem a interface do jogador pode virar uma função, eu não vou mexer no código hj. Se vc pegar antes tenta fazer isso, senão qnd eu chegar em casa eu faço.

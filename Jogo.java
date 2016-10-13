@@ -2,11 +2,26 @@ package tp2.jogo;
 
 import tp2.ambiente.*;
 import tp2.cartas.Baralho;
+import tp2.chainofresponsability.*;
 
 public class Jogo 
 {
 	public static void main(String[] args) 
     {
+	//INICIA PROCEDIMENTO PARA A CADEIA DE RESPONSABILIDADE QUE CUIDA DAS REQUISICOES
+	//DO JOGADOR
+	Cadeia cadeiaRequest1 = new AcaoBater();
+	Cadeia cadeiaRequest2 = new AcaoCompraLixo();
+	Cadeia cadeiaRequest3 = new AcaoCompraMonte();
+	Cadeia cadeiaRequest4 = new AcaoDescartar();
+	Cadeia cadeiaRequest5 = new AcaoPulaTurno();
+		
+	cadeiaRequest1.setProxCadeia(cadeiaRequest2);
+	cadeiaRequest2.setProxCadeia(cadeiaRequest3);
+	cadeiaRequest3.setProxCadeia(cadeiaRequest4);
+	cadeiaRequest4.setProxCadeia(cadeiaRequest5);
+
+		
         //INICIALIZAR O SINGLETON DE SESSAO DO JOGO
         Sessao jogo;
         jogo = Sessao.retornarInstancia();
@@ -62,37 +77,11 @@ public class Jogo
                 //LE A ENTRADA DO USUARIO
                 jogo.entrada = jogo.scanner.next();
                 
-                //BATER
-                if(("B".equals(jogo.entrada) | "b".equals(jogo.entrada)) && jogo.jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
-                {
-                    CondicoesVitoria.pife(jogo);
-                }
-                //DESCARTAR
-                else if(("D".equals(jogo.entrada) | "d".equals(jogo.entrada)) && jogo.jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
-                {
-                    //DESCARTA A CARTA
-                	InteracaoJogoJogador.descartarCarta(jogo);
-                }
-                //COMPRAR DO LIXO
-                else if(("L".equals(jogo.entrada) | "l".equals(jogo.entrada)) && jogo.jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
-                {
-                	InteracaoJogoJogador.comprarCarta(jogo.jogadorAtual, jogo.lixo);
-                }
-                //COMPRAR DO MONTE
-                else if(("M".equals(jogo.entrada) | "m".equals(jogo.entrada)) && jogo.jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
-                {
-                	InteracaoJogoJogador.comprarCarta(jogo.jogadorAtual, jogo.monte);
-                }
-                //PULAR O TURNO
-                else if("P".equals(jogo.entrada) | "p".equals(jogo.entrada))
-                {
-                	FluxoJogo.anularTurno(jogo);
-                }
-                else
-                {
-                    //ENTRADA INVALIDA
-                    UserInterface.erroEntrada();
-                }
+		//VARIAVEL QUE VAI CONTROLAR AS ACOES DO JOGADOR NO JOGO
+       		Acao acao = new Acao(jogo, jogo.entrada);     		
+       		//PRIMEIRO METODO DA CADEIA DE RESPONSABILIDADE QUE ATENDE A REQUISICAO DA ACAO DO JOGADOR
+       		cadeiaRequest1.acaoJogador(acao);
+
             }
             //VERIFICACOES POS-TURNO
             FluxoJogo.posTurno(jogo);
