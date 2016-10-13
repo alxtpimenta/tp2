@@ -325,4 +325,4 @@ Diagrama de classes
 (Ambos)
 Documentar
 Apresentação
-Diagrama de Atividades (Achoq dá pra ser nos dois nisso aqui)
+Diagrama de Atividades (Achoq dá pra ser nos dois nisso aqui) (Alexandre: Beleza)
