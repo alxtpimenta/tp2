@@ -29,6 +29,4 @@ public class AcaoPulaTurno implements Cadeia
             		UserInterface.erroEntrada();
         	}			
 	}
-	
-
 }

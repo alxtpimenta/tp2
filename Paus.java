@@ -12,6 +12,7 @@ public class Paus extends Carta
        this.numeroCarta = numeroCarta;
        this.naipeCarta = 4;
    }
+   
    //RETORNA A CARTA EM FORMA DE STRING
    @Override
    public String toString()

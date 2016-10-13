@@ -4,7 +4,6 @@ import tp2.ambiente.Sessao;
 
 public class Acao 
 {
-
 	//VARIAVEIS NECESSARIAS PARA A EXECUCAO DA REQUISICAO
 	Sessao jogo;
 	private String requisicao;

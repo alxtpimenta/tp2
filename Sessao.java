@@ -45,6 +45,7 @@ public class Sessao
     public String entrada;
     
     //VARIAVEIS DO JOGO
+	public boolean compraEfetuada;
     public int entradaJogador;
     public int idJogadorAtual;
     public int qtdJogadores;
@@ -67,6 +68,7 @@ public class Sessao
         this.entradaJogador = 0;
         this.idJogadorAtual = 0;
         this.qtdJogadores = 0;
+		this.compraEfetuada = false;
     
     }
 }

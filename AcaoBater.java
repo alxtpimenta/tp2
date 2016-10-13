@@ -30,6 +30,4 @@ public class AcaoBater implements Cadeia
         		proxNaCadeia.acaoJogador(requisicao);
         	}
 	}
-	
-
 }

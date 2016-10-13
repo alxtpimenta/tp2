@@ -38,6 +38,5 @@ public class Copas extends Carta
         return "Erro: Numero de Carta Invalido!";
         
     }
-    
 }
 

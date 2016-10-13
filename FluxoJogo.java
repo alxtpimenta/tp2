@@ -13,7 +13,8 @@ public class FluxoJogo
         //CASO O IDENTIFICADOR TENHA EXCEDIDO A QUANTIDADE DE JOGADORES, RESETAR
         if(jogo.idJogadorAtual == jogo.qtdJogadores)
             jogo.idJogadorAtual = 0;
-        
+        //RESETA O INDICADOR DE COMPRA
+		jogo.compraEfetuada = false;
         //VALIDA O CONTROLADOR DO LOOP DE TURNO
         jogo.controlaTurno = true;
     }
@@ -35,5 +36,4 @@ public class FluxoJogo
         jogo.controlaTurno = false;
         jogo.controlaJogo = false;
     }
-    
 }

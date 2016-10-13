@@ -9,7 +9,7 @@ public class UserInterface
 {
     //IMPRIME A SESSAO DE JOGO CASO O JOGADOR TENHA O NUMERO MINIMO CARTAS
     //(SE O JOGADOR TEM O NUMERO MINIMO CARTAS, ELE OBRIGATORIAMENTE PRECISA COMPRAR UMA CARTA)
-    public static void imprimirSessaoCompra(Jogador jogador, Carta lixo)
+    public static void imprimirInterface(Jogador jogador, Carta lixo)
     {
         //LISTAS DE NUMEROS E NAIPES PARA A REPRESENTACAO GRAFICA
         List<String> naipes = new ArrayList<>();
@@ -19,8 +19,10 @@ public class UserInterface
         for(int i = 0; i< jogador.tamanhoMaoJogador(); i++)
         {
             //NUMEROS
-            if(jogador.retornarCartaJogador(i).getNumeroCarta() >= 2 && jogador.retornarCartaJogador(i).getNumeroCarta() <= 10)
+            if(jogador.retornarCartaJogador(i).getNumeroCarta() >= 2 && jogador.retornarCartaJogador(i).getNumeroCarta() <= 9)
                 numeros.add(Integer.toString(jogador.retornarCartaJogador(i).getNumeroCarta()));
+			else if(jogador.retornarCartaJogador(i).getNumeroCarta() == 10)
+				numeros.add("X");
             else if(jogador.retornarCartaJogador(i).getNumeroCarta() == 1)
                 numeros.add("A");
             else if(jogador.retornarCartaJogador(i).getNumeroCarta() == 11)
@@ -49,88 +51,59 @@ public class UserInterface
                     break;
             }
         }
-        //INICIAR A REPRESENTACAO GRAFICA
-        System.out.println("******** TURNO: "+ jogador.getNomeJogador()+" ********");
-        System.out.println("******** VOCE DEVE COMPRAR UMA CARTA ********");
-        System.out.println("--------------SUAS CARTAS------------------");
-        System.out.println(" ___ ___ ___ ___ ___ ___ ___ ___ __________");
-        System.out.println("|"+numeros.get(0)+"  |"+numeros.get(1)+"  |"+numeros.get(2)+"  |"+numeros.get(3)+"  |"+numeros.get(4)+"  |"+numeros.get(5)+"  |"+numeros.get(6)+"  |"+numeros.get(7)+"  |"+"?"+"        |");
-        System.out.println("|"+naipes.get(0)+"  |"+naipes.get(1)+"  |"+naipes.get(2)+"  |"+naipes.get(3)+"  |"+naipes.get(4)+"  |"+naipes.get(5)+"  |"+naipes.get(6)+"  |"+naipes.get(7)+"  |"+"?"+"        |");
-        System.out.println("|   |   |   |   |   |   |   |   |         |");
-        System.out.println("|   |   |   |   |   |   |   |   |         |");
-        System.out.println("|   |   |   |   |   |   |   |   |        "+naipes.get(8)+"|");
-        System.out.println("|   |   |   |   |   |   |   |   |        "+naipes.get(8)+"|");
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("  1   2   3   4   5   6   7   8    9");
-        System.out.println("Copas: # | Espadas: @ | Ouros: O | Paus: +");
-        System.out.println("");
-        //
-        if(lixo != null) //VERIFICA SE O LIXO ESTA VAZIO
-            System.out.println("PRIMEIRA CARTA DO LIXO: " + lixo.toString());
-        else
-            System.out.println("PRIMEIRA CARTA DO LIXO: LIXO VAZIO");
-        //
-        System.out.println("-> PRESSIONE L PARA COMPRAR DO LIXO");
-        System.out.println("-> PRESSIONE M PARA COMPRAR DO MONTE");
-        System.out.println("-> PRESSIONE P PARA PASSAR O TURNO");
-    }
-    
-    //IMPRIME A SESSAO DE JOGO CASO O JOGADOR TENHA NOVE CARTAS
-    //CASO O JOGADOR TENHA NOVE CARTAS, ELE NAO PRECISA COMPRAR UMA NOVA CARTA
-    public static void imprimirSessao(Jogador jogador)
-    {
-        //
-        List<String> naipes = new ArrayList<>();
-        List<String> numeros = new ArrayList<>();
-        
-        for(int i = 0; i< jogador.tamanhoMaoJogador(); i++)
-        {
-            if(jogador.retornarCartaJogador(i).getNumeroCarta() >= 2 && jogador.retornarCartaJogador(i).getNumeroCarta() <= 10)
-                numeros.add(Integer.toString(jogador.retornarCartaJogador(i).getNumeroCarta()));
-            else if(jogador.retornarCartaJogador(i).getNumeroCarta() == 1)
-                numeros.add("A");
-            else if(jogador.retornarCartaJogador(i).getNumeroCarta() == 11)
-                numeros.add("Q");
-            else if(jogador.retornarCartaJogador(i).getNumeroCarta() == 12)
-                numeros.add("K");
-            else
-            	UserInterface.erroDesconhecido();
-            
-            switch (jogador.retornarCartaJogador(i).getNaipeCarta()) 
-            {
-                case 1:
-                    naipes.add("#");
-                    break;
-                case 2:
-                    naipes.add("@");
-                    break;
-                case 3:
-                    naipes.add("O");
-                    break;
-                case 4:
-                    naipes.add("+");
-                    break;
-                default:
-                    break;
-            }
-            
-        }
-        System.out.println("******** TURNO: "+ jogador.getNomeJogador()+" ********");
-        System.out.println("--------------SUAS CARTAS------------------");
-        System.out.println(" ___ ___ ___ ___ ___ ___ ___ ___ ___ __________");
-        System.out.println("|"+numeros.get(0)+"  |"+numeros.get(1)+"  |"+numeros.get(2)+"  |"+numeros.get(3)+"  |"+numeros.get(4)+"  |"+numeros.get(5)+"  |"+numeros.get(6)+"  |"+numeros.get(7)+"  |"+numeros.get(8)+"  |"+numeros.get(9)+"        |");
-        System.out.println("|"+naipes.get(0)+"  |"+naipes.get(1)+"  |"+naipes.get(2)+"  |"+naipes.get(3)+"  |"+naipes.get(4)+"  |"+naipes.get(5)+"  |"+naipes.get(6)+"  |"+naipes.get(7)+"  |"+naipes.get(8)+"  |"+naipes.get(9)+"        |");
-        System.out.println("|   |   |   |   |   |   |   |   |   |         |");
-        System.out.println("|   |   |   |   |   |   |   |   |   |         |");
-        System.out.println("|   |   |   |   |   |   |   |   |   |        "+naipes.get(9)+"|");
-        System.out.println("|   |   |   |   |   |   |   |   |   |        "+numeros.get(9)+"|");
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("  1   2   3   4   5   6   7   8    9    10");
-        System.out.println("Copas: # | Espadas: @ | Ouros: O | Paus: +");
-        System.out.println("");
-        System.out.println("-> PRESSIONE D PARA DESCARTAR UMA CARTA");
-        System.out.println("-> PRESSIONE B PARA BATER");
-        System.out.println("-> PRESSIONE P PARA PASSAR O TURNO");
+		//SE O JOGADOR TIVER O NUMERO MINIMO DE CARTAS, IMPRIMIR INTERFACE DE COMPRA
+		if(jogador.tamanhoMaoJogador() == Define.MIN_MAO)
+		{
+			//INICIAR A REPRESENTACAO GRAFICA
+			System.out.println("******** TURNO: "+ jogador.getNomeJogador()+" ********");
+			System.out.println("******** VOCE DEVE COMPRAR UMA CARTA ********");
+			System.out.println("--------------SUAS CARTAS------------------");
+			System.out.println(" ___ ___ ___ ___ ___ ___ ___ ___ __________");
+			System.out.println("|"+numeros.get(0)+"  |"+numeros.get(1)+"  |"+numeros.get(2)+"  |"+numeros.get(3)+"  |"+numeros.get(4)+"  |"+numeros.get(5)+"  |"+numeros.get(6)+"  |"+numeros.get(7)+"  |"+"?"+"        |");
+			System.out.println("|"+naipes.get(0)+"  |"+naipes.get(1)+"  |"+naipes.get(2)+"  |"+naipes.get(3)+"  |"+naipes.get(4)+"  |"+naipes.get(5)+"  |"+naipes.get(6)+"  |"+naipes.get(7)+"  |"+"?"+"        |");
+			System.out.println("|   |   |   |   |   |   |   |   |         |");
+			System.out.println("|   |   |   |   |   |   |   |   |         |");
+			System.out.println("|   |   |   |   |   |   |   |   |        "+naipes.get(8)+"|");
+			System.out.println("|   |   |   |   |   |   |   |   |        "+naipes.get(8)+"|");
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println("  1   2   3   4   5   6   7   8    9");
+			System.out.println("Copas: # | Espadas: @ | Ouros: O | Paus: +");
+			System.out.println("");
+			//
+			if(lixo != null) //VERIFICA SE O LIXO ESTA VAZIO
+				System.out.println("PRIMEIRA CARTA DO LIXO: " + lixo.toString());
+			else
+				System.out.println("PRIMEIRA CARTA DO LIXO: LIXO VAZIO");
+			//
+			System.out.println("-> PRESSIONE L PARA COMPRAR DO LIXO");
+			System.out.println("-> PRESSIONE M PARA COMPRAR DO MONTE");
+			System.out.println("-> PRESSIONE P PARA PASSAR O TURNO");
+		}
+		//CASO O JOGADOR TENHA O NUMERO MAXIMO, IMPRIMIR INTERFACE DE DESCARTE/BATER
+		else if(jogador.tamanhoMaoJogador() == Define.MAX_MAO)
+		{
+			System.out.println("******** TURNO: "+ jogador.getNomeJogador()+" ********");
+			System.out.println("--------------SUAS CARTAS------------------");
+			System.out.println(" ___ ___ ___ ___ ___ ___ ___ ___ ___ __________");
+			System.out.println("|"+numeros.get(0)+"  |"+numeros.get(1)+"  |"+numeros.get(2)+"  |"+numeros.get(3)+"  |"+numeros.get(4)+"  |"+numeros.get(5)+"  |"+numeros.get(6)+"  |"+numeros.get(7)+"  |"+numeros.get(8)+"  |"+numeros.get(9)+"        |");
+			System.out.println("|"+naipes.get(0)+"  |"+naipes.get(1)+"  |"+naipes.get(2)+"  |"+naipes.get(3)+"  |"+naipes.get(4)+"  |"+naipes.get(5)+"  |"+naipes.get(6)+"  |"+naipes.get(7)+"  |"+naipes.get(8)+"  |"+naipes.get(9)+"        |");
+			System.out.println("|   |   |   |   |   |   |   |   |   |         |");
+			System.out.println("|   |   |   |   |   |   |   |   |   |         |");
+			System.out.println("|   |   |   |   |   |   |   |   |   |        "+naipes.get(9)+"|");
+			System.out.println("|   |   |   |   |   |   |   |   |   |        "+numeros.get(9)+"|");
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println("  1   2   3   4   5   6   7   8    9    10");
+			System.out.println("Copas: # | Espadas: @ | Ouros: O | Paus: +");
+			System.out.println("");
+			System.out.println("-> PRESSIONE D PARA DESCARTAR UMA CARTA");
+			System.out.println("-> PRESSIONE B PARA BATER");
+			System.out.println("-> PRESSIONE P PARA PASSAR O TURNO");
+		}
+		//CASO NAO TENHA O NUMERO MAXIMO NEM MINIMO, IMPRIMIR ERRO
+		else
+		{
+			UserInterface.erroDesconhecido();
+		}
     }
     
     //"LIMPA" O CONSOLE
@@ -149,6 +122,12 @@ public class UserInterface
     public static void descarte()
     {
         System.out.println("--Carta descartada!--");
+    }
+
+    //MENSAGEM DE ERRO: COMPRA JA REALIZADA NO TURNO
+    public static void erroDescarte()
+    {
+        System.out.println("--- O JOGADOR JA COMPROU UMA CARTA NO TURNO! ---");
     }
     
     //CASO O MONTE SEJA EMBARALHADO POR CAUSA DE LIXO VAZIO
@@ -227,16 +206,10 @@ public class UserInterface
         System.out.println("->Segunda trinca:");
     }
     
-    //MENSAGEM DE ERRO: LIXO VAZIO
-    public static void erroLixo()
+    //MENSAGEM DE ERRO: FONTE VAZIA
+    public static void erroFonteVazia()
     {
-        System.out.println("!!! ERRO: O LIXO ESTA VAZIO! !!!");
-    }
-    
-    //MENSAGEM DE ERRO: MONTE VAZIO
-    public static void erroMonte()
-    {
-        System.out.println("!!! ERRO: O MONTE ESTA VAZIO! !!!");
+        System.out.println("!!! ERRO: A FONTE ESTA! !!!");
     }
     
     //TELA DE BOAS VINDAS

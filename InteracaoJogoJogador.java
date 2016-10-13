@@ -7,7 +7,7 @@ import tp2.jogo.FluxoJogo;
 
 public class InteracaoJogoJogador
 {
-	//RECEBER QUANTIDADE DE JOGADORES
+	//RECEBE QUANTIDADE DE JOGADORES
     public static void iniciarQtdJogadores(Sessao jogo)
     {
         //GARANTE QUE A ENTRADA ESTEJA DENTRO DOS LIMITES ESPECIFICADOS NA CLASSE DEFINE
@@ -38,17 +38,17 @@ public class InteracaoJogoJogador
     //VERIFICA SE A ENTRADA DO USUARIO ESTA EM CONFORMES COM MAXIMO DE CARTAS PERMITIDO
     public static boolean verificarEntradaJogador(int entrada)
     {
-        return entrada >= 1 && entrada <= 10;
+        return entrada >= 1 && entrada <= Define.MAX_MAO;
     }
 	
 	//DISTRIBUI AS CARTAS DE CADA JOGADOR
     public static void distribuirCartas(List<Jogador> jogadores, int qtdJogadores, List<Carta> monte, List<Carta> baralho)
     {
-        //DAR 9 CARTAS A CADA JOGADOR E INSERIR O RESTO NO MONTE
+        //DAR O NUMERO DEFINIDO DE CARTAS CARTAS A CADA JOGADOR E INSERIR O RESTO NO MONTE
         //AS CARTAS JA FORAM EMBARALHADAS NA INICIALIZACAO
         //VARIAVEIS PARA INDICAR OS INDICES PARA A INSERCAO
         int indice = 0;
-        int fim = 9;
+        int fim = Define.MIN_MAO;
         //INSERIR CARTAS
         for(int i = 0; i < qtdJogadores; i++)
         {
@@ -57,8 +57,8 @@ public class InteracaoJogoJogador
                 //ADICIONA A CARTA DO BARALHO A MAO DO JOGADOR
             	jogadores.get(i).adicionarCartaJogador(baralho.get(indice));
             }
-            //INCREMENTAR O FIM (CADA JOGADOR RECEBE NOVE CARTAS)
-            fim = fim + 9;
+            //INCREMENTAR O FIM
+            fim = fim + Define.MIN_MAO;
         }
         //O RESTANTE DAS CARTAS SERAO INSERIDAS NO MONTE
         for(; indice < baralho.size(); indice ++)
@@ -109,17 +109,26 @@ public class InteracaoJogoJogador
             jogadorAtual.adicionarCartaJogador(fonte.get(fonte.size()-1));
             //REMOVE A CARTA DA FONTE
             fonte.remove(fonte.size()-1);
+			//ALTERA O INDICADOR DE COMPRA
+			jogo.compraEfetuada = true;
         }
         else
         {
             //MENSAGEM DE ERRO
-            UserInterface.erroLixo();
+            UserInterface.erroFonteVazia();
         }
     }
 	
     //DESCARTA A CARTA SELECIONADA
     public static void descartarCarta(Sessao jogo)
     {
+		//VERIFICA SE O JOGADOR JA REALIZOU UMA COMPRA NO TURNO
+		if(jogo.compraEfetuada)
+		{
+			//CASO TENHA EFETUADO, ELE NAO PODERA DESCARTAR
+			UserInterface.erroDescarte();
+			return;
+		}
         //PERGUNTA O USUARIO QUAL A CARTA A SER DESCARTADA
         UserInterface.selecaoDescarte();
         jogo.entrada = jogo.scanner.next();

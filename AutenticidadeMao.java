@@ -120,5 +120,4 @@ public class AutenticidadeMao
         //CASO CONTRARIO A SAIDA E TRUE
         return true;
     }    
-
 }

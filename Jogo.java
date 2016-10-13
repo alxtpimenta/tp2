@@ -8,20 +8,17 @@ public class Jogo
 {
 	public static void main(String[] args) 
     {
-	//INICIA PROCEDIMENTO PARA A CADEIA DE RESPONSABILIDADE QUE CUIDA DAS REQUISICOES
-	//DO JOGADOR
-	Cadeia cadeiaRequest1 = new AcaoBater();
-	Cadeia cadeiaRequest2 = new AcaoCompraLixo();
-	Cadeia cadeiaRequest3 = new AcaoCompraMonte();
-	Cadeia cadeiaRequest4 = new AcaoDescartar();
-	Cadeia cadeiaRequest5 = new AcaoPulaTurno();
-		
-	cadeiaRequest1.setProxCadeia(cadeiaRequest2);
-	cadeiaRequest2.setProxCadeia(cadeiaRequest3);
-	cadeiaRequest3.setProxCadeia(cadeiaRequest4);
-	cadeiaRequest4.setProxCadeia(cadeiaRequest5);
-
-		
+		//INICIA PROCEDIMENTO PARA A CADEIA DE RESPONSABILIDADE QUE CUIDA DAS REQUISICOES DO JOGADOR
+		Cadeia cadeiaRequest1 = new AcaoBater();
+		Cadeia cadeiaRequest2 = new AcaoCompraLixo();
+		Cadeia cadeiaRequest3 = new AcaoCompraMonte();
+		Cadeia cadeiaRequest4 = new AcaoDescartar();
+		Cadeia cadeiaRequest5 = new AcaoPulaTurno();
+		//
+		cadeiaRequest1.setProxCadeia(cadeiaRequest2);
+		cadeiaRequest2.setProxCadeia(cadeiaRequest3);
+		cadeiaRequest3.setProxCadeia(cadeiaRequest4);
+		cadeiaRequest4.setProxCadeia(cadeiaRequest5);
         //INICIALIZAR O SINGLETON DE SESSAO DO JOGO
         Sessao jogo;
         jogo = Sessao.retornarInstancia();
@@ -65,22 +62,18 @@ public class Jogo
                 jogo.jogadorAtual = jogo.jogadores.get(jogo.idJogadorAtual);
                 
                 //IMPRIMIR INTERFACE
-                if(jogo.jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
-                    if(jogo.lixo.size() > 1)
-                        UserInterface.imprimirSessaoCompra(jogo.jogadorAtual, jogo.lixo.get(jogo.lixo.size()-1));
-                    else
-                        UserInterface.imprimirSessaoCompra(jogo.jogadorAtual, null);
-                //CASO O JOGADOR NAO PRECISE COMPRAR
-                else if(jogo.jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
-                    UserInterface.imprimirSessao(jogo.jogadorAtual);
+                if(jogo.lixo.size() > 1)
+                    UserInterface.imprimirInterface(jogo.jogadorAtual, jogo.lixo.get(jogo.lixo.size()-1));
+                else
+                    UserInterface.imprimirInterface(jogo.jogadorAtual, null);
                 
                 //LE A ENTRADA DO USUARIO
                 jogo.entrada = jogo.scanner.next();
                 
-		//VARIAVEL QUE VAI CONTROLAR AS ACOES DO JOGADOR NO JOGO
-       		Acao acao = new Acao(jogo, jogo.entrada);     		
-       		//PRIMEIRO METODO DA CADEIA DE RESPONSABILIDADE QUE ATENDE A REQUISICAO DA ACAO DO JOGADOR
-       		cadeiaRequest1.acaoJogador(acao);
+				//VARIAVEL QUE VAI CONTROLAR AS ACOES DO JOGADOR NO JOGO
+				Acao acao = new Acao(jogo, jogo.entrada);     		
+				//PRIMEIRO METODO DA CADEIA DE RESPONSABILIDADE QUE ATENDE A REQUISICAO DA ACAO DO JOGADOR
+				cadeiaRequest1.acaoJogador(acao);
 
             }
             //VERIFICACOES POS-TURNO
@@ -89,5 +82,4 @@ public class Jogo
         //IMPORTANTE NOTAR QUE CADA CARTA DO BARALHO SOMENTE TERA UMA INSTANCIA
         //AS CARTAS SERAO INCLUIDAS E REMOVIDAS POR REFERENCIA NA EXECUCAO
     }
-        
 }

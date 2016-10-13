@@ -29,6 +29,4 @@ public class AcaoCompraLixo implements Cadeia
         		proxNaCadeia.acaoJogador(requisicao);
         	}		
 	}
-	
-
 }

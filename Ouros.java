@@ -12,6 +12,7 @@ public class Ouros extends Carta
        this.numeroCarta = numeroCarta;
        this.naipeCarta = 3;
    }
+   
    //RETORNA A CARTA EM FORMA DE STRING
    @Override
    public String toString()

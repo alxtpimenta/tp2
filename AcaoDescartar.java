@@ -16,14 +16,13 @@ public class AcaoDescartar implements Cadeia
 		this.proxNaCadeia = proxCadeia;
 	}
 
-
 	@Override
 	public void acaoJogador(Acao requisicao) 
 	{
 		//CASO A ACAO SELECIONADA SEJA DE DESCARTE E SEJA POSSIVEL FAZER ISSO INVOCA O METODO PARA A MESMA
      		if(("D".equals(requisicao.jogo.entrada) | "d".equals(requisicao.jogo.entrada)) && requisicao.jogo.jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
        		{
-        		InteracaoJogoJogador.descartarCarta(requisicao.jogo);
+				InteracaoJogoJogador.descartarCarta(requisicao.jogo);
         	}
 		//CASO ISSO NAO SEJA POSSIVEL APONTA PARA O PROXIMO METODO DA CADEIA
         	else
@@ -31,6 +30,4 @@ public class AcaoDescartar implements Cadeia
         		proxNaCadeia.acaoJogador(requisicao);
         	}		
 	}
-	
-
 }

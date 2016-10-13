@@ -4,7 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Baralho {
+public class Baralho 
+{
 
 	//CONSTRUTOR DO BARALHO
     public static void inicializarBaralho(List<Carta> cartas)
@@ -65,7 +66,4 @@ public class Baralho {
         	//LIMPA O LIXO
         	lixo.clear();
     }
-    
-    
-    
 }

@@ -30,6 +30,4 @@ public class AcaoCompraMonte implements Cadeia
         		proxNaCadeia.acaoJogador(requisicao);
         	}		
 	}
-	
-
 }
