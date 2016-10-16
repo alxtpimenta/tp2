@@ -1,7 +1,9 @@
-package tp2.cartas;
+package tp2.procedimentoseinteracoes;
 
 import java.util.Collections;
 import java.util.List;
+
+import tp2.cartas.Carta;
 
 
 public class AutenticidadeMao
@@ -12,7 +14,7 @@ public class AutenticidadeMao
         if(mesmoNaipe(mao)) //SE AS CARTAS FOREM *TODAS* DO MESMO NAIPE
         {
             //VERIFICAR SEQUENCIAS
-            if(mesmaSequencia(mao)) //CASO SEJA A SEQUENCIA SEJA IGUAL
+            if(mesmoNumero(mao)) //CASO SEJA A SEQUENCIA SEJA IGUAL
                 return false;
             else if(sequenciaCrescente(mao)) //CASO A SEQUENCIA SEJA CRESCENTE
                 return true; //A VITORIA E CONFIRMADA
@@ -22,7 +24,7 @@ public class AutenticidadeMao
         else if(diferenteNaipe(mao)) //SE AS CARTAS FOREM *TODAS* COM NAIPES DIFERENTES
         {
             //VERIFICAR SE A SEQUENCIA E A MESMA
-            if(mesmaSequencia(mao))
+            if(mesmoNumero(mao))
                 //CASO SEJA TRUE, A VITORIA E CONFIRMADA
                 return true;
             else
@@ -110,7 +112,7 @@ public class AutenticidadeMao
     }
     
     //VERIFICA SE A SEQUENCIA DAS CARTAS ENVIADA A FUNCAO E A MESMA
-    public static boolean mesmaSequencia(List<Carta> mao)
+    public static boolean mesmoNumero(List<Carta> mao)
     {
         //COMPARA TODAS AS CARTAS COM O NUMERO DA PRIMEIRA CARTA
         for(int i = 0; i < mao.size(); i++)

@@ -1,4 +1,4 @@
-package tp2.jogo;
+package tp2.procedimentoseinteracoes;
 
 import tp2.ambiente.Sessao;
 import tp2.ambiente.UserInterface;
@@ -6,34 +6,34 @@ import tp2.ambiente.UserInterface;
 public class FluxoJogo 
 {
     //PROCEDIMENTOS POS TURNO
-    public static void posTurno(Sessao jogo)
+    public static void posTurno(Sessao sessaoJogo)
     {
         //INCREMENTA O IDENTIFICADOR DO JOGADOR ATUAL
-        jogo.idJogadorAtual++;
+    	sessaoJogo.idJogadorAtual++;
         //CASO O IDENTIFICADOR TENHA EXCEDIDO A QUANTIDADE DE JOGADORES, RESETAR
-        if(jogo.idJogadorAtual == jogo.qtdJogadores)
-            jogo.idJogadorAtual = 0;
+        if(sessaoJogo.idJogadorAtual == sessaoJogo.qtdJogadores)
+        	sessaoJogo.idJogadorAtual = 0;
         //RESETA O INDICADOR DE COMPRA
-		jogo.compraEfetuada = false;
+        sessaoJogo.compraEfetuada = false;
         //VALIDA O CONTROLADOR DO LOOP DE TURNO
-        jogo.controlaTurno = true;
+        sessaoJogo.controlaTurno = true;
     }
 
     //PASSA O TURNO
-    public static void anularTurno(Sessao jogo)
+    public static void anularTurno(Sessao sessaoJogo)
     {
         //ANULA O CONTROLADOR DE LOOP
-        jogo.controlaTurno = false;
+    	sessaoJogo.controlaTurno = false;
         //SAIDA PARA UI
         UserInterface.skip();
         UserInterface.fimTurno();
     }
     
     //ENCERRA O JOGO
-    public static void anularJogo(Sessao jogo)
+    public static void anularJogo(Sessao sessaoJogo)
     {
         //ANULA OS CONTROLADORES DE LOOP
-        jogo.controlaTurno = false;
-        jogo.controlaJogo = false;
+    	sessaoJogo.controlaTurno = false;
+    	sessaoJogo.controlaJogo = false;
     }
 }

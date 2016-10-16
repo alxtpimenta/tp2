@@ -1,106 +1,78 @@
-//Revision 1 (Alexandre)
-Geral:
-Implementada a classe Jogador.
-Criado tela de boas vindas, inicializacao de jogadores e distribuicao de cartas.
-
+2016-09-29 09:03 - Alexandre - Adicionei os arquivos no Google Drive
+2016-09-29 18:24 - Alexandre - Implementada a classe Jogador
+2016-09-29 19:40 - Alexandre - Criado a tela de boas vindas, inicializacao de jogadores e distribuicao de cartas
 //Revision 2 (Alexandre)
-Geral:
-Removido ID de jogadores e cartas (nao utizilado).
-Projeto portado para o GitHub.
-
+Removido ID de jogadores e cartas (nao utizilado)
+PROJETO PORTADO PARA O GITHUB
 //Revision 3 (Alexandre)
-Geral:
 Corrigido bug nas cartas (Pife nao possui valete). Construtor corrigido.
-
-Classes:
 Criada nova classe: Interface. Implementa os metodos para imprimir a interface.
-
 //Revision 4 (Alexandre)
-Geral:
-Corrigido bug na inicializacao das cartas (faltava inicializar o ArrayList da mao de cartas) do jogador.
-
+Corrigido bug na inicializacao das cartas (faltava inicializar o ArrayList da mao de cartas) do jogador
 //Revision 5 (Alexandre)
 Jogador:
 String nome alterada para final
-Mao de cartas do jogador alterado para private.
-Implementados metodos para acesso a mao de cartas do jogador.
-
+Mao de cartas do jogador alterado para private
+Implementados metodos para acesso a mao de cartas do jogador
 Interface:
-Implementados metodos de impressao da Interface.
-
+Implementados metodos de impressao da Interface
 Carta:
-Adidionado integer para identificar o naipe da carta.
-
+Adidionado integer para identificar o naipe da carta
 Main:
-Programa principal implementado.
-
+Programa principal implementado
 TO-DO:
-Verificar as entradas do usuario para evitar conflitos.
-Implementar as condicoes de vitoria.
-Implementar interface de vitoria.
-Implementar verificacao de turno (cada jogador so pode descartar/comprar uma vez por turno).
-
+Verificar as entradas do usuario para evitar conflitos
+Implementar as condicoes de vitoria
+Implementar interface de vitoria
+Implementar verificacao de turno (cada jogador so pode descartar/comprar uma vez por turno)
 //Revision 6 (Alexandre)
 Interface:
-Implementado metodo para limpar o console.
-Aprimoramentos na interface.
-
+Implementado metodo para limpar o console
+Aprimoramentos na interface
 Programa principal:
-Implementado a verificacao de turno.
-Implementada a verificacao de entrada.
-
+Implementado a verificacao de turno
+Implementada a verificacao de entrada
 //Revision 7 (Alexandre)
 Interface:
-Novos metodos implementados.
-Comandos de impressao da interface agora sao responsabilidade da classe interface (exceto em mensagens de erro).
-Mensagens de erro padronizadas.
-Interface padronizada.
-
-TO-DO:
-Terminar condicoes de vitoria
+Novos metodos implementados
+Comandos de impressao da interface agora sao responsabilidade da classe interface (exceto em mensagens de erro)
+Mensagens de erro padronizadas
+Interface padronizada (consistente)
+TODO: Terminar condicoes de vitoria
 Primeira carta do lixo visivel
 Quando monte acabar, reembaralhar lixo
 Modularizacao
-
 //Revision 8 (Alexandre)
 Programa principal:
 Verificacao de vitoria implementada
 Distribuicao de cartas movida para a classe Procedimentos
-
 Interface:
 Mensagens de erros movidas para a classe interface
 Mensagens de boas vindas movidas para a classe interface
 A interface agora mostra a primeira carta do lixo quando o usuario for comprar uma carta
-
 Procedimentos:
 Implementado procedimento para distribuir cartas
 Implementado procedimento para verificar as condicoes do turno (Quando monte acabar, reembaralhar lixo)
-
 TO-DO:
 Implementar tela de vitoria
 Separar o codigo em pacotes (modularizar)
-
-//Revision 9 (Alexandre)
+//Revision Final1 (Alexandre)
 Interface:
 Implementada tela de vitoria
-
 Modularizado em pacotes
-
-//Revision 10 (Alexandre)
+//Revision Final 2 (Alexandre)
 Geral:
 Criada nova classe singleton para conter o ambiente de jogo, evitando o uso de variaveis "espalhadas" pelo programa principal
 Classes builders inicializarBaralho, distribuirCartas e outras consolidadas e alteradas para usar a nova classe de ambiente de jogo
 Implementada nova classe Define, que define as constantes do jogo (numero maximo de cartas, numero de cartas por naipe, etc)
 Funcoes ajustadas para utilizar a nova classe Define
-
 Programa principal:
 Variaveis do jogo transferidas para a classe Ambiente
 Programa principal otimizado para utilizar a nova classe Define
-
 Bugs:
 Corrigido bug na entrada de nomes (se fosse digitado algo alem dos dois nomes eram geradas enradas invalidas)
 
-//Revision 11 (Tiago)
+//Revision 2.1 (Tiago)
 Alterado o nome de várias variáveis para torna-lás mais descritivas
 Diminuido o número de espaços da função skip.
 Separado o código em 3 packages (cartas, ambiente, jogo)
@@ -113,30 +85,28 @@ Movida a classe Jogador para o pckg ambiente
 Classe Procedimentos dividida em Verificadores e Baralho, e colocadas no pckg ambiente
 
 TO-DO:
-
-(Alexandre)
-Corrigir bug de entrada, quando se digita uma string com letras ao invés de um número de jogadores, o programa para de funcionar
-Comentar a classe UserInterface, qual a diferença de imprimirSessao e imprimirSessaoCompra? qual a diferença entre as 2 imprimirVitoria
-Comentar antes das funções da classes Verificadores e UserInterface, qual a utilidade delas.
-
-(Tiago)
-]Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo
-]Alterar o nome das funções da classe UserInterface, para deixar o nome mais descritivo
-]Modularizar a classe UserInterface, pois ela está muito extensa
-]Modularizar a classe Jogo e renomea-lá, também por estar extensa
+(Tiago)Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo
+mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar
+esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a criação de diversos objetos de estrutura parecida)
+(Alexandre)Corrigir bug de entrada, quando se digita uma string com letras ao invés de um número de jogadores, o programa para de funcionar
+(Alexandre)Comentar a função verificaEntrada, que não sei oq faz, atualmente ela está na classe Jogador pq a maioria das funções
+que usavam ela estavam relacionadas ao jogador.
+(Alexandre)Comentar a classe UserInterface, qual a diferença de imprimirSessao e imprimirSessaoCompra? qual a diferença entre as 2 imprimirVitoria
+(Alexandre) Comentar antes das funções da classes Verificadores e UserInterface, qual a utilidade delas.
+(Tiago) Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo
+(Tiago) Alterar o nome das funções da classe UserInterface, para deixar o nome mais descritivo
+(Tiago)Modularizar a classe UserInterface, pois ela está muito extensa
+(Tiago)Modularizar a classe Jogo e renomea-lá, também por estar extensa
 ***Ao realizar essa modularização pode ser necessário a mudança de pckgs de classes e até a criação de novos pckgs***
-Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a criação de diversos objetos de estrutura parecida)
-Diagrama de Classes
+(Ambos) Documentar
+(Tiago)Diagrama de Classes
+(?)Diagrama de Atividades
+(?)Apresentação
 
-(Ambos)
-Documentar
-Diagrama de Atividades
-Apresentação
-
-//Revision 12 (Alexandre)
+//Revision 3 (Alexandre)
 Bugs:
-Corrigido bug na entrada (o scanner estava sendo fechado prematuramente, por isso o erro).
-
+Corrigido bug na entrada (o scanner estava sendo fechado prematuramente, por isso o erro)
+--
 Funções:
 verificaEntrada: A função verifica se a entrada do usuário está dentro dos parâmetros definidos.
 Alterada para a classe verificadores (não é relacionada ao jogador). Comentários adicionados
@@ -144,97 +114,86 @@ Função imprimirSessao e imprimirSessaoCompra: A imprimirSessao imprime a inter
 A imprimirSessaoCompra imprime a interface caso o usuário tenha 8 cartas (ou seja: é obrigado a comprar). Implementadaas em duas funções separadas para evitar verificações redundantes. Comentários adicionados.
 A existência de duas funções imprimeVitória é evitar verificações redundantes ou a criação de outra função com nome diferente para imprimir a tela de vitória. A primeira função imprime a tela de vitória caso a sequência vitoriosa seja uma quadra, e a segunda é uma sobrecarga (overload, como estava comentado no código) caso a sequência vitoriosa sejam duas trincas (os parâmetros são diferentes).
 Removidas funções redundantes na classe UserInterface.
-
+--
 Comentários: Não adicionei comentários antes das funções da classe Verificadores pois o funcionamento da função é detalhado, o que considerei redundante. Todavia, comentários adicionados.
 Adicionados comentários que faltavam nas funções de interface.
 Outros comentários revistos.
-
+--
 GitHub:
 Ao fazer commits no GitHub, não envie os arquivos em zip. Mande os arquivos .java diretamente da pasta de sources de sua IDE, assim é possível ver o que foi alterado, quando e por quem (o que não é possível caso o código seja enviado em zip), além de manter a organização/integridade do reposítorio.
-No nome do commit, coloque qual a revisão, e na descrição, o changelog referente às modificações.
-
+No nome do commit, coloque qual a revisão, e na descrição, o changelog referente às modificações
+--
 Outros:
 Arquivos enviados em .java ao repositório e (incluindo as mudanças da Revision 2.1 e Revision 3) e .zip removido para manter a integridade.
-Caso necessite assistência na implementação de outros design patterns ou modularização, estou à disposição.
-
+Caso necessite assistência na implementação de outros design patterns ou modularização, estou à disposição
+--
 Documentação:
 Irei começar o relatório da documentação, para adiantar.
 --
 TO-DO:
-(Tiago)
-Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a criação de diversos objetos de estrutura parecida)
-Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo
-Alterar o nome das funções da classe UserInterface, para deixar o nome mais descritivo
-Modularizar a classe UserInterface, pois ela está muito extensa
-Modularizar a classe Jogo e renomea-lá, também por estar extensa
-Diagrama de Classes
+(Tiago)Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo
+mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar
+esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a criação de diversos objetos de estrutura parecida)
+(Tiago) Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo
+(Tiago) Alterar o nome das funções da classe UserInterface, para deixar o nome mais descritivo
+(Tiago)Modularizar a classe UserInterface, pois ela está muito extensa
+(Tiago)Modularizar a classe Jogo e renomea-lá, também por estar extensa
 ***Ao realizar essa modularização pode ser necessário a mudança de pckgs de classes e até a criação de novos pckgs*** -- (Não se esqueça de explicitar nos changelogs a mudança dos pacotes)
+(Ambos) Documentar
+(Tiago)Diagrama de Classes
+(?)Diagrama de Atividades
+(Ambos)Apresentação
 
-(Ambos)
-Documentar
-Diagrama de Atividades
-Apresentação
-
-//Revision 13 (Tiago)
+//Revision 4(Tiago)
 Removida a classe Ambiente.
 
 TO-DO:
-(Alexandre)
-Refazer a lógica do jogo, o jogador primeiro compra a carta e depois descarta.
-
-(Tiago)
-Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a criação de diversos objetos de estrutura parecida)
-Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo
-Alterar o nome das funções da classe UserInterface, para deixar o nome mais descritivo
-Modularizar a classe UserInterface, pois ela está muito extensa
-Modularizar a classe Jogo e renomea-lá, também por estar extensa
+(Alexandre) Refazer a lógica do jogo, o jogador primeiro compra a carta e depois descarta.
+(Tiago)Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo
+mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar
+esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a criação de diversos objetos de estrutura parecida)
+(Tiago) Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo
+(Tiago) Alterar o nome das funções da classe UserInterface, para deixar o nome mais descritivo
+(Tiago)Modularizar a classe UserInterface, pois ela está muito extensa
+(Tiago)Modularizar a classe Jogo e renomea-lá, também por estar extensa
 ***Ao realizar essa modularização pode ser necessário a mudança de pckgs de classes e até a criação de novos pckgs*** -- (Não se esqueça de explicitar nos changelogs a mudança dos pacotes)
-Diagrama de Classes
-
-(Ambos)
-Documentar
-Diagrama de Atividades
-Apresentação
-
-//Revision 14 (Alexandre)
+(Ambos) Documentar
+(Tiago)Diagrama de Classes
+(?)Diagrama de Atividades
+(Ambos)Apresentação
+//Revision 5 (Alexandre)
 Corrigido bugs existentes na versão antiga do programa principal que foi reimplementada
 
 TO-DO:
-(Alexandre)
-Refazer a lógica do jogo, o jogador primeiro compra a carta e depois descarta.
-
-(Tiago)
-Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a criação de diversos objetos de estrutura parecida)
-Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo
-Alterar o nome das funções da classe UserInterface, para deixar o nome mais descritivo
-Modularizar a classe UserInterface, pois ela está muito extensa
-Modularizar a classe Jogo e renomea-lá, também por estar extensa
+(Alexandre) Refazer a lógica do jogo, o jogador primeiro compra a carta e depois descarta.
+(Tiago)Implementar pelo menos mais 2 Design Patterns(O baralho não estava utilizado o padrão Builder, eu começei a implementa-lo
+mas para fazer isso a estrutura do código inteira teria que ser mudada, além disso eu não achei que fosse necessário usar
+esse pattern, pois ele só criaria um objeto e o objetivo dele é viabilizar a criação de diversos objetos de estrutura parecida)
+(Tiago) Alterar o nome das funções da classe Verificadores, para deixar o nome mais descritivo
+(Tiago) Alterar o nome das funções da classe UserInterface, para deixar o nome mais descritivo
+(Tiago)Modularizar a classe UserInterface, pois ela está muito extensa
+(Tiago)Modularizar a classe Jogo e renomea-lá, também por estar extensa
 ***Ao realizar essa modularização pode ser necessário a mudança de pckgs de classes e até a criação de novos pckgs*** -- (Não se esqueça de explicitar nos changelogs a mudança dos pacotes)
-Diagrama de Classes
-
-(Ambos)
-Documentar
-Diagrama de Atividades
-Apresentação
-
-//Revision 15 (Alexandre)
+(Ambos) Documentar
+(Tiago)Diagrama de Classes
+(?)Diagrama de Atividades
+(Ambos)Apresentação
+//Revision 6 (Alexandre)
 Programa principal:
 Lógica do jogo "invertida". O jogador deve comprar uma carta antes de bater/descartar.
-
 Bugs:
-Corrigido bug em que o jogador poderia inserir uma opção não pertinente ao turno (e.g Descartar quando se tem 9 cartas).
-
+Corrigido bug em que o jogador poderia inserir uma opção não pertinente ao turno (e.g Descartar quando se tem 9 cartas)
 UserInterface:
 Funções alteradas para acomodas as mudanças no programa principal (as funções imprimem 10 e 9 cartas)
 
-//Revision 16 (Alexandre)
+//Revision 7
 
 Criada nova classe Procedimentos no pacote jogo, que contem os procedimentos do programa principal (evita repetição, deixa o programa principal menos extenso)
 
 Programa principal:
 Operações agora são responsabilidade da classe Procedimentos
 
-TO-DO:
+//TO-DO
 (Alexandre)
 Consolidar a função de imprimir a interface em uma (ao invés de ter duas)
 Transferir os procedimentos de "bater o pife" para a nova classe
@@ -258,7 +217,7 @@ Talvez seja interessante re-implementar o singleton com o ambiente de jogo. Faci
 Caso não encontre aplicação para mais design patterns, não criar complexidade desnecessária.
 Manter padronização do nome das revisões no GitHub (sempre aumentar por inteiro; e.g; Revision 6 -> Revision 7 -> Revision 8).
 
-//Revision 17 (Alexandre)
+//Revision 8
 
 Todos os procedimentos do programa principal agora são responsabilidade da classe Procedimentos
 Criada um singleton Sessao, que armazena todos os dados do jogo (para ser utilizado na classe Procedimentos)
@@ -268,7 +227,7 @@ Classe Procedimentos:
 Implementação finalizada. *Pode ter bugs não descobertos*
 Comentários inseridos (ainda serão mais detalhados)
 
-TO-DO:
+//TO-DO
 (Alexandre)
 Depurar bugs na classe Procedimentos
 Mover mais procedimentos do programa principal (e.g Verificação de entrada) para a classe procedimentos
@@ -288,7 +247,7 @@ Documentar
 Apresentação
 Remover dependencias não necessárias
 
-//Revision 18 (Alexandre)
+//Revision 9
 
 Programa principal:
 Entrada do número de jogadores agora é responsabilidade da classe Procedimentos
@@ -328,8 +287,7 @@ Documentar
 Apresentação
 Remover dependencias não necessárias
 
-//Revision 19 (Tiago)
-
+//Revision 10 (Tiago)
 Função verificaMonteVazio renomeada para transformaLixoMonte e ajustada para fazer as devidas alterações no monte/lixo
 Removidas as dependências entre a classe Baralho e os pacotes ambiente e jogo
 Classe Baralho movida para o pacote Cartas
@@ -361,60 +319,10 @@ Depois de todas essa alterações, a única dependência q eu n consegui remover
 Dá uma olhada e vê se vc consegue fazer.
 
 (Tiago)
-Implementar Chain of Responsability para controalr o fluxo do jogo
+Implementado Chain of Responsability para controalr o fluxo do jogo
 Diagrama de classes
 
 (Ambos)
 Documentar
 Apresentação
 Diagrama de Atividades (Achoq dá pra ser nos dois nisso aqui)
-
-
-//Revision 20 (Tiago)
-Implementado novo pacote chamado chainofresponsability(nome WIP) q é responsável pelo design pattern chain of responsability
-Nele está presente a interface Cadeia que tem o contrato dos métodos implementados pelos executadores das requisicoes
-A Classe Acao que guarda as variaveis necessárias para a execucao de cada acao.
-E as classes AcaoBater, AcaoCompraLixo, AcaoCompraMonte, AcaoDescartar, AcaoPulaTurno que executam a operacao descrita no seu nome
-Adicionado os métodos e variáveis necessárias na main para a utilizacao da cadeia de responsabilidades
-
-TO-DO:
-(Alexandre)
-Corrigir bug em que o jogador pode descartar e remover cartas quantas vezes quiser sem passar o turno
-Corrigir deformação na interface quando desenhando uma carta de número 10 (substituir por X)
-Consolidar os procedimentos de impressão da interface em um
-Depurar bugs
-Padronizar e revisar Changelog para a entrega
-
-Comments:
-Depois de todas essa alterações, a única dependência q eu n consegui remover foi a função descartaCarta q tá no pacote ambiente, dependendo do pacote do Jogo.
-Dá uma olhada e vê se vc consegue fazer.
-
-Outra coisa que eu notei é q no main, o loop do turno pode ser mais modularizado ainda, aqueles ifs grandes que imprimem a interface do jogador pode virar uma função, eu não vou mexer no código hj. Se vc pegar antes tenta fazer isso, senão qnd eu chegar em casa eu faço.
-
-//Revision 21 (Alexandre)
-
-UserInterface:
-Função que imprime a interface consolidada em uma.
-Na impressão das cartas, as cartas de numero 10 agora são representadas por X para não deformar a interface.
-Funções não utilizadas removidas.
-
-Sessao:
-Adicionado novo identificador, compraEfetuada. Indica se o jogador ja comprou uma carta no turno.
-
-Programa principal:
-Se o jogador ja comprou uma carta no turno, ele não poderá descartar cartas
-
-Geral: Changelog e número de revisões padronizados.
-
-TO-DO:
-
-(Tiago)
-Melhorar o nome das variáveis da cadeia
-Remover a dependência cíclica entre o pacote jogo e chainofresponsability
-Diagrama de classes
-
-(Ambos)
-Documentar
-Apresentação
-Diagrama de Atividades
-Makefile

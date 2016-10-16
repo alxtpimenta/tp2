@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tp2.jogo;
+package tp2.procedimentoseinteracoes;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import tp2.ambiente.*;
 import tp2.cartas.Carta;
-import tp2.cartas.AutenticidadeMao;
 
 /**
  *
@@ -19,94 +13,95 @@ import tp2.cartas.AutenticidadeMao;
 public class CondicoesVitoria
 {    
     //CASO O JOGADOR QUEIRA BATER UMA COMBINACAO
-    public static void pife(Sessao jogo)
+    public static void pifeBatida(Sessao sessaoJogo)
     {
         //PERGUNTA AO USUARIO QUAL TIPO DE COMBINACAO ELE DESEJA BATER
-        UserInterface.selecaoPife();
-        jogo.entrada = jogo.scanner.next();
+        UserInterface.selecaoBatidaPife();
+        sessaoJogo.entrada = sessaoJogo.scanner.next();
         
         //QUADRA
-        if("Q".equals(jogo.entrada) | "q".equals(jogo.entrada))
+        if("Q".equals(sessaoJogo.entrada) | "q".equals(sessaoJogo))
         {
-            CondicoesVitoria.quadra(jogo);
+            CondicoesVitoria.quadra(sessaoJogo);
         }
         //TRINCAS
-        else if("T".equals(jogo.entrada) | "t".equals(jogo.entrada))
+        else if("T".equals(sessaoJogo.entrada) | "t".equals(sessaoJogo.entrada))
         {
-            CondicoesVitoria.trincas(jogo);
+            CondicoesVitoria.trincas(sessaoJogo);
         }
         else
         {
             //Entrada invalida
             UserInterface.erroEntrada();
+            sessaoJogo.batidaInefetiva = true;
         }
     }
     
     //SELECIONA AS CARTAS DA TRINCA E VERIFICA A VITORIA
-    public static void trincas(Sessao jogo)
+    public static void trincas(Sessao sessaoJogo)
     {
         List<Carta> trinca1 = new ArrayList<>();
         List<Carta> trinca2 = new ArrayList<>();
         
         //SELECIONAR PRIMEIRA TRINCA
-        UserInterface.primeiraTrinca();
-        InteracaoJogoJogador.selecionarCartas(trinca1, jogo, Define.TRINCA);
+        UserInterface.requisitaPrimeiraTrinca();
+        InteracaoJogoJogador.selecionarCartas(trinca1, sessaoJogo, Define.TRINCA);
         
         //SELECIONAR SEGUNDA TRINCA
-        UserInterface.segundaTrinca();
-        InteracaoJogoJogador.selecionarCartas(trinca2, jogo, Define.TRINCA);
+        UserInterface.requisitaSegundaTrinca();
+        InteracaoJogoJogador.selecionarCartas(trinca2, sessaoJogo, Define.TRINCA);
         
         //VERIFICAR VITORIA
-        verificarVitoria(trinca1,trinca2,jogo);
+        verificarVitoria(trinca1,trinca2,sessaoJogo);
     }
     
     //SELECIONA AS CARTAS DA QUADRA E VERIFICA A VITORIA
-    public static void quadra(Sessao jogo)
+    public static void quadra(Sessao sessaoJogo)
     {
         List<Carta> quadra = new ArrayList<>();
         
         //SELECIONAR QUADRA
-        UserInterface.selecionarQuadra();
-        InteracaoJogoJogador.selecionarCartas(quadra, jogo, Define.QUADRA);
+        UserInterface.requisitaSelecaoQuadra();
+        InteracaoJogoJogador.selecionarCartas(quadra, sessaoJogo, Define.QUADRA);
         
         //VERIFICAR VITORIA
-        verificarVitoria(quadra, jogo);
+        verificarVitoria(quadra, sessaoJogo);
     }
     
     //VERIFICA SE A COMBINACAO DA QUADRA E VITORIOSA
-    public static void verificarVitoria(List<Carta> quadra, Sessao jogo)
+    public static void verificarVitoria(List<Carta> quadra, Sessao sessaoJogo)
     {
         if(AutenticidadeMao.verificarCombinacaoValida(quadra))
         {
             //IMPRIME VITORIA
-            UserInterface.imprimirVitoria(jogo.jogadorAtual.getNomeJogador(), quadra);
+            UserInterface.imprimirVitoria(sessaoJogo.jogadorAtual.getNomeJogador(), quadra);
             //ANULA JOGO
-            FluxoJogo.anularJogo(jogo);
+            FluxoJogo.anularJogo(sessaoJogo);
         }
         else
         {
             //COMBINACAO INVALIDA
             UserInterface.combinacaoInvalida();
-            FluxoJogo.anularTurno(jogo);
+            FluxoJogo.anularTurno(sessaoJogo);
         }
     }
     
     //OVERLOAD
     //VERIFICA SE A COMBINACAO DAS TRINCAS E VITORIOSA
-    public static void verificarVitoria(List<Carta> trinca1,List<Carta> trinca2, Sessao jogo)
+    public static void verificarVitoria(List<Carta> trinca1,List<Carta> trinca2, Sessao sessaoJogo)
     {
         if(AutenticidadeMao.verificarCombinacaoValida(trinca1) && AutenticidadeMao.verificarCombinacaoValida(trinca2))
         {
             //IMPRIME VITORIA
-            UserInterface.imprimirVitoria(jogo.jogadorAtual.getNomeJogador(), trinca1, trinca2);
+            UserInterface.imprimirVitoria(sessaoJogo.jogadorAtual.getNomeJogador(), trinca1, trinca2);
             //ANULA JOGO
-            FluxoJogo.anularJogo(jogo);
+            FluxoJogo.anularJogo(sessaoJogo);
         }
         else
         {
             //COMBINACAO INVALIDA
             UserInterface.combinacaoInvalida();
-            FluxoJogo.anularTurno(jogo);
+            FluxoJogo.anularTurno(sessaoJogo);
         }
         
     }

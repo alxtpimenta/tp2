@@ -1,24 +1,25 @@
-package tp2.chainofresponsability;
+package tp2.jogo;
+
 
 import tp2.ambiente.Sessao;
 
 public class Acao 
 {
 	//VARIAVEIS NECESSARIAS PARA A EXECUCAO DA REQUISICAO
-	Sessao jogo;
+	Sessao sessaoJogo;
 	private String requisicao;
 	
 	//CONSTRUTOR DA REQUISICAO
-	public Acao(Sessao jogo, String requisicao)
+	public Acao(Sessao sessaoJogo, String requisicao)
 	{
-		this.jogo = jogo;
+		this.sessaoJogo = sessaoJogo;
 		this.requisicao = requisicao;
 	}
 	
 	//GETTER DA SESSAO DO JOGO
-	public Sessao getJogo()
+	public Sessao getSessaoJogo()
 	{
-		return this.jogo;
+		return this.sessaoJogo;
 	}
 	
 

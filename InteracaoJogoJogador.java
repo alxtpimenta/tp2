@@ -1,22 +1,25 @@
-package tp2.ambiente;
+package tp2.procedimentoseinteracoes;
 
 import java.util.List;
 
+import tp2.ambiente.Define;
+import tp2.ambiente.Jogador;
+import tp2.ambiente.Sessao;
+import tp2.ambiente.UserInterface;
 import tp2.cartas.Carta;
-import tp2.jogo.FluxoJogo;
 
 public class InteracaoJogoJogador
 {
 	//RECEBE QUANTIDADE DE JOGADORES
-    public static void iniciarQtdJogadores(Sessao jogo)
+    public static void iniciarQtdJogadores(Sessao sessaoJogo)
     {
         //GARANTE QUE A ENTRADA ESTEJA DENTRO DOS LIMITES ESPECIFICADOS NA CLASSE DEFINE
         while(true)
         {
-            if(jogo.scanner.hasNextInt())
+            if(sessaoJogo.scanner.hasNextInt())
             {
-                jogo.qtdJogadores = jogo.scanner.nextInt();
-                if(jogo.qtdJogadores < Define.MIN_JOGADORES | jogo.qtdJogadores > Define.MAX_JOGADORES)
+            	sessaoJogo.qtdJogadores = sessaoJogo.scanner.nextInt();
+                if(sessaoJogo.qtdJogadores < Define.MIN_JOGADORES | sessaoJogo.qtdJogadores > Define.MAX_JOGADORES)
                     //CASO A ENTRADA ESTEJA FORA DOS LIMITES ESPECIFICADOS, IMPRIMIR MENSAGEM DE ERRO
                     UserInterface.erroEntrada();
                 else
@@ -26,8 +29,8 @@ public class InteracaoJogoJogador
             else
             {
                 //CASO A ENTRADA NAO CONTENHA INTEIROS
-                jogo.entrada = jogo.scanner.nextLine();
-                jogo.entrada = null;
+            	sessaoJogo.entrada = sessaoJogo.scanner.nextLine();
+            	sessaoJogo.entrada = null;
                 //SAIDA PARA UI
                 UserInterface.skip();
                 UserInterface.erroEntrada();
@@ -69,7 +72,7 @@ public class InteracaoJogoJogador
     }
     
     //ADICIONA AS CARTAS SELECIONADAS NA LISTA REFERENCIADA
-    public static void selecionarCartas(List<Carta> selecao,Sessao jogo, int quantidade)
+    public static void selecionarCartas(List<Carta> selecao,Sessao sessaoJogo, int quantidade)
     {
         //PEDE QUE O USUARIO DIGITE AS CARTAS
         UserInterface.digiteCarta();
@@ -77,14 +80,14 @@ public class InteracaoJogoJogador
         for(int i = 0; i < quantidade; i++)
         {
             //CERTIFICA QUE A ENTRADA E UM INTEIRO
-            if(jogo.scanner.hasNextInt())
+            if(sessaoJogo.scanner.hasNextInt())
             {
-                jogo.entrada = jogo.scanner.next();
-                jogo.entradaJogador = Integer.parseInt(jogo.entrada);
-                if(InteracaoJogoJogador.verificarEntradaJogador(jogo.entradaJogador))
+            	sessaoJogo.entrada = sessaoJogo.scanner.next();
+            	sessaoJogo.entradaJogador = Integer.parseInt(sessaoJogo.entrada);
+                if(InteracaoJogoJogador.verificarEntradaJogador(sessaoJogo.entradaJogador))
                 {
-                    selecao.add(jogo.jogadorAtual.retornarCartaJogador(jogo.entradaJogador -1));
-                    UserInterface.adicionada();
+                    selecao.add(sessaoJogo.jogadorAtual.retornarCartaJogador(sessaoJogo.entradaJogador -1));
+                    UserInterface.adicionadaCarta();
                 }
                 else
                 {
@@ -98,32 +101,32 @@ public class InteracaoJogoJogador
     
     
     
-    //COMPRA UMA CARTA DA FONTE
+    //COMPRA UMA CARTA DE UM MONTANTE DE CARTAS
     //A FONTE PODE SER LIXO OU MONTE
-    public static void comprarCarta(Jogador jogadorAtual, List<Carta> fonte)
+    public static void comprarCarta(Jogador jogadorAtual, List<Carta> monte , boolean compraEfetuada)
     {
         //VERIFICA SE A FONTE ESTA VAZIA
-        if(!fonte.isEmpty())
+        if(!monte.isEmpty())
         {
             //ADICIONA A PRIMEIRA CARTA DA "PILHA" A MAO DO JOGADOR
-            jogadorAtual.adicionarCartaJogador(fonte.get(fonte.size()-1));
+            jogadorAtual.adicionarCartaJogador(monte.get(monte.size()-1));
             //REMOVE A CARTA DA FONTE
-            fonte.remove(fonte.size()-1);
+            monte.remove(monte.size()-1);
 			//ALTERA O INDICADOR DE COMPRA
-			jogo.compraEfetuada = true;
+			compraEfetuada = true;
         }
         else
         {
             //MENSAGEM DE ERRO
-            UserInterface.erroFonteVazia();
+            UserInterface.erroNaoHaCartas();
         }
     }
 	
     //DESCARTA A CARTA SELECIONADA
-    public static void descartarCarta(Sessao jogo)
+    public static void descartarCarta(Sessao sessaoJogo)
     {
 		//VERIFICA SE O JOGADOR JA REALIZOU UMA COMPRA NO TURNO
-		if(jogo.compraEfetuada)
+		if(sessaoJogo.compraEfetuada)
 		{
 			//CASO TENHA EFETUADO, ELE NAO PODERA DESCARTAR
 			UserInterface.erroDescarte();
@@ -131,21 +134,21 @@ public class InteracaoJogoJogador
 		}
         //PERGUNTA O USUARIO QUAL A CARTA A SER DESCARTADA
         UserInterface.selecaoDescarte();
-        jogo.entrada = jogo.scanner.next();
+        sessaoJogo.entrada = sessaoJogo.scanner.next();
         //DETERMINA O OPERANDO
-        jogo.entradaJogador = Integer.parseInt(jogo.entrada);
+        sessaoJogo.entradaJogador = Integer.parseInt(sessaoJogo.entrada);
         //DETERMINA A INTEGRIDADE DO OPERANDO
         //CASO SEJA VALIDO REMOVER A CARTA
-        if(InteracaoJogoJogador.verificarEntradaJogador(jogo.entradaJogador))
+        if(InteracaoJogoJogador.verificarEntradaJogador(sessaoJogo.entradaJogador))
         {
             //ADICIONAR CARTA AO LIXO
-            jogo.lixo.add(jogo.jogadorAtual.retornarCartaJogador(jogo.entradaJogador-1));
+        	sessaoJogo.lixo.add(sessaoJogo.jogadorAtual.retornarCartaJogador(sessaoJogo.entradaJogador-1));
             //REMOVER DA MAO DO JOGADOR
-            jogo.jogadorAtual.removerCartaJogador(jogo.entradaJogador-1);
+        	sessaoJogo.jogadorAtual.removerCartaJogador(sessaoJogo.entradaJogador-1);
             //GERA SAIDA PARA A INTERFACE
-            UserInterface.descarte();
+            UserInterface.descarteCarta();
             //ENCERRA O TURNO
-            FluxoJogo.anularTurno(jogo);
+            FluxoJogo.anularTurno(sessaoJogo);
         }
         else
         {

@@ -9,7 +9,7 @@ public class UserInterface
 {
     //IMPRIME A SESSAO DE JOGO CASO O JOGADOR TENHA O NUMERO MINIMO CARTAS
     //(SE O JOGADOR TEM O NUMERO MINIMO CARTAS, ELE OBRIGATORIAMENTE PRECISA COMPRAR UMA CARTA)
-    public static void imprimirInterface(Jogador jogador, Carta lixo)
+    public static void imprimirInterfaceMaoJogador(Jogador jogador, Carta lixo)
     {
         //LISTAS DE NUMEROS E NAIPES PARA A REPRESENTACAO GRAFICA
         List<String> naipes = new ArrayList<>();
@@ -97,7 +97,6 @@ public class UserInterface
 			System.out.println("");
 			System.out.println("-> PRESSIONE D PARA DESCARTAR UMA CARTA");
 			System.out.println("-> PRESSIONE B PARA BATER");
-			System.out.println("-> PRESSIONE P PARA PASSAR O TURNO");
 		}
 		//CASO NAO TENHA O NUMERO MAXIMO NEM MINIMO, IMPRIMIR ERRO
 		else
@@ -113,13 +112,13 @@ public class UserInterface
     }
     
     //IMPRIME MENSAGEM DE COMPRA
-    public static void adicionada()
+    public static void adicionadaCarta()
     {
         System.out.println("--Carta adicionada!--");
     }
     
     //IMPRIME MENSAGEM DE DESCARTE
-    public static void descarte()
+    public static void descarteCarta()
     {
         System.out.println("--Carta descartada!--");
     }
@@ -156,6 +155,12 @@ public class UserInterface
         System.out.println("!!! Entrada invalida! !!!");
     }
     
+    //IMPRIME QUE A BATIDA FOI INEFETIVA E DEVE SER EFETUADO UM DESCARTE
+    public static void batidaInefetivaDescarte()
+    {
+    	System.out.println("SUA BATIDA NAO FOI VALIDA! EFETUE UM DESCARTE");
+    }
+    
     //IMPRIME MENSAGEM DE FIM DE TURNO
     public static void fimTurno()
     {
@@ -163,13 +168,13 @@ public class UserInterface
     }
     
     //MENSAGEM DE NUMERO DE CARTAS PARA BATER
-    public static void cartasPife()
+    public static void numeroCartasBatidaPife()
     {
         System.out.println("-> Digite o numero das cartas que deseja bater (Apenas numeros!)");
     }
     
     //IMPRIME MENSAGEM DE SELECAO DE BATIDA
-    public static void selecaoPife()
+    public static void selecaoBatidaPife()
     {
         System.out.println("Selecione a opcao que deseja bater:");
         System.out.println("-> PRESSIONE Q PARA BATER UMA QUADRA");
@@ -183,33 +188,33 @@ public class UserInterface
     }
     
     //MENSAGEM DE ERRO: COMBINACAO INVALIDA
-    public static void erroVitoria()
+    public static void combinacaoInvalida()
     {
         System.out.println("-- A combinacao nao e valida! --");
     }
     
     //REQUISITA AO USUARIO A SEQUENCIA DE CARTAS DA PRIMEIRA TRINCA
-    public static void primeiraTrinca()
+    public static void requisitaPrimeiraTrinca()
     {
         System.out.println("->Primeira trinca:");
     }
     
     //REQUISITA AO USUARIO A SEQUENCIA DE CARTAS DA QUASRA
-    public static void selecionarQuadra()
+    public static void requisitaSelecaoQuadra()
     {
         System.out.println("->Quadra:");
     }
     
     //REQUISITA AO USUARIO A SEQUENCIA DE CARTAS DA SEGUNDA TRINCA
-    public static void segundaTrinca()
+    public static void requisitaSegundaTrinca()
     {
         System.out.println("->Segunda trinca:");
     }
     
     //MENSAGEM DE ERRO: FONTE VAZIA
-    public static void erroFonteVazia()
+    public static void erroNaoHaCartas()
     {
-        System.out.println("!!! ERRO: A FONTE ESTA! !!!");
+        System.out.println("!!! ERRO: NAO HA CARTAS NESSE LUGAR! !!!");
     }
     
     //TELA DE BOAS VINDAS
@@ -224,11 +229,6 @@ public class UserInterface
     public static void digiteJogadores()
     {
         System.out.println("-> Digite os nomes dos jogadores separados por espaco ");
-    }
-    
-    public static void combinacaoInvalida()
-    {
-        System.out.println("!!! Combinacao invalida !!!");
     }
     
     //IMPRIME A TELA DE VITORIA (CASO A COMBINACAO VITORIOSA SEJA UMA QUADRA)
