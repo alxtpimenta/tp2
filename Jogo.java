@@ -10,18 +10,18 @@ public class Jogo
 {
 	public static void main(String[] args) 
     {
-		//INICIA PROCEDIMENTO PARA A CADEIA DE RESPONSABILIDADE QUE CUIDA DAS REQUISICOES DO JOGADOR
-		CadeiaDeAcao cadeiaRequest = new AcaoBater();
-		CadeiaDeAcao cadeiaRequest2 = new AcaoCompraLixo();
-		CadeiaDeAcao cadeiaRequest3 = new AcaoCompraMonte();
-		CadeiaDeAcao cadeiaRequest4 = new AcaoDescartar();
-		CadeiaDeAcao cadeiaRequest5 = new AcaoPulaTurno();
-		//
-		cadeiaRequest.setProxCadeia(cadeiaRequest2);
-		cadeiaRequest2.setProxCadeia(cadeiaRequest3);
-		cadeiaRequest3.setProxCadeia(cadeiaRequest4);
-		cadeiaRequest4.setProxCadeia(cadeiaRequest5);
-		//
+	//INICIA PROCEDIMENTO PARA A CADEIA DE RESPONSABILIDADE QUE CUIDA DAS REQUISICOES DO JOGADOR
+	CadeiaDeAcao cadeiaRequest = new AcaoBater();
+	CadeiaDeAcao cadeiaRequest2 = new AcaoCompraLixo();
+	CadeiaDeAcao cadeiaRequest3 = new AcaoCompraMonte();
+	CadeiaDeAcao cadeiaRequest4 = new AcaoDescartar();
+	CadeiaDeAcao cadeiaRequest5 = new AcaoPulaTurno();
+	//
+	cadeiaRequest.setProxCadeia(cadeiaRequest2);
+	cadeiaRequest2.setProxCadeia(cadeiaRequest3);
+	cadeiaRequest3.setProxCadeia(cadeiaRequest4);
+	cadeiaRequest4.setProxCadeia(cadeiaRequest5);
+	//
 		
         //INICIALIZAR O SINGLETON DE SESSAO DO JOGO
         Sessao sessaoJogo;
@@ -71,10 +71,10 @@ public class Jogo
                 //LE A ENTRADA DO USUARIO
                 sessaoJogo.entrada = sessaoJogo.scanner.next();
                 
-				//VARIAVEL QUE VAI CONTROLAR AS ACOES DO JOGADOR NO JOGO
-				Acao acao = new Acao(sessaoJogo, sessaoJogo.entrada);     		
-				//PRIMEIRO METODO DA CADEIA DE RESPONSABILIDADE QUE ATENDE A REQUISICAO DA ACAO DO JOGADOR
-				cadeiaRequest.acaoJogador(acao);
+		//VARIAVEL QUE VAI CONTROLAR AS ACOES DO JOGADOR NO JOGO
+		Acao acao = new Acao(sessaoJogo, sessaoJogo.entrada);     		
+		//PRIMEIRO METODO DA CADEIA DE RESPONSABILIDADE QUE ATENDE A REQUISICAO DA ACAO DO JOGADOR
+		cadeiaRequest.acaoJogador(acao);
 
             }
             //VERIFICACOES POS-TURNO

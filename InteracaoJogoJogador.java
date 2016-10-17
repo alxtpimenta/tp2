@@ -103,17 +103,17 @@ public class InteracaoJogoJogador
     
     //COMPRA UMA CARTA DE UM MONTANTE DE CARTAS
     //A FONTE PODE SER LIXO OU MONTE
-    public static void comprarCarta(Jogador jogadorAtual, List<Carta> monte , boolean compraEfetuada)
+    public static void comprarCarta(Sessao sessaoJogo, List<Carta> fonte)
     {
         //VERIFICA SE A FONTE ESTA VAZIA
-        if(!monte.isEmpty())
+        if(!fonte.isEmpty())
         {
             //ADICIONA A PRIMEIRA CARTA DA "PILHA" A MAO DO JOGADOR
-            jogadorAtual.adicionarCartaJogador(monte.get(monte.size()-1));
+            sessaoJogo.jogadorAtual.adicionarCartaJogador(fonte.get(fonte.size()-1));
             //REMOVE A CARTA DA FONTE
-            monte.remove(monte.size()-1);
-			//ALTERA O INDICADOR DE COMPRA
-			compraEfetuada = true;
+            fonte.remove(fonte.size()-1);
+            //ALTERA O INDICADOR DE COMPRA
+            sessaoJogo.compraEfetuada = true;
         }
         else
         {

@@ -20,7 +20,7 @@ public class AcaoPulaTurno implements CadeiaDeAcao
 	public void acaoJogador(Acao requisicao) 
 	{
 		//SE O JOGADOR PUDER PULAR O TURNO INVOCA O METODO QUE PULA O TURNO
-        	if(("P".equals(requisicao.sessaoJogo.entrada) | "p".equals(requisicao.sessaoJogo.entrada)) && requisicao.sessaoJogo.jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
+        	if(("P".equals(requisicao.sessaoJogo.entrada) | "p".equals(requisicao.sessaoJogo.entrada)) && requisicao.sessaoJogo.jogadorAtual.tamanhoMaoJogador() == Define.MAX_MAO)
         	{
         		FluxoJogo.anularTurno(requisicao.sessaoJogo);
         	}

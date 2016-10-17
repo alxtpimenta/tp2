@@ -59,7 +59,6 @@ public class Jogador
     }
     
     //CRIA OS JOGADORES
-    //SEPARADO DO PROGRAMA PRINCIPAL
     public static void criarJogadores(List<Jogador> jogadores, int qtdJogadores, Scanner entrada)
     {
         //ARMAZENA O NOME FORNECIDO PELO USUARIO

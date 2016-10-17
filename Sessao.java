@@ -45,8 +45,7 @@ public class Sessao
     public String entrada;
     
     //VARIAVEIS DO JOGO
-	public boolean compraEfetuada;
-	public boolean batidaInefetiva;
+    public boolean compraEfetuada;
     public int entradaJogador;
     public int idJogadorAtual;
     public int qtdJogadores;
@@ -69,11 +68,9 @@ public class Sessao
         this.entradaJogador = 0;
         this.idJogadorAtual = 0;
         this.qtdJogadores = 0;
-        this.batidaInefetiva = false;
-		this.compraEfetuada = false;
-		
-		//INICIALIZA O BARALHO
-		Baralho.inicializarBaralho(this.baralho);
+	this.compraEfetuada = false;
+	//INICIALIZA O BARALHO
+	Baralho.inicializarBaralho(this.baralho);
     
     }
 }

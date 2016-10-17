@@ -20,7 +20,7 @@ public class CondicoesVitoria
         sessaoJogo.entrada = sessaoJogo.scanner.next();
         
         //QUADRA
-        if("Q".equals(sessaoJogo.entrada) | "q".equals(sessaoJogo))
+        if("Q".equals(sessaoJogo.entrada) | "q".equals(sessaoJogo.entrada))
         {
             CondicoesVitoria.quadra(sessaoJogo);
         }
@@ -33,7 +33,6 @@ public class CondicoesVitoria
         {
             //Entrada invalida
             UserInterface.erroEntrada();
-            sessaoJogo.batidaInefetiva = true;
         }
     }
     

@@ -472,3 +472,37 @@ Diagrama de Classes
 (Ambos)
 Apresentação
 Adicionar diagramas à documentação
+
+//Revision 23
+
+Bugs:
+Corrigido bug na interface que imprimia apenas 8 cartas na sessao de compra.
+Corrigido bug que imprimia os naipes/numeros das cartas em duplicata.
+Re-corrigido bug na função de compra (o jogador conseguia descartar e comprar mais de uma vez no mesmo turno).
+Geral:
+
+O jogador pode pular o turno somente se tiver as 10 cartas (se não tiver que comprar).
+Removido o descarte automático quando enviada uma combinação inválida para a batida (redundante).
+Removido a flag batidaInefetiva da sessao do jogo (deprecated).
+Ação de passar turno na cadeia de responsabilidade alterada para permitir que o jogador passe o turno somente quando tem 10 cartas.
+Agora o usuario pode indicar as cartas separando os numeros por espaço quando selecionando as cartas para bater.
+Identação do código corrigida.
+
+Interface:
+Interface modificada para acomodar as mudanças da lógica (poder bater somente com 10 cartas).
+Visualização das cartas modificada.
+
+Funções:
+Função inicializarBaralho simplificada (somente 1 loop ao invés de 4).
+
+TO-DO:
+
+(Alexandre)
+Depurar potenciais bugs existentes
+
+(Tiago)
+Diagrama de Classes
+
+(Ambos)
+Apresentação
+Adicionar diagramas à documentação

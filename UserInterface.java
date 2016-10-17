@@ -59,12 +59,12 @@ public class UserInterface
 			System.out.println("******** VOCE DEVE COMPRAR UMA CARTA ********");
 			System.out.println("--------------SUAS CARTAS------------------");
 			System.out.println(" ___ ___ ___ ___ ___ ___ ___ ___ __________");
-			System.out.println("|"+numeros.get(0)+"  |"+numeros.get(1)+"  |"+numeros.get(2)+"  |"+numeros.get(3)+"  |"+numeros.get(4)+"  |"+numeros.get(5)+"  |"+numeros.get(6)+"  |"+numeros.get(7)+"  |"+"?"+"        |");
-			System.out.println("|"+naipes.get(0)+"  |"+naipes.get(1)+"  |"+naipes.get(2)+"  |"+naipes.get(3)+"  |"+naipes.get(4)+"  |"+naipes.get(5)+"  |"+naipes.get(6)+"  |"+naipes.get(7)+"  |"+"?"+"        |");
+			System.out.println("|"+numeros.get(0)+"  |"+numeros.get(1)+"  |"+numeros.get(2)+"  |"+numeros.get(3)+"  |"+numeros.get(4)+"  |"+numeros.get(5)+"  |"+numeros.get(6)+"  |"+numeros.get(7)+"  |"+numeros.get(8)+"        |");
+			System.out.println("|"+naipes.get(0)+"  |"+naipes.get(1)+"  |"+naipes.get(2)+"  |"+naipes.get(3)+"  |"+naipes.get(4)+"  |"+naipes.get(5)+"  |"+naipes.get(6)+"  |"+naipes.get(7)+"  |"+naipes.get(8)+"        |");
 			System.out.println("|   |   |   |   |   |   |   |   |         |");
 			System.out.println("|   |   |   |   |   |   |   |   |         |");
-			System.out.println("|   |   |   |   |   |   |   |   |        "+naipes.get(8)+"|");
-			System.out.println("|   |   |   |   |   |   |   |   |        "+naipes.get(8)+"|");
+			System.out.println("|   |   |   |   |   |   |   |   |         |");
+			System.out.println("|   |   |   |   |   |   |   |   |         |");
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			System.out.println("  1   2   3   4   5   6   7   8    9");
 			System.out.println("Copas: # | Espadas: @ | Ouros: O | Paus: +");
@@ -77,7 +77,6 @@ public class UserInterface
 			//
 			System.out.println("-> PRESSIONE L PARA COMPRAR DO LIXO");
 			System.out.println("-> PRESSIONE M PARA COMPRAR DO MONTE");
-			System.out.println("-> PRESSIONE P PARA PASSAR O TURNO");
 		}
 		//CASO O JOGADOR TENHA O NUMERO MAXIMO, IMPRIMIR INTERFACE DE DESCARTE/BATER
 		else if(jogador.tamanhoMaoJogador() == Define.MAX_MAO)
@@ -89,14 +88,15 @@ public class UserInterface
 			System.out.println("|"+naipes.get(0)+"  |"+naipes.get(1)+"  |"+naipes.get(2)+"  |"+naipes.get(3)+"  |"+naipes.get(4)+"  |"+naipes.get(5)+"  |"+naipes.get(6)+"  |"+naipes.get(7)+"  |"+naipes.get(8)+"  |"+naipes.get(9)+"        |");
 			System.out.println("|   |   |   |   |   |   |   |   |   |         |");
 			System.out.println("|   |   |   |   |   |   |   |   |   |         |");
-			System.out.println("|   |   |   |   |   |   |   |   |   |        "+naipes.get(9)+"|");
-			System.out.println("|   |   |   |   |   |   |   |   |   |        "+numeros.get(9)+"|");
+			System.out.println("|   |   |   |   |   |   |   |   |   |         |");
+			System.out.println("|   |   |   |   |   |   |   |   |   |         |");
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			System.out.println("  1   2   3   4   5   6   7   8    9    10");
 			System.out.println("Copas: # | Espadas: @ | Ouros: O | Paus: +");
 			System.out.println("");
 			System.out.println("-> PRESSIONE D PARA DESCARTAR UMA CARTA");
 			System.out.println("-> PRESSIONE B PARA BATER");
+                        System.out.println("-> PRESSIONE P PARA PASSAR O TURNO");
 		}
 		//CASO NAO TENHA O NUMERO MAXIMO NEM MINIMO, IMPRIMIR ERRO
 		else
@@ -170,7 +170,7 @@ public class UserInterface
     //MENSAGEM DE NUMERO DE CARTAS PARA BATER
     public static void numeroCartasBatidaPife()
     {
-        System.out.println("-> Digite o numero das cartas que deseja bater (Apenas numeros!)");
+        System.out.println("-> Digite o numero das cartas que deseja bater separados por espaco (Apenas numeros!)");
     }
     
     //IMPRIME MENSAGEM DE SELECAO DE BATIDA

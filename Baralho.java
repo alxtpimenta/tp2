@@ -3,6 +3,7 @@ package tp2.cartas;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import tp2.ambiente.Define;
 
 public class Baralho 
 {
@@ -15,32 +16,24 @@ public class Baralho
         Copas copa;
         Ouros ouro;
         Paus pau;
-        //INTEIRO PARA ITERACAO (DECLARAR ANTES EVITA VARIAS ALOCACOES/DESALOCACOES)
-        int i;
-        //ADICIONAR ESPADAS
-        for(i = 0; i < 12; i++)
+
+        //ADICIONAR CARTAS
+        for(int i = 0; i < Define.CARTAS_NAIPE; i++)
         {
+            //ESPADAS
             espada = new Espadas(i+1);
             cartas.add(espada);
-        }
-        //ADICIONAR COPAS
-        for(i = 0; i < 12; i++)
-        {
+            //COPAS
             copa = new Copas(i+1);
             cartas.add(copa);
-        }
-        //ADICIONAR OUROS
-        for(i = 0; i < 12; i++)
-        {
+            //OUROS
             ouro = new Ouros(i+1);
             cartas.add(ouro);
-        }
-        //ADICIONAR PAUS
-        for(i = 0; i < 12; i++)
-        {
+            //PAUS
             pau = new Paus(i+1);
             cartas.add(pau);
         }
+        
         //EMBARALHAR O BARALHO
         embaralharBaralho(cartas);
     }
@@ -54,16 +47,14 @@ public class Baralho
         Collections.shuffle(cartas, new Random(semente));
     }
     
-    //CASO O MONTE ESTEJA VAZIO, O LIXO É EMBARALHADO PARA SE TORNAR MONTE
+    //CASO O MONTE ESTEJA VAZIO, O LIXO E EMBARALHADO PARA SE TORNAR MONTE
     public static void transformaLixoMonte(List<Carta> lixo, List<Carta> monte)
     {
-        	//EMBARALHAR O LIXO
-        	embaralharBaralho(lixo);
-        	
-        	//TRANSFORMA O LIXO NO MONTE
-        	monte = lixo;
-        	
-        	//LIMPA O LIXO
-        	lixo.clear();
+        //EMBARALHAR O LIXO
+        embaralharBaralho(lixo);
+        //TRANSFORMA O LIXO NO MONTE
+        monte = lixo;
+        //LIMPA O LIXO
+        lixo.clear();
     }
 }

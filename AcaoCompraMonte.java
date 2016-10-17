@@ -23,7 +23,7 @@ public class AcaoCompraMonte implements CadeiaDeAcao
 		//CASO A ACAO SELECIONADA SEJA DE COMPRAR DO MONTE E SEJA POSSIVEL FAZER ISSO INVOCA O METODO PARA A MESMA
         	if(("M".equals(requisicao.sessaoJogo.entrada) | "m".equals(requisicao.sessaoJogo.entrada)) && requisicao.sessaoJogo.jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
         	{
-       	 		InteracaoJogoJogador.comprarCarta(requisicao.sessaoJogo.jogadorAtual, requisicao.sessaoJogo.monte, requisicao.sessaoJogo.compraEfetuada);
+       	 		InteracaoJogoJogador.comprarCarta(requisicao.sessaoJogo, requisicao.sessaoJogo.monte);
         	}
 		//CASO ISSO NAO SEJA POSSIVEL APONTA PARA O PROXIMO METODO DA CADEIA
         	else

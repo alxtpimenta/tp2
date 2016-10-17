@@ -21,7 +21,7 @@ public class AcaoCompraLixo implements CadeiaDeAcao
 		//CASO A ACAO SELECIONADA SEJA DE DESCARTE E SEJA POSSIVEL FAZER ISSO INVOCA O METODO PARA A MESMA
         	if(("L".equals(requisicao.sessaoJogo.entrada) | "l".equals(requisicao.sessaoJogo.entrada)) && requisicao.sessaoJogo.jogadorAtual.tamanhoMaoJogador() == Define.MIN_MAO)
         	{
-        		InteracaoJogoJogador.comprarCarta(requisicao.sessaoJogo.jogadorAtual, requisicao.sessaoJogo.lixo, requisicao.sessaoJogo.compraEfetuada);
+        		InteracaoJogoJogador.comprarCarta(requisicao.sessaoJogo, requisicao.sessaoJogo.lixo);
        		}
 		//CASO ISSO NAO SEJA POSSIVEL APONTA PARA O PROXIMO METODO DA CADEIA
         	else
